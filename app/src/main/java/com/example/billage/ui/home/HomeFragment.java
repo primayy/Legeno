@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
 
                 Log.d("test", String.valueOf(tab.getPosition()));
                 int position = tab.getPosition();
-                //changeView(position);
+                changeView(position);
 
             }
 
@@ -57,28 +57,28 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-//    private void changeView (int index) {
-//        TextView textView1 = (TextView) root.findViewById(R.id.text1) ;
-//        TextView textView2 = (TextView) root.findViewById(R.id.text2) ;
-//        TextView textView3 = (TextView) root.findViewById(R.id.text3) ;
-//
-//        switch (index) {
-//            case 0 :
-//                textView1.setVisibility(View.VISIBLE) ;
-//                textView2.setVisibility(View.INVISIBLE) ;
-//                textView3.setVisibility(View.INVISIBLE) ;
-//                break ;
-//            case 1 :
-//                textView1.setVisibility(View.INVISIBLE) ;
-//                textView2.setVisibility(View.VISIBLE) ;
-//                textView3.setVisibility(View.INVISIBLE) ;
-//                break ;
-//            case 2 :
-//                textView1.setVisibility(View.INVISIBLE) ;
-//                textView2.setVisibility(View.INVISIBLE) ;
-//                textView3.setVisibility(View.VISIBLE) ;
-//                break ;
-//
-//        }
-//    }
+    private void changeView (int index) {
+        TextView textView1 = (TextView) getView().findViewById(R.id.usage) ;
+        TextView textView2 = (TextView) getView().findViewById(R.id.callender) ;
+        TextView textView3 = (TextView) getView().findViewById(R.id.statistic) ;
+
+        switch (index) {
+            case 0 :
+                textView1.setVisibility(View.VISIBLE) ;
+                textView2.setVisibility(View.INVISIBLE) ;
+                textView3.setVisibility(View.INVISIBLE) ;
+                break ;
+            case 1 :
+                textView1.setVisibility(View.INVISIBLE) ;
+                textView2.setVisibility(View.VISIBLE) ;
+                textView3.setVisibility(View.INVISIBLE) ;
+                break ;
+            case 2 :
+                textView1.setVisibility(View.INVISIBLE) ;
+                textView2.setVisibility(View.INVISIBLE) ;
+                textView3.setVisibility(View.VISIBLE) ;
+                break ;
+
+        }
+    }
 }
