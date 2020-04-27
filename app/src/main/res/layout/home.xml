@@ -61,43 +61,18 @@
         app:layout_constraintTop_toBottomOf="@+id/three_tabs"
         app:layout_constraintVertical_bias="0.031" />
 
-    <TextView
-        android:id="@+id/usage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="내역 탭"
-        android:textSize="70sp"
-        android:visibility="visible"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/home_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/custom_vertical_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/three_tabs"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-    <TextView
-        android:id="@+id/statistic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="통계 탭"
-        android:textSize="70sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/three_tabs"
-        tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/callender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="달력 탭"
-        android:textSize="70sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/three_tabs"
-        tools:ignore="MissingConstraints" />
+    </androidx.viewpager.widget.ViewPager>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

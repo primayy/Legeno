@@ -10,11 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.billage.R;
 import com.google.android.material.tabs.TabLayout;
+
+import com.example.billage.PageAdaper;
 
 public class HomeFragment extends Fragment {
 
@@ -33,52 +38,20 @@ public class HomeFragment extends Fragment {
 //            }
 //        });
         TabLayout tabLayout = (TabLayout) root.findViewById(R.id.three_tabs) ;
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
 
-                Log.d("test", String.valueOf(tab.getPosition()));
-                int position = tab.getPosition();
-                changeView(position);
+        final ViewPager viewPager = (ViewPager) root.findViewById(R.id.home_viewpager);
+        final PagerAdapter myPagerAdapter = new PageAdaper(getFragmentManager(), 3);
+        viewPager.setAdapter(myPagerAdapter);
 
-            }
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                // do nothing
-            }
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                // do nothing
-            }
-        }) ;
+
+
 
         return root;
     }
 
-    private void changeView (int index) {
-        TextView textView1 = (TextView) getView().findViewById(R.id.usage) ;
-        TextView textView2 = (TextView) getView().findViewById(R.id.callender) ;
-        TextView textView3 = (TextView) getView().findViewById(R.id.statistic) ;
 
-        switch (index) {
-            case 0 :
-                textView1.setVisibility(View.VISIBLE) ;
-                textView2.setVisibility(View.INVISIBLE) ;
-                textView3.setVisibility(View.INVISIBLE) ;
-                break ;
-            case 1 :
-                textView1.setVisibility(View.INVISIBLE) ;
-                textView2.setVisibility(View.VISIBLE) ;
-                textView3.setVisibility(View.INVISIBLE) ;
-                break ;
-            case 2 :
-                textView1.setVisibility(View.INVISIBLE) ;
-                textView2.setVisibility(View.INVISIBLE) ;
-                textView3.setVisibility(View.VISIBLE) ;
-                break ;
-
-        }
-    }
 }
