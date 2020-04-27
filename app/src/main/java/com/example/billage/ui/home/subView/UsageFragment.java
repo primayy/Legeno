@@ -59,14 +59,28 @@ public class UsageFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-     
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_usage, container, false);
+        View root = inflater.inflate(R.layout.fragment_usage, container, false);
+
+
+        final ArrayList<String> items = new ArrayList<String>() ;
+        items.add("dfdf");
+        items.add("dfdf");items.add("dfdf");items.add("dfdf");
+        items.add("dfdf");items.add("dfdf");items.add("dfdf");items.add("dfdf");items.add("dfdf");items.add("dfdf");items.add("dfdf");
+
+
+        // ArrayAdapter 생성. 아이템 View를 선택(single choice)가능하도록 만듦.
+        final ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items) ;
+
+        // listview 생성 및 adapter 지정.
+        final ListView listview = (ListView) root.findViewById(R.id.usage_list) ;
+        listview.setAdapter(adapter) ;
+
+        return root;
     }
 }
