@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Billage</string>
+    <string name="title_home">Home</string>
+    <string name="title_billge">Billage</string>
+    <string name="title_quest">Quest</string>
+    <string name="title_mypage">My Page</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
