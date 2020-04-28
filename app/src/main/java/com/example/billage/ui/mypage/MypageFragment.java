@@ -22,8 +22,8 @@ public class MypageFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         mypageViewModel =
                 ViewModelProviders.of(this).get(MypageViewModel.class);
-        View root = inflater.inflate(R.layout.billage, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
+        View root = inflater.inflate(R.layout.mypage, container, false);
+        final TextView textView = root.findViewById(R.id.text_dashboard);
         mypageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
