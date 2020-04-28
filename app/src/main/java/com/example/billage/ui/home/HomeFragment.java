@@ -1,10 +1,12 @@
 package com.example.billage.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +18,10 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.billage.MainActivity;
 import com.example.billage.R;
+import com.example.billage.ui.signup.SignupActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import com.example.billage.PageAdaper;
@@ -47,7 +52,16 @@ public class HomeFragment extends Fragment {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
 
+        FloatingActionButton usageButton = (FloatingActionButton) root.findViewById(R.id.add_usage);
+        usageButton.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), SignupActivity.class);
+                intent.putExtra("tmp",String.valueOf("sdfs"));
+                startActivity(intent);
+            }
+        });
 
 
         return root;
