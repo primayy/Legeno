@@ -22,8 +22,8 @@ public class QuestFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         questViewModel =
                 ViewModelProviders.of(this).get(QuestViewModel.class);
-        View root = inflater.inflate(R.layout.billage, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
+        View root = inflater.inflate(R.layout.quest, container, false);
+        final TextView textView = root.findViewById(R.id.text_dashboard);
         questViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
