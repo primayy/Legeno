@@ -37,10 +37,10 @@ public class HomeFragment extends Fragment {
 //                textView.setText(s);
 //            }
 //        });
-        TabLayout tabLayout = (TabLayout) root.findViewById(R.id.three_tabs) ;
+        TabLayout tabLayout = root.findViewById(R.id.three_tabs) ;
 
-        final ViewPager viewPager = (ViewPager) root.findViewById(R.id.home_viewpager);
-        final PagerAdapter myPagerAdapter = new PageAdaper(getFragmentManager(), 3);
+        final ViewPager viewPager = root.findViewById(R.id.home_viewpager);
+        final PagerAdapter myPagerAdapter = new PageAdaper(getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(myPagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));

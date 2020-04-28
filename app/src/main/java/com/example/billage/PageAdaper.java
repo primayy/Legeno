@@ -2,13 +2,13 @@ package com.example.billage;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.billage.ui.home.subView.UsageFragment;
 import com.example.billage.ui.home.subView.CalenderFragment;
 import com.example.billage.ui.home.subView.StatisticFragment;
 
-public class PageAdaper extends FragmentPagerAdapter {
+public class PageAdaper extends FragmentStatePagerAdapter {
     int mNumOfTabs; //tab의 갯수
 
     public PageAdaper(FragmentManager fm, int numOfTabs) {
