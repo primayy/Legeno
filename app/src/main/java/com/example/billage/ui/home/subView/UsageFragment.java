@@ -7,10 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.billage.R;
+import com.example.billage.adapter.UsageAdapter;
+import com.example.billage.UsageList;
 
 import java.util.ArrayList;
 
@@ -68,18 +69,30 @@ public class UsageFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_usage, container, false);
 
 
-        final ArrayList<String> items = new ArrayList<String>() ;
-        items.add("dfdf");
-        items.add("dfdf");items.add("dfdf");items.add("dfdf");
-        items.add("dfdf");items.add("dfdf");items.add("dfdf");items.add("dfdf");items.add("dfdf");items.add("dfdf");items.add("dfdf");
+        final ArrayList<UsageList> items = new ArrayList<>() ;
+
+        items.add(new UsageList("a","1133s","fdf"));
+        items.add(new UsageList("a","1133s","fdf"));
+        items.add(new UsageList("b","1133s","fdf"));items.add(new UsageList("dfs","1133s","fdf"));items.add(new UsageList("dfs","1133s","fdf"));items.add(new UsageList("dfs","1133s","fdf"));
+        items.add(new UsageList("b","1133s","fdf"));items.add(new UsageList("dfs","1133s","fdf"));
+        items.add(new UsageList("x","1133s","fdf"));
+        items.add(new UsageList("x","1133s","fdf"));
+        items.add(new UsageList("a","1133s","fdf"));
+
+
 
 
         // ArrayAdapter 생성. 아이템 View를 선택(single choice)가능하도록 만듦.
-        final ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items) ;
+      //  final ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items) ;
 
         // listview 생성 및 adapter 지정.
         final ListView listview = (ListView) root.findViewById(R.id.usage_list) ;
-        listview.setAdapter(adapter) ;
+       // listview.setAdapter(adapter) ;
+
+
+        final UsageAdapter usageAdapter = new UsageAdapter(getActivity(),items,listview);
+        listview.setAdapter(usageAdapter);
+
 
         return root;
     }
