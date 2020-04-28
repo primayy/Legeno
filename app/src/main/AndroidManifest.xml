@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.billage">
+    package="com.example.billage" xmlns:tools="http://schemas.android.com/tools" android:installLocation="preferExternal">
 
     <application
+        android:resizeableActivity="false"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,6 +16,7 @@
 
         </activity>
         <activity
+            android:launchMode="singleTask" android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
             android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
@@ -22,7 +24,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data android:name="unityplayer.UnityActivity" android:value="false" />
         </activity>
+
+        <meta-data android:name="unity.build-id" android:value="ff76efc7-8892-41b4-ba8b-4b1dce257388" />
+        <meta-data android:name="unity.splash-mode" android:value="0" />
+        <meta-data android:name="unity.splash-enable" android:value="True" />
+
+
     </application>
 
 </manifest>
