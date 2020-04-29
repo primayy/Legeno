@@ -71,15 +71,25 @@ public class UsageFragment extends Fragment {
 
         final ArrayList<UsageList> items = new ArrayList<>() ;
 
-        items.add(new UsageList("a","1133s","fdf"));
-        items.add(new UsageList("a","1133s","fdf"));
-        items.add(new UsageList("b","1133s","fdf"));
-        items.add(new UsageList("b","1133s","fdf"));
-        items.add(new UsageList("b","1133s","fdf"));
-        items.add(new UsageList("x","1133s","fdf"));
-        items.add(new UsageList("x","1133s","fdf"));
-        items.add(new UsageList("x","1133s","fdf"));
-        items.add(new UsageList("x","1133s","fdf"));
+        items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000"));
+        items.add(new UsageList("2020-04-20","다담국수","11:30:01","7000"));
+
+        items.add(new UsageList("2020-04-20","꼬꼬마을","11:30:01","5000"));
+        items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000"));
+        items.add(new UsageList("2020-04-22","태화장","11:30:01","5000"));
+        items.add(new UsageList("2020-04-22","사이버블루 PC","11:30:01","30000"));
+        items.add(new UsageList("2020-04-22","꼬꼬마을","11:30:01","7000"));
+        items.add(new UsageList("2020-04-22","다담국수","11:30:01","5000"));
+        items.add(new UsageList("2020-04-23","다담국수","11:30:01","5000"));
+        items.add(new UsageList("2020-04-23","사이버블루 PC","11:30:01","10000"));
+        items.add(new UsageList("2020-04-23","태화장","11:30:01","7000"));
+        items.add(new UsageList("2020-04-23","다담국수","11:30:01","8000"));
+        items.add(new UsageList("2020-04-24","사이버블루 PC","11:30:01","20000"));
+        items.add(new UsageList("2020-04-24","꼬꼬마을","11:30:01","8000"));
+        items.add(new UsageList("2020-04-24","태화장","11:30:01","8000"));
+        items.add(new UsageList("2020-04-29","다담국수","11:30:01","7000"));
+        items.add(new UsageList("2020-04-29","사이버블루 PC","11:30:01","10000"));
+
 
 
 

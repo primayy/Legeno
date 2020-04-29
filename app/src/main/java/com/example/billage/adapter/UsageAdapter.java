@@ -3,9 +3,11 @@ package com.example.billage.adapter;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,11 +33,12 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
         public TextView date;
         public TextView cost;
         public TextView destination;
+        public TextView time;
 
     }
 
 
-    // VocaAdapter를 초기화하기 위한 생성자로 아규먼트로 전달받은 context와 list를 내부 저장 공간에 저장합니다.
+    // UsageAdapter 초기화하기 위한 생성자로 아규먼트로 전달받은 context와 list를 내부 저장 공간에 저장합니다.
     public UsageAdapter(Context context, List<UsageList> list, ListView listview) {
         super(context, 0, list);
 
@@ -71,6 +74,7 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
             viewHolder.date = (TextView) rowView.findViewById(R.id.date);
             viewHolder.cost = (TextView) rowView.findViewById(R.id.cost);
             viewHolder.destination = (TextView) rowView.findViewById(R.id.destination);
+            viewHolder.time = (TextView) rowView.findViewById(R.id.time);
 
             rowView.setTag(viewHolder);
 
@@ -87,32 +91,47 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
         String tag = Tag.substring(idx + 1);
 
 
-        //Voca 객체 리스트의 position 위치에 있는 Voca 객체를 가져옵니다.
+        //UsageList 객체 리스트의 position 위치에 있는 Voca 객체를 가져옵니다.
         UsageList usage = (UsageList) mList.get(position);
 
-
         if(position == 0){
-            Log.d("newgruop",usage.getDate());
+            Log.d("newgruop",usage.getDate() + position);
+            rowView.findViewById(R.id.divider).setVisibility(View.VISIBLE);
+            rowView.findViewById(R.id.date).setVisibility(View.VISIBLE);
+
         }
         else{
 
             if(isNewGroupTitle(position)){
-                Log.d("newgruop",usage.getDate());
+                Log.d("newgruop",usage.getDate() + position);
+                rowView.findViewById(R.id.divider).setVisibility(View.VISIBLE);
+                rowView.findViewById(R.id.date).setVisibility(View.VISIBLE);
+
             }
             else{
-                Log.d("oldgruop",usage.getDate());
+                Log.d("oldgruop",usage.getDate() + position);
+                rowView.findViewById(R.id.divider).setVisibility(View.GONE);
+                rowView.findViewById(R.id.date).setVisibility(View.GONE);
             }
         }
 
 
-        //현재 선택된 Vocal 객체를 화면에 보여주기 위해서 앞에서 미리 찾아 놓은 뷰에 데이터를 집어넣습니다.
+        //현재 선택된 UsageList 객체를 화면에 보여주기 위해서 앞에서 미리 찾아 놓은 뷰에 데이터를 집어넣습니다.
         viewHolder.date.setText(usage.getDate());
         viewHolder.cost.setText(usage.getCost());
         viewHolder.destination.setText(usage.getDestination());
+        viewHolder.time.setText(usage.getTime());
 //        viewHolder.itemIndex.setText("Voca[" + position + "]");
 //        viewHolder.itemTag.setText(tag);
 //        viewHolder.itemStatus.setText(Status);
 
+
+        rowView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
 
 
         // 화면에 보여질 뷰를 리턴하여 ListView의 특정 줄로 보여지게 합니다.
@@ -125,7 +144,6 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
         //현재의 타이틀을 판단
         UsageList nowUsageList = (UsageList) mList.get(position);
         String nowDate  = nowUsageList.getDate();
-        Log.d("nowdate",nowDate);
 
         UsageList preUsageList = (UsageList) mList.get(position-1);
         String preDate = preUsageList.getDate();

@@ -5,11 +5,13 @@ public class UsageList {
     private String date;
     private String cost;
     private String destination;
+    private String time;
 
-    public UsageList(String date, String cost, String destination) {
+    public UsageList(String date, String cost,String time, String destination) {
         this.date = date;
         this.cost = cost;
         this.destination = destination;
+        this.time=time;
     }
 
     public String getDate() {
@@ -24,6 +26,8 @@ public class UsageList {
         return destination;
     }
 
+    public String getTime() { return time; }
+
     public void setDate(String date) {
         this.date = date;
     }
@@ -35,4 +39,8 @@ public class UsageList {
     public void setDestination(String destination) {
         this.destination = destination;
     }
+
+    public void setTime(String time) { this.time = time; }
+
+
 }
