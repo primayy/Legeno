@@ -91,11 +91,18 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
         UsageList usage = (UsageList) mList.get(position);
 
 
-        if(position != 0){
-            isNewGroupTitle(position);
+        if(position == 0){
+            Log.d("newgruop",usage.getDate());
         }
+        else{
 
-
+            if(isNewGroupTitle(position)){
+                Log.d("newgruop",usage.getDate());
+            }
+            else{
+                Log.d("oldgruop",usage.getDate());
+            }
+        }
 
 
         //현재 선택된 Vocal 객체를 화면에 보여주기 위해서 앞에서 미리 찾아 놓은 뷰에 데이터를 집어넣습니다.
@@ -106,7 +113,6 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
 //        viewHolder.itemTag.setText(tag);
 //        viewHolder.itemStatus.setText(Status);
 
-        //Log.d("@@@", "UsageList[" + position + "]" + " row view is " + Status + ", tag = " + tag);
 
 
         // 화면에 보여질 뷰를 리턴하여 ListView의 특정 줄로 보여지게 합니다.
@@ -121,24 +127,14 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
         String nowDate  = nowUsageList.getDate();
         Log.d("nowdate",nowDate);
 
-        //for(int )
         UsageList preUsageList = (UsageList) mList.get(position-1);
         String preDate = preUsageList.getDate();
-        Log.d("predate",preDate);
-
-
+        if(nowDate.equals(preDate)){
+            return false;
+        }
 
         return true;
 
-//        date = (String) mList.get(position);
-//
-//        String nowDate = _data.get(_from[0]);
-//
-//        //현재 이전의 타이틀을 판단
-//        _data =  usage.get(position - 1);
-//        String preDate = _data.get(_from[0]);
-//        _data =  usage.get(position);
-//        if (!nowDate.equals(preDate)) { return true; }
 
     }
 

@@ -73,11 +73,13 @@ public class UsageFragment extends Fragment {
 
         items.add(new UsageList("a","1133s","fdf"));
         items.add(new UsageList("a","1133s","fdf"));
-        items.add(new UsageList("b","1133s","fdf"));items.add(new UsageList("dfs","1133s","fdf"));items.add(new UsageList("dfs","1133s","fdf"));items.add(new UsageList("dfs","1133s","fdf"));
-        items.add(new UsageList("b","1133s","fdf"));items.add(new UsageList("dfs","1133s","fdf"));
+        items.add(new UsageList("b","1133s","fdf"));
+        items.add(new UsageList("b","1133s","fdf"));
+        items.add(new UsageList("b","1133s","fdf"));
         items.add(new UsageList("x","1133s","fdf"));
         items.add(new UsageList("x","1133s","fdf"));
-        items.add(new UsageList("a","1133s","fdf"));
+        items.add(new UsageList("x","1133s","fdf"));
+        items.add(new UsageList("x","1133s","fdf"));
 
 
 
