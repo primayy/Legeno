@@ -1,4 +1,4 @@
-package com.example.billage.api.data;
+package com.example.billage.api.data.transaction;
 
 import android.os.Parcel;
 import android.os.Parcelable;
