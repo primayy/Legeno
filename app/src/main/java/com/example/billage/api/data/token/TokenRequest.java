@@ -1,6 +1,9 @@
 package com.example.billage.api.data.token;
 
+import android.util.Log;
+
 import com.example.billage.http.ApiCallAdapter;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
 import org.jetbrains.annotations.NotNull;
@@ -28,8 +31,9 @@ public class TokenRequest {
                     @Override
                     public void onResponse(@NotNull Call<Map> call, @NotNull Response<Map> response) {
                         if(response.isSuccessful()){
-                            Map result = response.body();
-                            System.out.println(result);
+                            String responseJson = new Gson().toJson(response.body());
+                            Log.d("token",responseJson);
+
                         }
                     }
 
@@ -39,5 +43,4 @@ public class TokenRequest {
                     }
                 });
     }
-
 }

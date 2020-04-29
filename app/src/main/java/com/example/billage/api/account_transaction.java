@@ -1,6 +1,7 @@
 package com.example.billage.api;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -50,8 +51,8 @@ public class account_transaction {
                     @Override
                     public void onResponse(@NotNull Call<Map> call, @NotNull Response<Map> response) {
                         if(response.isSuccessful()){
-                            Map result = response.body();
-                            System.out.println(result);
+                            String responseJson = new Gson().toJson(response.body());
+                            Log.d("tran",responseJson);
                         }
                     }
 
