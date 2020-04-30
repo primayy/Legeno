@@ -56,8 +56,4 @@ public interface ApiCallInterface {
     // 수취조회
     @POST("/v2.0/inquiry/receive")
     Call<Map> inquiryReceive(@Header("Authorization") String token, @Body Map<String, String> params);
-
-    // 이상금융거래탐지 내역조회
-    @GET("/v2.0/inquiry/fds_detect")
-    Call<Map> inquiryFdsDetect(@Header("Authorization") String token, @QueryMap Map<String, String> params);
 }
