@@ -16,8 +16,7 @@ import androidx.annotation.NonNull;
 import com.example.billage.R;
 import com.example.billage.UsageList;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 
 public class UsageAdapter extends ArrayAdapter<UsageList> {
@@ -25,8 +24,6 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
     private Context context;
     private List mList;
     private ListView mListView;
-
-    private HashMap<String, String> usage_data;
 
 
     class UserViewHolder {
@@ -95,7 +92,6 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
         UsageList usage = (UsageList) mList.get(position);
 
         if(position == 0){
-            Log.d("newgruop",usage.getDate() + position);
             rowView.findViewById(R.id.divider).setVisibility(View.VISIBLE);
             rowView.findViewById(R.id.date).setVisibility(View.VISIBLE);
 
@@ -103,13 +99,11 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
         else{
 
             if(isNewGroupTitle(position)){
-                Log.d("newgruop",usage.getDate() + position);
                 rowView.findViewById(R.id.divider).setVisibility(View.VISIBLE);
                 rowView.findViewById(R.id.date).setVisibility(View.VISIBLE);
 
             }
             else{
-                Log.d("oldgruop",usage.getDate() + position);
                 rowView.findViewById(R.id.divider).setVisibility(View.GONE);
                 rowView.findViewById(R.id.date).setVisibility(View.GONE);
             }
