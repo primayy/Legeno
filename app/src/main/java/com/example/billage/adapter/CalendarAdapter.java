@@ -159,14 +159,12 @@ public class CalendarAdapter extends RecyclerView.Adapter {
 
         private DayViewHolder(@NonNull DayItemBinding binding) { // 특정 날짜 클릭 이벤트 리스너
             super(binding.getRoot());
-            binding.getRoot().setOnTouchListener(new View.OnTouchListener() {
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-
+                public void onClick(View view) {
                     Intent intent=new Intent(view.getContext() ,AddUsage.class);
                     intent.putExtra("tmp",String.valueOf("sdfs"));
                     mContext.startActivity(intent);
-                    return false;
                 }
             });
             this.binding = binding;

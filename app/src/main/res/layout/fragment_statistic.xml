@@ -6,9 +6,37 @@
     tools:context=".ui.home.subView.StatisticFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.github.mikephil.charting.charts.LineChart
+
+                android:id="@+id/line_chart"
+
+                android:layout_width="match_parent"
+
+                android:layout_height="300dp" />
+
+
+            <com.github.mikephil.charting.charts.BarChart
+
+                android:id="@+id/bar_chart"
+
+                android:layout_width="match_parent"
+
+                android:layout_height="300dp" />
+        </LinearLayout>
+    </ScrollView>
+
 
 </FrameLayout>
