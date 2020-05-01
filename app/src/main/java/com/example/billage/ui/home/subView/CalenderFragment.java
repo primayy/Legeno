@@ -119,6 +119,8 @@ public class CalenderFragment extends Fragment {
 
         observe(items);
 
+
+
         return binding.getRoot();
     }
 
@@ -132,7 +134,7 @@ public class CalenderFragment extends Fragment {
                     adapter.setCalendarList(objects);
                 } else {
                     StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL);
-                    adapter = new CalendarAdapter(objects,items);
+                    adapter = new CalendarAdapter(view.getContext(),objects,items);
                     view.setLayoutManager(manager);
                     view.setAdapter(adapter);
 

@@ -1,7 +1,10 @@
 package com.example.billage.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -24,6 +27,7 @@ import com.example.billage.ui.calendar.CalendarHeaderViewModel;
 import com.example.billage.ui.calendar.CalendarViewModel;
 import com.example.billage.ui.calendar.EmptyViewModel;
 import com.example.billage.R;
+import com.example.billage.ui.addUsage.AddUsage;
 
 
 public class CalendarAdapter extends RecyclerView.Adapter {
@@ -32,9 +36,13 @@ public class CalendarAdapter extends RecyclerView.Adapter {
     private final int DAY_TYPE = 2;
 
     private List<Object> mCalendarList;
+    private ArrayList<UsageList> usageList;
+    private Context mContext;
 
-    public CalendarAdapter(List<Object> calendarList, ArrayList<UsageList> items) {
+    public CalendarAdapter(Context mContext, List<Object> calendarList, ArrayList<UsageList> items) {
+        this.mContext = mContext;
         mCalendarList = calendarList;
+        usageList = items;
     }
 
     public void setCalendarList(List<Object> calendarList) {
@@ -84,6 +92,9 @@ public class CalendarAdapter extends RecyclerView.Adapter {
             CalendarHeaderViewModel model = new CalendarHeaderViewModel();
             if (item instanceof Long) {
                 model.setHeaderDate((Long) item);
+                model.setHeaderEarn("수입: "+"300000"+"원"); //월간 수입 값 넣는 곳
+                model.setHeaderUsage("지출: "+"250000"+"원"); //월간 지출 값 넣는 곳
+                model.setHeaderCount("거래 횟수: "+"24"+"건"); //월간 거래 수 값 넣는 곳
             }
             holder.setViewModel(model);
         } else if (viewType == EMPTY_TYPE) { //비어있는 날짜 타입 꾸미기
@@ -96,7 +107,8 @@ public class CalendarAdapter extends RecyclerView.Adapter {
             CalendarViewModel model = new CalendarViewModel();
             if (item instanceof Calendar) {
                 model.setCalendar((Calendar) item);
-                model.setCalendarEarn("dfs");
+                model.setCalendarEarn("+"+"10000"); // 일간 수입 값 넣는 곳
+                model.setCalendarUsage("-"+"5000"); // 일간 지출 값 넣는 곳
             }
             holder.setViewModel(model);
 
@@ -145,8 +157,18 @@ public class CalendarAdapter extends RecyclerView.Adapter {
     private class DayViewHolder extends RecyclerView.ViewHolder {// 요일 타입 ViewHolder
         private DayItemBinding binding;
 
-        private DayViewHolder(@NonNull DayItemBinding binding) {
+        private DayViewHolder(@NonNull DayItemBinding binding) { // 특정 날짜 클릭 이벤트 리스너
             super(binding.getRoot());
+            binding.getRoot().setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                    Intent intent=new Intent(view.getContext() ,AddUsage.class);
+                    intent.putExtra("tmp",String.valueOf("sdfs"));
+                    mContext.startActivity(intent);
+                    return false;
+                }
+            });
             this.binding = binding;
         }
 

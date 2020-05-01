@@ -11,6 +11,7 @@
         <variable
             name="model"
             type="com.example.billage.ui.calendar.CalendarViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,12 +21,13 @@
         >
 
         <LinearLayout
+            android:id="@+id/day_block"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
             android:background="@drawable/calender_border"
-            app:layout_constraintDimensionRatio="2.5:3">
-
+            android:orientation="vertical"
+            app:layout_constraintDimensionRatio="2.5:3"
+            tools:ignore="MissingConstraints">
 
 
             <TextView
@@ -33,17 +35,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:textSize="9sp"
+                android:textSize="12sp"
                 tools:text="1" />
+
             <TextView
                 setDayEarnText="@{model.mCalendarEarn}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:textSize="9sp"
                 android:layout_gravity="end"
+                android:layout_margin="3dp"
+                android:textColor="#4CAF50"
+                android:textSize="9sp"
                 tools:text="1" />
 
+            <TextView
+                setDayUsageText="@{model.mCalendarUsage}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="3dp"
+                android:textColor="#C51026"
+                android:textSize="9sp"
+                tools:text="1" />
 
 
         </LinearLayout>

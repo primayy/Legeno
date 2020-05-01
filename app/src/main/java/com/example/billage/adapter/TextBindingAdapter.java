@@ -22,6 +22,40 @@ public class TextBindingAdapter {
         }
     }
 
+    @BindingAdapter({"setCalendarHeaderEarnText"})
+    public static void setCalendarHeaderEarnText(TextView view, String earn) {
+        try {
+            if (earn != null ) {
+                view.setText(earn);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @BindingAdapter({"setCalendarHeaderUsageText"})
+    public static void setCalendarHeaderUsageText(TextView view, String Usage) {
+        try {
+            if (Usage != null ) {
+                view.setText(Usage);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @BindingAdapter({"setCalendarHeaderCountText"})
+    public static void setCalendarHeaderCountText(TextView view, String Count) {
+        try {
+            if (Count != null ) {
+                view.setText(Count);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
     @BindingAdapter({"setDayText"})
     public static void setDayText(TextView view, Calendar calendar) {
         try {

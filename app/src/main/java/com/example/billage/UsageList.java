@@ -1,5 +1,9 @@
 package com.example.billage;
 
+import android.util.Log;
+
+import java.util.ArrayList;
+
 public class UsageList {
 
     private String date;
@@ -41,6 +45,5 @@ public class UsageList {
     }
 
     public void setTime(String time) { this.time = time; }
-
 
 }

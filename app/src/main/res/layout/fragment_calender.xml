@@ -11,6 +11,7 @@
         <variable
             name="model"
             type="com.example.billage.ui.calendar.CalendarListViewModel" />
+
     </data>
 
     <LinearLayout
