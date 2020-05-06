@@ -69,8 +69,6 @@ public class Account_transaction {
                                 Log.d("tran",tran_date.getAsString()+" "+inout_type.getAsString()+" "+tran_amt.getAsString()+" "+branch_name.getAsString());
                                 AppData.mdb.insertTransColumn(tran_date.getAsString(),branch_name.getAsString(),tran_amt.getAsString(),inout_type.getAsString());
                             }
-
-
                         }
                     }
 
