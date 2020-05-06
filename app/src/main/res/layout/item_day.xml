@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="DayItemBinding">
+
+        <import type="android.view.View" />
+
+        <variable
+            name="model"
+            type="com.example.billage.ui.calendar.CalendarViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:id="@+id/day_block"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/calender_border"
+            android:orientation="vertical"
+            app:layout_constraintDimensionRatio="2.5:3"
+            tools:ignore="MissingConstraints">
+
+
+            <TextView
+                setDayText="@{model.mCalendar}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:textSize="12sp"
+                tools:text="1" />
+
+            <TextView
+                setDayEarnText="@{model.mCalendarEarn}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="3dp"
+                android:textColor="#4CAF50"
+                android:textSize="9sp"
+                tools:text="1" />
+
+            <TextView
+                setDayUsageText="@{model.mCalendarUsage}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="3dp"
+                android:textColor="#C51026"
+                android:textSize="9sp"
+                tools:text="1" />
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
