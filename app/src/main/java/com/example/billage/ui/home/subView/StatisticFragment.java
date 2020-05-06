@@ -87,20 +87,22 @@ public class StatisticFragment extends Fragment {
         // Inflate the layout for this fragment
         View root =  inflater.inflate(R.layout.fragment_statistic, container, false);
 
-        ArrayList<Entry> entries = new ArrayList<>();
+        ArrayList<Entry> income_entries = new ArrayList<>();
+        ArrayList<Entry> usage_entries = new ArrayList<>();
 
-        entries.add(new Entry(1f, 20000));
-        entries.add(new Entry(2f, 40000));
-        entries.add(new Entry(3f, 160000));
-        entries.add(new Entry(4f, -12000));
-        entries.add(new Entry(5f, 17000));
-        entries.add(new Entry(6f, 10000));
-//        entries.add(new Entry(7f, 360));
-//        entries.add(new Entry(8f, -200));
-//        entries.add(new Entry(9f, 400));
-//        entries.add(new Entry(10f, 100));
-//        entries.add(new Entry(11f, 100));
-//        entries.add(new Entry(12f, 100));
+        income_entries.add(new Entry(1f, 20000));
+        income_entries.add(new Entry(2f, 40000));
+        income_entries.add(new Entry(3f, 130000));
+        income_entries.add(new Entry(4f, 40000));
+        income_entries.add(new Entry(5f, 90000));
+        income_entries.add(new Entry(6f, 110000));
+
+        usage_entries.add(new Entry(1f, 40000));
+        usage_entries.add(new Entry(2f, 17000));
+        usage_entries.add(new Entry(3f, 20000));
+        usage_entries.add(new Entry(4f, 17000));
+        usage_entries.add(new Entry(5f, 160000));
+        usage_entries.add(new Entry(6f, 10000));
 
         ArrayList<BarEntry> barEntries = new ArrayList<>();
 
@@ -112,31 +114,44 @@ public class StatisticFragment extends Fragment {
         barEntries.add(new BarEntry(6f, 10000));
         barEntries.add(new BarEntry(7f, 36300));
 
-        setLineChart(root,entries);
+        setLineChart(root,income_entries,usage_entries);
         setBarChart(root,barEntries);
 
         return root;
     }
 
-    public void setLineChart(View root, ArrayList<Entry> entries){
+    public void setLineChart(View root, ArrayList<Entry> income_entries,  ArrayList<Entry> usage_entries){
 
         LineChart lineChart = (LineChart) root.findViewById(R.id.line_chart);
 
         // x,y축 맵핑
-        LineDataSet depenses = new LineDataSet(entries, "");
+        LineDataSet depenses_income = new LineDataSet(income_entries, "수입");
+        LineDataSet depenses_usage = new LineDataSet(usage_entries, "지출");
+
+
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add((ILineDataSet)depenses);
+        dataSets.add((ILineDataSet)depenses_income);
+        dataSets.add((ILineDataSet)depenses_usage);
         LineData data = new LineData(dataSets);
 
-        depenses.setDrawFilled(true); //그래프 밑부분 색칠
-        Drawable gradient = ContextCompat.getDrawable(root.getContext(), R.drawable.fade);
-        depenses.setFillDrawable(gradient);
-        depenses.setLabel("월간 수입 대비 지출 금액");
+        depenses_income.setDrawFilled(true); //그래프 밑부분 색칠
+        depenses_usage.setDrawFilled(true);
+        Drawable gradient_income = ContextCompat.getDrawable(root.getContext(), R.drawable.fade);
+        Drawable gradient_usage = ContextCompat.getDrawable(root.getContext(), R.drawable.fade_usage);
+        depenses_income.setFillDrawable(gradient_income);
+        depenses_usage.setFillDrawable(gradient_usage);
 
         // 그래프 customizing
-        depenses.setDrawValues(false);
-        depenses.setCircleRadius(5f);
+        depenses_income.setDrawValues(false);
+        depenses_usage.setDrawValues(false);
+        depenses_income.setCircleRadius(5f);
+        depenses_usage.setCircleRadius(5f);
+        depenses_income.setCircleColor(Color.parseColor("#0A9FEF"));
+        depenses_usage.setCircleColor(Color.parseColor("#EF0A4F"));
+        depenses_income.setColor(Color.parseColor("#0A9FEF"));
+        depenses_usage.setColor(Color.parseColor("#EF0A4F"));
+
         lineChart.setTouchEnabled(true);
         lineChart.setDragEnabled(true);
         lineChart.setScaleEnabled(false);
@@ -149,7 +164,7 @@ public class StatisticFragment extends Fragment {
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setGranularity(1f);
-        xAxis.setLabelCount(data.getEntryCount());
+        xAxis.setLabelCount(data.getEntryCount()-6);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(months));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(13f);
@@ -170,6 +185,8 @@ public class StatisticFragment extends Fragment {
 
         //value customizing
         data.setValueTextSize(15f);
+
+
 
         lineChart.setData(data);
         lineChart.animateXY(1000,1000);
@@ -214,16 +231,17 @@ public class StatisticFragment extends Fragment {
         xAxis.setTextSize(13f);
         xAxis.setDrawGridLines(false);
 
-        //y축 customizing
-        LimitLine limitLine = new LimitLine(15000f,"평균 지출 금액");
+        //limit line customizing
+        LimitLine limitLine = new LimitLine(15000f,"");
         limitLine.setLineWidth(2f);
         limitLine.enableDashedLine(10f, 10f, 0f);
         limitLine.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
         limitLine.setTextSize(10f);
 
 
-
+        //y축 customizing
         YAxis rightAxis = barChart.getAxisRight();
+
         rightAxis.setDrawLabels(false);
         rightAxis.setDrawGridLines(false);
 
