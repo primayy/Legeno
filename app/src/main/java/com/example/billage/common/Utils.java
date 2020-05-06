@@ -3,7 +3,9 @@ package com.example.billage.common;
 import android.annotation.SuppressLint;
 import android.widget.EditText;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -32,4 +34,32 @@ public class Utils {
         return result;
     }
 
+    //오늘이 무슨 요일인지 반환 일요일이 1
+    public static int getDayOfWeek() throws ParseException {
+        String now = getDate();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = simpleDate.parse(now);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        return calendar.get(Calendar.DAY_OF_WEEK);
+    }
+
+    public static String getDay(){
+        long now = System.currentTimeMillis();
+        Date mDate = new Date(now);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDate = new SimpleDateFormat("yyyyMMdd");
+        String today = simpleDate.format(mDate);
+
+        return today;
+    }
+
+    public static String getYear(){
+        long now = System.currentTimeMillis();
+        Date mDate = new Date(now);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy");
+        String year = simpleDate.format(mDate);
+
+        return year;
+    }
 }
