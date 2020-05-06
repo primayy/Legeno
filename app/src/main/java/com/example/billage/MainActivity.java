@@ -1,9 +1,17 @@
 package com.example.billage;
 
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.billage.api.Statistic_transaction;
+import com.example.billage.api.data.token.TokenRequest;
+import com.example.billage.common.AppData;
+import com.example.billage.common.DbOpenHelper;
+import com.example.billage.common.Utils;
+import com.example.billage.api.Account_transaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.unity3d.player.*;
@@ -13,6 +21,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.text.ParseException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +42,22 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+
+//        TokenRequest.request_token(); // 토큰 발급 요청
+
+        //유저 코드 저장
+//        SharedPreferences.Editor editor = AppData.getPref().edit();
+//        editor.putString("auth_code","m0WMfi2oSHfBk0SyDrfMAupzsoGiCD");
+        // 거래내역조회
+//        Account_transaction .request_transaction("20200429","20200501");
+//        try {
+//            Statistic_transaction.daily_statistic("입금");
+//            Statistic_transaction.monthly_statistic("입금");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+
         /**/
 
     }
