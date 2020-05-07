@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.example.billage.R;
 import com.example.billage.adapter.UsageAdapter;
 import com.example.billage.UsageList;
+import com.example.billage.common.AppData;
 
 import java.util.ArrayList;
 
@@ -69,26 +70,26 @@ public class UsageFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_usage, container, false);
 
 
-        final ArrayList<UsageList> items = new ArrayList<>() ;
-
-        items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000",true));
-        items.add(new UsageList("2020-04-20","다담국수","11:30:01","7000",true));
-
-        items.add(new UsageList("2020-04-20","꼬꼬마을","11:30:01","5000",true));
-        items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000",true));
-        items.add(new UsageList("2020-04-22","태화장","11:30:01","5000",true));
-        items.add(new UsageList("2020-04-22","사이버블루 PC","11:30:01","30000",true));
-        items.add(new UsageList("2020-04-22","꼬꼬마을","11:30:01","7000",true));
-        items.add(new UsageList("2020-04-22","다담국수","11:30:01","5000",true));
-        items.add(new UsageList("2020-04-23","다담국수","11:30:01","5000",true));
-        items.add(new UsageList("2020-04-23","사이버블루 PC","11:30:01","10000",true));
-        items.add(new UsageList("2020-04-23","태화장","11:30:01","7000",true));
-        items.add(new UsageList("2020-04-23","다담국수","11:30:01","8000",true));
-        items.add(new UsageList("2020-04-24","사이버블루 PC","11:30:01","20000",true));
-        items.add(new UsageList("2020-04-24","꼬꼬마을","11:30:01","8000",true));
-        items.add(new UsageList("2020-04-24","태화장","11:30:01","8000",true));
-        items.add(new UsageList("2020-04-29","다담국수","11:30:01","7000",true));
-        items.add(new UsageList("2020-04-29","사이버블루 PC","11:30:01","10000",true));
+        final ArrayList<UsageList> items = AppData.mdb.getTransColumns();
+//
+//        items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000","입금"));
+//        items.add(new UsageList("2020-04-20","다담국수","11:30:01","7000","입금"));
+//
+//        items.add(new UsageList("2020-04-20","꼬꼬마을","11:30:01","5000","입금"));
+//        items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000","입금"));
+//        items.add(new UsageList("2020-04-22","태화장","11:30:01","5000","입금"));
+//        items.add(new UsageList("2020-04-22","사이버블루 PC","11:30:01","30000","입금"));
+//        items.add(new UsageList("2020-04-22","꼬꼬마을","11:30:01","7000","입금"));
+//        items.add(new UsageList("2020-04-22","다담국수","11:30:01","5000","입금"));
+//        items.add(new UsageList("2020-04-23","다담국수","11:30:01","5000","입금"));
+//        items.add(new UsageList("2020-04-23","사이버블루 PC","11:30:01","10000","입금"));
+//        items.add(new UsageList("2020-04-23","태화장","11:30:01","7000","입금"));
+//        items.add(new UsageList("2020-04-23","다담국수","11:30:01","8000","입금"));
+//        items.add(new UsageList("2020-04-24","사이버블루 PC","11:30:01","20000","입금"));
+//        items.add(new UsageList("2020-04-24","꼬꼬마을","11:30:01","8000","입금"));
+//        items.add(new UsageList("2020-04-24","태화장","11:30:01","8000","입금"));
+//        items.add(new UsageList("2020-04-29","다담국수","11:30:01","7000","입금"));
+//        items.add(new UsageList("2020-04-29","사이버블루 PC","11:30:01","10000","입금"));
 
 
 
