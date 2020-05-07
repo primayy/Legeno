@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.example.billage.UsageList;
 
@@ -77,7 +76,7 @@ public class DbOpenHelper {
 
         if(c.moveToFirst()){
             do{
-                Log.d("trans_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2)+" "+c.getString(3)+" "+c.getString(4));
+//                Log.d("trans_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2)+" "+c.getString(3)+" "+c.getString(4));
                 trans_data.add(new UsageList(Utils.transformDate(c.getString(1)),c.getString(0),Utils.transformTime(c.getString(2)),c.getString(4),c.getString(3)));
             }while (c.moveToNext());
         }

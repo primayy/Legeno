@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import com.example.billage.R;
 import com.example.billage.UsageList;
 import com.example.billage.adapter.CalendarAdapter;
-import com.example.billage.common.AppData;
 import com.example.billage.ui.calendar.CalendarListViewModel;
 import com.example.billage.utils.Keys;
 import com.example.billage.databinding.CalendarListBinding;
@@ -97,7 +96,7 @@ public class CalenderFragment extends Fragment {
         }
 
 
-        final ArrayList<UsageList> items = AppData.mdb.getTransDaysColumns();
+        final ArrayList<UsageList> items = new ArrayList<>();
 
         items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000","입금"));
         items.add(new UsageList("2020-04-20","다담국수","11:30:01","7000","입금"));
