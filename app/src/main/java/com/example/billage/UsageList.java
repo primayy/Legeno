@@ -10,9 +10,9 @@ public class UsageList {
     private String cost;
     private String destination;
     private String time;
-    private boolean usage_type = false;
+    private String usage_type;
 
-    public UsageList(String date, String destination,String time, String cost,boolean usage_type) {
+    public UsageList(String date, String destination,String time, String cost,String usage_type) {
         this.date = date;
         this.cost = cost;
         this.destination = destination;
