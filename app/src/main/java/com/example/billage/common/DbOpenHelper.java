@@ -6,6 +6,11 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.example.billage.UsageList;
+
+import java.util.ArrayList;
 
 public class DbOpenHelper {
 
@@ -52,17 +57,48 @@ public class DbOpenHelper {
     }
 
     //transaction 데이터 삽입
-    public long insertTransColumn(String date, String name, String money,String inout){
+    public long insertTransColumn(String date, String time, String name, String money,String inout){
         ContentValues values = new ContentValues();
         values.put(Databases.CreateDB.NAME, name);
+        values.put(Databases.CreateDB.TIME, time);
         values.put(Databases.CreateDB.DATE, date);
         values.put(Databases.CreateDB.MONEY, money);
         values.put(Databases.CreateDB.INOUT, inout);
         return mDB.insert(Databases.CreateDB._TABLENAME0, null, values);
     }
 
-    //transaction 데이터 조회
-    public Cursor selectTransColumns(){
-        return mDB.query(Databases.CreateDB._TABLENAME0, null, null, null, null, null, null);
+    //transaction 데이터 조회 후 UsageList로 반환
+    public ArrayList<UsageList> getTransColumns(){
+        ArrayList<UsageList> trans_data = new ArrayList<UsageList>();
+
+        String query = "SELECT * from 'transaction' order by date asc";
+
+        Cursor c = mDB.rawQuery(query,null);
+
+        if(c.moveToFirst()){
+            do{
+//                Log.d("trans_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2)+" "+c.getString(3)+" "+c.getString(4));
+                trans_data.add(new UsageList(Utils.transformDate(c.getString(1)),c.getString(0),Utils.transformTime(c.getString(2)),c.getString(4),c.getString(3)));
+            }while (c.moveToNext());
+        }
+        return trans_data;
+    }
+
+    //일별 수입,지출의 합을 리턴
+    public ArrayList<UsageList> getTransDaysColumns(){
+        ArrayList<UsageList> days_data = new ArrayList<UsageList>();
+
+        String query = "SELECT date,inout,sum(money) from 'transaction' group by date, inout order by date asc";
+
+        Cursor c = mDB.rawQuery(query,null);
+
+        //idx 0: date, 1: inout, 2:sum
+        if(c.moveToFirst()){
+            do{
+                Log.d("days_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2));
+                days_data.add(new UsageList(Utils.transformDate(c.getString(0)),"","",c.getString(2),c.getString(1)));
+            }while (c.moveToNext());
+        }
+        return days_data;
     }
 }
