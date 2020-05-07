@@ -63,11 +63,13 @@ public class Account_transaction {
                             for(int i = 0 ; i<value.size(); i++){
                                 JsonObject trans = value.get(i).getAsJsonObject();
                                 JsonElement tran_date = trans.get("tran_date");
+                                JsonElement tran_time = trans.get("tran_time");
                                 JsonElement inout_type = trans.get("inout_type");
                                 JsonElement tran_amt = trans.get("tran_amt");
                                 JsonElement branch_name = trans.get("branch_name");
                                 Log.d("tran",tran_date.getAsString()+" "+inout_type.getAsString()+" "+tran_amt.getAsString()+" "+branch_name.getAsString());
-                                AppData.mdb.insertTransColumn(tran_date.getAsString(),branch_name.getAsString(),tran_amt.getAsString(),inout_type.getAsString());
+                                //앱 로컬db에 거래 일자, 거래시간, 거래장소, 금액, 거래 타입을 저장
+                                AppData.mdb.insertTransColumn(tran_date.getAsString(),tran_time.getAsString(), branch_name.getAsString(),tran_amt.getAsString(),inout_type.getAsString());
                             }
                         }
                     }

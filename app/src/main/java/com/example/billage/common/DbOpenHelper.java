@@ -7,6 +7,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.billage.UsageList;
+
+import java.util.ArrayList;
+
 public class DbOpenHelper {
 
     private static final String DATABASE_NAME = "Billage.db";
@@ -52,17 +56,29 @@ public class DbOpenHelper {
     }
 
     //transaction 데이터 삽입
-    public long insertTransColumn(String date, String name, String money,String inout){
+    public long insertTransColumn(String date, String time, String name, String money,String inout){
         ContentValues values = new ContentValues();
         values.put(Databases.CreateDB.NAME, name);
+        values.put(Databases.CreateDB.NAME, time);
         values.put(Databases.CreateDB.DATE, date);
         values.put(Databases.CreateDB.MONEY, money);
         values.put(Databases.CreateDB.INOUT, inout);
         return mDB.insert(Databases.CreateDB._TABLENAME0, null, values);
     }
 
-    //transaction 데이터 조회
-    public Cursor selectTransColumns(){
-        return mDB.query(Databases.CreateDB._TABLENAME0, null, null, null, null, null, null);
+    //transaction 데이터 조회 후 UsageList로 반환
+    public ArrayList<UsageList> getTransColumns(){
+        ArrayList<UsageList> trans_data = new ArrayList<UsageList>();
+
+        String query = "SELECT * from 'transaction' order by date asc";
+
+        Cursor c = mDB.rawQuery(query,null);
+
+        if(c.moveToFirst()){
+            do{
+                trans_data.add(new UsageList("2020-04-23","다담국수","11:30:01","5000"));
+            }while (c.moveToNext());
+        }
+        return trans_data;
     }
 }
