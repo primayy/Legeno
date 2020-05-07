@@ -8,11 +8,13 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.billage.R;
+import com.example.billage.api.Statistic_transaction;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -31,6 +33,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,29 +93,33 @@ public class StatisticFragment extends Fragment {
         ArrayList<Entry> income_entries = new ArrayList<>();
         ArrayList<Entry> usage_entries = new ArrayList<>();
 
-        income_entries.add(new Entry(1f, 20000));
-        income_entries.add(new Entry(2f, 40000));
-        income_entries.add(new Entry(3f, 130000));
-        income_entries.add(new Entry(4f, 40000));
-        income_entries.add(new Entry(5f, 90000));
-        income_entries.add(new Entry(6f, 110000));
+        ArrayList<Integer> income = Statistic_transaction.monthly_statistic("입금");
+        ArrayList<Integer> usage = Statistic_transaction.monthly_statistic("출금");
 
-        usage_entries.add(new Entry(1f, 40000));
-        usage_entries.add(new Entry(2f, 17000));
-        usage_entries.add(new Entry(3f, 20000));
-        usage_entries.add(new Entry(4f, 17000));
-        usage_entries.add(new Entry(5f, 160000));
-        usage_entries.add(new Entry(6f, 10000));
+
+
+
+
+        for(int i=1;i<=income.size();i++){
+            income_entries.add(new Entry(i, income.get(i-1)));
+        }
+        for(int i=1;i<=usage.size();i++){
+            usage_entries.add(new Entry(i, usage.get(i-1)));
+        }
+
 
         ArrayList<BarEntry> barEntries = new ArrayList<>();
 
-        barEntries.add(new BarEntry(1f, 20000));
-        barEntries.add(new BarEntry(2f, 4000));
-        barEntries.add(new BarEntry(3f, 1600));
-        barEntries.add(new BarEntry(4f, 12000));
-        barEntries.add(new BarEntry(5f, 17000));
-        barEntries.add(new BarEntry(6f, 10000));
-        barEntries.add(new BarEntry(7f, 36300));
+        //통계데이터 호출 코드
+        try {
+            ArrayList<Integer> bar_data = Statistic_transaction.daily_statistic("출금");
+            Log.d("test",""+bar_data);
+            for(int i=1;i<=bar_data.size();i++){
+                barEntries.add(new BarEntry(i, bar_data.get(i-1)));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         setLineChart(root,income_entries,usage_entries);
         setBarChart(root,barEntries);

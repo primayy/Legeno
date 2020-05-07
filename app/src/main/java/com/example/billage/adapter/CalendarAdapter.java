@@ -10,8 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -97,6 +100,7 @@ public class CalendarAdapter extends RecyclerView.Adapter {
                 model.setHeaderCount("거래 횟수: "+"24"+"건"); //월간 거래 수 값 넣는 곳
             }
             holder.setViewModel(model);
+
         } else if (viewType == EMPTY_TYPE) { //비어있는 날짜 타입 꾸미기
             EmptyViewHolder holder = (EmptyViewHolder) viewHolder;
             EmptyViewModel model = new EmptyViewModel();
@@ -105,11 +109,35 @@ public class CalendarAdapter extends RecyclerView.Adapter {
             DayViewHolder holder = (DayViewHolder) viewHolder;
             Object item = mCalendarList.get(position);
             CalendarViewModel model = new CalendarViewModel();
-
+            Log.d("ccc",mCalendarList+"");
             if (item instanceof Calendar) {
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
                 model.setCalendar((Calendar) item);
-                model.setCalendarEarn("+"+"10000"); // 일간 수입 값 넣는 곳
-                model.setCalendarUsage("-"+"5000"); // 일간 지출 값 넣는 곳
+
+                for(int i=0;i<usageList.size();i++){
+                    try {
+                        Date date = dateFormat.parse(usageList.get(i).getDate());
+                        if(date.equals(((Calendar) item).getTime())){
+
+                            if(usageList.get(i).getUsage_type().equals("입금")){
+
+                               // model.setCalendarEarn("+"+usageList.get(i).getCost()); // 일간 수입 값 넣는 곳
+                                model.setCalendarEarn("+"+usageList.get(i).getCost());
+                            }else {
+                                model.setCalendarUsage("-" + usageList.get(i).getCost()); // 일간 지출 값 넣는 곳
+                                break;
+                            }
+
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+
             }
             holder.setViewModel(model);
 

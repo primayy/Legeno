@@ -50,7 +50,7 @@ public class CalendarListViewModel extends ViewModel {
         setTitle(cal.getTimeInMillis());
 
         ArrayList<Object> calendarList = new ArrayList<>();
-        for (int i = -6; i < 6; i++) {
+        for (int i = -3; i < 3; i++) {
             try {
                 GregorianCalendar calendar = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + i, 1, 0, 0, 0);
                 if (i == 0) {

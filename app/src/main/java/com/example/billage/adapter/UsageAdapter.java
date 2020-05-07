@@ -1,5 +1,6 @@
 package com.example.billage.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +47,7 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
 
     // ListView의  한 줄(row)이 렌더링(rendering)될 때 호출되는 메소드로 row를 위한 view를 리턴합니다.
     // 한 줄(Row)를 위한 뷰(View)를 재사용하여 ListIView의 효율성을 올립니다.
+    @SuppressLint("SetTextI18n")
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parentViewGroup) {
@@ -112,9 +114,15 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
 
         //현재 선택된 UsageList 객체를 화면에 보여주기 위해서 앞에서 미리 찾아 놓은 뷰에 데이터를 집어넣습니다.
         viewHolder.date.setText(usage.getDate());
-        viewHolder.cost.setText(usage.getCost());
         viewHolder.destination.setText(usage.getDestination());
         viewHolder.time.setText(usage.getTime());
+
+        if(usage.getUsage_type().equals("입금")){
+            viewHolder.cost.setText("+ "+usage.getCost()+"원");
+        }else {
+            viewHolder.cost.setText("- "+usage.getCost()+"원");
+        }
+
 //        viewHolder.itemIndex.setText("Voca[" + position + "]");
 //        viewHolder.itemTag.setText(tag);
 //        viewHolder.itemStatus.setText(Status);
