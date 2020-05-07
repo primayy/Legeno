@@ -10,12 +10,14 @@ public class UsageList {
     private String cost;
     private String destination;
     private String time;
+    private boolean usage_type = false;
 
-    public UsageList(String date, String cost,String time, String destination) {
+    public UsageList(String date, String destination,String time, String cost,boolean usage_type) {
         this.date = date;
         this.cost = cost;
         this.destination = destination;
         this.time=time;
+        this.usage_type = usage_type;
     }
 
     public String getDate() {
