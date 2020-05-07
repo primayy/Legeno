@@ -63,7 +63,7 @@ public class Utils {
         return year;
     }
 
-    // 날짜가 yyyymmdd 형식으로 입력되었을 경우 Date로 변경하는 메서드
+    // 날짜가 yyyymmdd 형식으로 입력되었을 경우 yyyy-mm-dd로 변경하는 메서드
     public static String transformDate(String date)
     {
         SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyymmdd");
@@ -86,6 +86,7 @@ public class Utils {
         return transDate;
     }
 
+    // 시간이 HHmmss 형식으로 입력되었을 경우 HH:mm:ss로 변경하는 메서드
     public static String transformTime(String time)
     {
         SimpleDateFormat beforeFormat = new SimpleDateFormat("HHmmss");
