@@ -2,13 +2,36 @@ package com.example.billage.ui.home.subView;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.billage.R;
+import com.example.billage.UsageList;
+import com.example.billage.adapter.CalendarAdapter;
+import com.example.billage.ui.calendar.CalendarListViewModel;
+import com.example.billage.utils.Keys;
+import com.example.billage.databinding.CalendarListBinding;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +43,8 @@ public class CalenderFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private CalendarListBinding binding;
+    private CalendarListViewModel model;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -60,6 +85,67 @@ public class CalenderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calender, container, false);
+
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_calender,container,false);
+        model = ViewModelProviders.of(getActivity()).get(CalendarListViewModel.class);
+        binding.setModel(model);
+        binding.setLifecycleOwner(getActivity());
+
+        if (model != null) {
+            model.initCalendarList();
+        }
+
+
+        final ArrayList<UsageList> items = new ArrayList<>();
+
+        items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000","입금"));
+        items.add(new UsageList("2020-04-20","다담국수","11:30:01","7000","입금"));
+
+        items.add(new UsageList("2020-04-20","꼬꼬마을","11:30:01","5000","입금"));
+        items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000","입금"));
+        items.add(new UsageList("2020-04-22","태화장","11:30:01","5000","입금"));
+        items.add(new UsageList("2020-04-22","사이버블루 PC","11:30:01","30000","입금"));
+        items.add(new UsageList("2020-04-22","꼬꼬마을","11:30:01","7000","입금"));
+        items.add(new UsageList("2020-04-22","다담국수","11:30:01","5000","입금"));
+        items.add(new UsageList("2020-04-23","다담국수","11:30:01","5000","입금"));
+        items.add(new UsageList("2020-04-23","사이버블루 PC","11:30:01","10000","입금"));
+        items.add(new UsageList("2020-04-23","태화장","11:30:01","7000","입금"));
+        items.add(new UsageList("2020-04-23","다담국수","11:30:01","8000","입금"));
+        items.add(new UsageList("2020-04-24","사이버블루 PC","11:30:01","20000","입금"));
+        items.add(new UsageList("2020-04-24","꼬꼬마을","11:30:01","8000","입금"));
+        items.add(new UsageList("2020-04-24","태화장","11:30:01","8000","입금"));
+        items.add(new UsageList("2020-04-29","다담국수","11:30:01","7000","입금"));
+        items.add(new UsageList("2020-04-29","사이버블루 PC","11:30:01","10000","입금"));
+
+        observe(items);
+
+
+
+        return binding.getRoot();
     }
+
+    private void observe(final ArrayList<UsageList> items) {
+        model.mCalendarList.observe(getActivity(), new Observer<ArrayList<Object>>() {
+            @Override
+            public void onChanged(ArrayList<Object> objects) {
+                RecyclerView view = binding.pagerCalendar;
+                CalendarAdapter adapter = (CalendarAdapter) view.getAdapter();
+                if (adapter != null) {
+                    adapter.setCalendarList(objects);
+                } else {
+                    StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL);
+                    adapter = new CalendarAdapter(view.getContext(),objects,items);
+                    view.setLayoutManager(manager);
+                    view.setAdapter(adapter);
+
+                    if (model.mCenterPosition >= 0) {
+                        Log.d("ddd", model.mCenterPosition+"");
+                        view.scrollToPosition(model.mCenterPosition);
+                    }
+                }
+            }
+        });
+    }
+
+
 }

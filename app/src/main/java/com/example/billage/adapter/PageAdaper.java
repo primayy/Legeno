@@ -1,4 +1,4 @@
-package com.example.billage;
+package com.example.billage.adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
