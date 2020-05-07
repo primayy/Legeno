@@ -81,7 +81,24 @@ public class DbOpenHelper {
                 trans_data.add(new UsageList(Utils.transformDate(c.getString(1)),c.getString(0),Utils.transformTime(c.getString(2)),c.getString(4),c.getString(3)));
             }while (c.moveToNext());
         }
-
         return trans_data;
+    }
+
+    //일별 수입,지출의 합을 리턴
+    public ArrayList<UsageList> getTransDaysColumns(){
+        ArrayList<UsageList> days_data = new ArrayList<UsageList>();
+
+        String query = "SELECT date,inout,sum(money) from 'transaction' group by date, inout order by date asc";
+
+        Cursor c = mDB.rawQuery(query,null);
+
+        //idx 0: date, 1: inout, 2:sum
+        if(c.moveToFirst()){
+            do{
+                Log.d("days_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2));
+                days_data.add(new UsageList(Utils.transformDate(c.getString(0)),"","",c.getString(2),c.getString(1)));
+            }while (c.moveToNext());
+        }
+        return days_data;
     }
 }
