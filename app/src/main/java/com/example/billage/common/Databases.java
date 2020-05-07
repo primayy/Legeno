@@ -8,6 +8,7 @@ public class Databases {
 
     public static final class CreateDB implements BaseColumns {
         public static final String NAME = "name";
+        public static final String TIME = "time";
         public static final String DATE = "date";
         public static final String MONEY = "money";
         public static final String INOUT = "inout";
@@ -15,6 +16,7 @@ public class Databases {
         public static final String _CREATE0 = "CREATE TABLE IF NOT EXISTS "+_TABLENAME0+" (" +
                 NAME         + " TEXT NOT NULL," +
                 DATE         + " TEXT NOT NULL," +
+                TIME         + " TEXT NOT NULL," +
                 INOUT         + " TEXT NOT NULL," +
                 MONEY        + " TEXT NOT NULL" + ")" ;
     }
