@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 거래내역조회 앱 디비에 데이터 넣을거면 이거 한번 실행하고 다시 주석처리
         // 주석 처리 안하면 같은 데이터 계속 추가됨 -> 수정할 예정
-        Account_transaction .request_transaction("20200429","20200501");
+//        Account_transaction .request_transaction("20200429","20200501");
 
         //통계데이터 호출 코드
 //        try {
@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
         //일별 수입,지출 합 리스트 리턴 log :days_data
 //        AppData.mdb.getTransDaysColumns();
+
+        //달별 수입,지출 합, 카운트 리턴
+//        AppData.mdb.getTransMonthsColumns("입금");
         /**/
 
     }
