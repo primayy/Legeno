@@ -105,6 +105,7 @@ public class CalendarAdapter extends RecyclerView.Adapter {
             DayViewHolder holder = (DayViewHolder) viewHolder;
             Object item = mCalendarList.get(position);
             CalendarViewModel model = new CalendarViewModel();
+
             if (item instanceof Calendar) {
                 model.setCalendar((Calendar) item);
                 model.setCalendarEarn("+"+"10000"); // 일간 수입 값 넣는 곳

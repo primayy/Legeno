@@ -71,13 +71,13 @@ public class DbOpenHelper {
     public ArrayList<UsageList> getTransColumns(){
         ArrayList<UsageList> trans_data = new ArrayList<UsageList>();
 
-        String query = "SELECT * from 'transaction' order by date asc";
+        String query = "SELECT * from 'transaction' order by date desc";
 
         Cursor c = mDB.rawQuery(query,null);
 
         if(c.moveToFirst()){
             do{
-//                Log.d("trans_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2)+" "+c.getString(3)+" "+c.getString(4));
+                Log.d("trans_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2)+" "+c.getString(3)+" "+c.getString(4));
                 trans_data.add(new UsageList(Utils.transformDate(c.getString(1)),c.getString(0),Utils.transformTime(c.getString(2)),c.getString(4),c.getString(3)));
             }while (c.moveToNext());
         }
@@ -88,7 +88,7 @@ public class DbOpenHelper {
     public ArrayList<UsageList> getTransDaysColumns(){
         ArrayList<UsageList> days_data = new ArrayList<UsageList>();
 
-        String query = "SELECT date,inout,sum(money) from 'transaction' group by date, inout order by date asc";
+        String query = "SELECT date,inout,sum(money) from 'transaction' group by date, inout order by date desc";
 
         Cursor c = mDB.rawQuery(query,null);
 
