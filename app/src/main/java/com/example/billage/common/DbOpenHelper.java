@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.billage.UsageList;
 
@@ -59,7 +60,7 @@ public class DbOpenHelper {
     public long insertTransColumn(String date, String time, String name, String money,String inout){
         ContentValues values = new ContentValues();
         values.put(Databases.CreateDB.NAME, name);
-        values.put(Databases.CreateDB.NAME, time);
+        values.put(Databases.CreateDB.TIME, time);
         values.put(Databases.CreateDB.DATE, date);
         values.put(Databases.CreateDB.MONEY, money);
         values.put(Databases.CreateDB.INOUT, inout);
@@ -76,9 +77,10 @@ public class DbOpenHelper {
 
         if(c.moveToFirst()){
             do{
-                trans_data.add(new UsageList("2020-04-23","다담국수","11:30:01","5000"));
+                trans_data.add(new UsageList(c.getString(2),c.getString(0),c.getString(1),c.getString(3),c.getString(4)));
             }while (c.moveToNext());
         }
+
         return trans_data;
     }
 }
