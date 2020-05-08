@@ -8,9 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.billage.MonthUsageList;
 import com.example.billage.UsageList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DbOpenHelper {
 
@@ -71,7 +73,7 @@ public class DbOpenHelper {
     public ArrayList<UsageList> getTransColumns(){
         ArrayList<UsageList> trans_data = new ArrayList<UsageList>();
 
-        String query = "SELECT * from 'transaction' order by date desc";
+        String query = "SELECT * from 'transaction' order by date asc";
 
         Cursor c = mDB.rawQuery(query,null);
 
@@ -88,7 +90,7 @@ public class DbOpenHelper {
     public ArrayList<UsageList> getTransDaysColumns(){
         ArrayList<UsageList> days_data = new ArrayList<UsageList>();
 
-        String query = "SELECT date,inout,sum(money) from 'transaction' group by date, inout order by date desc";
+        String query = "SELECT date,inout,sum(money) from 'transaction' group by date, inout order by date asc";
 
         Cursor c = mDB.rawQuery(query,null);
 
@@ -101,4 +103,69 @@ public class DbOpenHelper {
         }
         return days_data;
     }
+
+    //이번 달을 제외한 이전 3개월의 평균 수입,지출값을 반환함
+    //parameter: inout("입금","출금")
+    public int getTransThreeMonthsAvg(String inout){
+        int trans_avg=0;
+        String today = Utils.getDay();
+        String year = Utils.getYear() + "0000";
+        int befor = ((Integer.parseInt(today) - Integer.parseInt(year))/100 - 3)*100 + 1;
+        int cur = ((Integer.parseInt(today) - Integer.parseInt(year))/100)*100+1;
+        String befor_month = Utils.getYear()+"0"+String.valueOf(befor);
+        String cur_month = Utils.getYear()+"0"+String.valueOf(cur);
+
+        String query = "SELECT avg(money) from 'transaction' where inout='"+ inout +"' and date >='" + befor_month + "' and date <'" + cur_month+"'";
+
+        Cursor c = mDB.rawQuery(query,null);
+
+        //idx 0: avg
+        if(c.moveToFirst()){
+            do{
+                Log.d("avg_data",c.getString(0));
+                trans_avg = (int) Double.parseDouble(c.getString(0));
+            }while (c.moveToNext());
+        }
+        return trans_avg;
+    }
+
+    //달별 수입,지출에 대한 카운트,합계에 대한 리스트 반환
+    //parameter: inout("입금","출금")
+    public ArrayList<MonthUsageList> getTransMonthsColumns(String inout){
+        ArrayList<MonthUsageList> months_data = new ArrayList<MonthUsageList>();
+
+        String today = Utils.getDay();
+        String year = Utils.getYear() + "0000";
+        int befor = ((Integer.parseInt(today) - Integer.parseInt(year))/100 - 3)*100 + 1;
+        String befor_month = Utils.getYear()+"0"+String.valueOf(befor);
+
+        for (int i=0;i<6;i++){
+            int cur = Integer.parseInt(befor_month)+i*100;
+            int nxt = Integer.parseInt(befor_month)+(i+1)*100;
+            months_data.add(new MonthUsageList(0,0,"",inout));
+
+            String query = "SELECT date,sum(money),count() from 'transaction' where inout='" + inout +"' and date >='" + cur + "' and date <'"+ nxt +"' group by date<= '"+ nxt +"' order by date asc";
+            Cursor c = mDB.rawQuery(query,null);
+
+            //idx 0: date, 1: sum, 2: count
+            MonthUsageList month_data = months_data.get(i);
+            if(c.moveToFirst()){
+                do{
+                    month_data.setCount(c.getInt(2));
+                    month_data.setCost(c.getString(1));
+
+                    Log.d("month_data",c.getString(0)+ " " +c.getString(1) + " " + c.getCount());
+                }while (c.moveToNext());
+            }
+        }
+
+        //log용
+        for(int i=0;i<months_data.size();i++){
+            Log.d("months_data",i+" "+String.valueOf(months_data.get(i).getCount())+" "+String.valueOf(months_data.get(i).getCost()));
+        }
+
+        return months_data;
+    }
+
+
 }

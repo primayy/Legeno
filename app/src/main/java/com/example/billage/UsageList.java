@@ -13,6 +13,7 @@ public class UsageList {
     private String usage_type;
 
 
+    public UsageList(String date, String destination,String time, String cost,String usage_type) {
 
     public UsageList(String date, String destination, String time, String cost, String usage_type) {
         this.date = date;

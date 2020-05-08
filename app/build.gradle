@@ -73,6 +73,11 @@ android {
             enableSplit = true
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
 }
 
 dependencies {
@@ -106,5 +111,8 @@ dependencies {
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.github.prolificinteractive:material-calendarview:1.4.3'
+
+    implementation 'com.android.support:design:28.0.0'
+
 
 }

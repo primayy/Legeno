@@ -76,6 +76,7 @@ public class UsageFragment extends Fragment {
         final ListView listview = (ListView) root.findViewById(R.id.usage_list) ;
        // listview.setAdapter(adapter) ;
 
+
         final UsageAdapter usageAdapter = new UsageAdapter(getActivity(),items,listview);
         listview.setAdapter(usageAdapter);
 
