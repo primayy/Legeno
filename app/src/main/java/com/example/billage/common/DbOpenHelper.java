@@ -104,7 +104,33 @@ public class DbOpenHelper {
         return days_data;
     }
 
+    //이번 달을 제외한 이전 3개월의 평균 수입,지출값을 반환함
+    //parameter: inout("입금","출금")
+    public int getTransThreeMonthsAvg(String inout){
+        int trans_avg=0;
+        String today = Utils.getDay();
+        String year = Utils.getYear() + "0000";
+        int befor = ((Integer.parseInt(today) - Integer.parseInt(year))/100 - 3)*100 + 1;
+        int cur = ((Integer.parseInt(today) - Integer.parseInt(year))/100)*100+1;
+        String befor_month = Utils.getYear()+"0"+String.valueOf(befor);
+        String cur_month = Utils.getYear()+"0"+String.valueOf(cur);
+
+        String query = "SELECT avg(money) from 'transaction' where inout='"+ inout +"' and date >='" + befor_month + "' and date <'" + cur_month+"'";
+
+        Cursor c = mDB.rawQuery(query,null);
+
+        //idx 0: avg
+        if(c.moveToFirst()){
+            do{
+                Log.d("avg_data",c.getString(0));
+                trans_avg = (int) Double.parseDouble(c.getString(0));
+            }while (c.moveToNext());
+        }
+        return trans_avg;
+    }
+
     //달별 수입,지출에 대한 카운트,합계에 대한 리스트 반환
+    //parameter: inout("입금","출금")
     public ArrayList<MonthUsageList> getTransMonthsColumns(String inout){
         ArrayList<MonthUsageList> months_data = new ArrayList<MonthUsageList>();
 

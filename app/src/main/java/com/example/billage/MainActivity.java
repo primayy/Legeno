@@ -68,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
 
         //달별 수입,지출 합, 카운트 리턴
 //        AppData.mdb.getTransMonthsColumns("입금");
+//        AppData.mdb.getTransMonthsColumns("출금");
+        //이전 3개월의 수입 or 지출 평균 리턴
+//        AppData.mdb.getTransThreeMonthsAvg("입금");
+//        AppData.mdb.getTransThreeMonthsAvg("출금");
         /**/
 
     }
