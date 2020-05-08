@@ -15,9 +15,9 @@ import android.view.ViewGroup;
 
 import com.example.billage.R;
 import com.example.billage.api.Statistic_transaction;
+import com.example.billage.common.AppData;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -30,19 +30,10 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link StatisticFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class StatisticFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,15 +48,6 @@ public class StatisticFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment StatisticFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static StatisticFragment newInstance(String param1, String param2) {
         StatisticFragment fragment = new StatisticFragment();
         Bundle args = new Bundle();
@@ -96,10 +78,6 @@ public class StatisticFragment extends Fragment {
         ArrayList<Integer> income = Statistic_transaction.monthly_statistic("입금");
         ArrayList<Integer> usage = Statistic_transaction.monthly_statistic("출금");
 
-
-
-
-
         for(int i=1;i<=income.size();i++){
             income_entries.add(new Entry(i, income.get(i-1)));
         }
@@ -120,8 +98,12 @@ public class StatisticFragment extends Fragment {
             e.printStackTrace();
         }
 
+        //이전 3개월의 수입 or 지출 평균 리턴
+        int avg_usage = AppData.mdb.getTransThreeMonthsAvg("출금");
+        /**/
+
         setLineChart(root,income_entries,usage_entries);
-        setBarChart(root,barEntries);
+        setBarChart(root,barEntries,avg_usage);
 
         return root;
     }
@@ -133,8 +115,6 @@ public class StatisticFragment extends Fragment {
         // x,y축 맵핑
         LineDataSet depenses_income = new LineDataSet(income_entries, "수입");
         LineDataSet depenses_usage = new LineDataSet(usage_entries, "지출");
-
-
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add((ILineDataSet)depenses_income);
@@ -164,7 +144,6 @@ public class StatisticFragment extends Fragment {
         lineChart.setPinchZoom(false);
         lineChart.setExtraRightOffset(40);
 
-
         //x축 customizing
         final String[] months = {"","1월", "2월", "3월", "4월", "5월", "6월", "7월","8월","9월","10월","11월","12월"}; // Your List / array with String Values For X-axis Labels
 
@@ -192,15 +171,13 @@ public class StatisticFragment extends Fragment {
         //value customizing
         data.setValueTextSize(15f);
 
-
-
         lineChart.setData(data);
         lineChart.animateXY(1000,1000);
         lineChart.invalidate();
 
     }
 
-    public void setBarChart(View root, ArrayList entries){
+    public void setBarChart(View root, ArrayList entries, int avg_usage){
 
         BarChart barChart = (BarChart) root.findViewById(R.id.bar_chart);
 
@@ -238,7 +215,9 @@ public class StatisticFragment extends Fragment {
         xAxis.setDrawGridLines(false);
 
         //limit line customizing
-        LimitLine limitLine = new LimitLine(15000f,"");
+
+
+        LimitLine limitLine = new LimitLine((float)avg_usage,"");
         limitLine.setLineWidth(2f);
         limitLine.enableDashedLine(10f, 10f, 0f);
         limitLine.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
@@ -253,6 +232,7 @@ public class StatisticFragment extends Fragment {
 
         YAxis leftAxis = barChart.getAxisLeft();
         leftAxis.setTextSize(13f);
+        Log.d("dd",leftAxis.getAxisMaximum()+"");
         leftAxis.addLimitLine(limitLine);
 
         //custom marker view 설정
@@ -264,6 +244,4 @@ public class StatisticFragment extends Fragment {
         barChart.invalidate();
 
     }
-
-
 }

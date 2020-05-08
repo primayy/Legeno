@@ -72,7 +72,6 @@ public class CalendarAdapter extends RecyclerView.Adapter {
         }
     }
 
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -104,6 +103,8 @@ public class CalendarAdapter extends RecyclerView.Adapter {
                 Calendar month = Calendar.getInstance();
                 Calendar current_month = Calendar.getInstance();
                 month.setTimeInMillis((Long)item);
+
+                // initialize
                 model.setHeaderEarn("수입: 0원");
                 model.setHeaderUsage("수입: 0원");
                 model.setHeaderCount("수입: 0건");
@@ -111,9 +112,18 @@ public class CalendarAdapter extends RecyclerView.Adapter {
                 int index_tracker = 3 - (current_month.get(Calendar.MONTH) - month.get(Calendar.MONTH) );
                 int total_count = monthIncome.get(index_tracker).getCount() + monthUsage.get(index_tracker).getCount();
 
+                if(monthIncome.get(index_tracker).getCost().equals("")){
+                    model.setHeaderEarn("수입: 0원");
+                }else{
+                    model.setHeaderEarn("수입: "+monthIncome.get(index_tracker).getCost()+"원");//월간 수입 값 넣는 곳
+                }
+                if(monthUsage.get(index_tracker).getCost().equals("")){
+                    model.setHeaderEarn("지출: 0원");
+                }else{
+                    model.setHeaderUsage("지출: "+monthUsage.get(index_tracker).getCost()+"원"); //월간 지출 값 넣는 곳
+                }
+
                 model.setHeaderDate((Long) item);
-                model.setHeaderEarn("수입: "+monthIncome.get(index_tracker).getCost()+"원"); //월간 수입 값 넣는 곳
-                model.setHeaderUsage("지출: "+monthUsage.get(index_tracker).getCost()+"원"); //월간 지출 값 넣는 곳
                 model.setHeaderCount("거래 횟수: "+total_count+"건"); //월간 거래 수 값 넣는 곳
             }
             holder.setViewModel(model);

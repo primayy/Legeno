@@ -58,10 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //이전 3개월의 수입 or 지출 평균 리턴
-//        AppData.mdb.getTransThreeMonthsAvg("입금");
-//        AppData.mdb.getTransThreeMonthsAvg("출금");
-        /**/
+
 
     }
 
