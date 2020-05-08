@@ -100,6 +100,7 @@ public class CalenderFragment extends Fragment {
 
         items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000","입금"));
         items.add(new UsageList("2020-04-20","다담국수","11:30:01","7000","입금"));
+
         items.add(new UsageList("2020-04-20","꼬꼬마을","11:30:01","5000","입금"));
         items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000","입금"));
         items.add(new UsageList("2020-04-22","태화장","11:30:01","5000","입금"));
