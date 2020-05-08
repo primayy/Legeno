@@ -113,7 +113,6 @@ public class StatisticFragment extends Fragment {
         //통계데이터 호출 코드
         try {
             ArrayList<Integer> bar_data = Statistic_transaction.daily_statistic("출금");
-            Log.d("test",""+bar_data);
             for(int i=1;i<=bar_data.size();i++){
                 barEntries.add(new BarEntry(i, bar_data.get(i-1)));
             }

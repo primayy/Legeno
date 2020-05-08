@@ -22,6 +22,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.example.billage.MonthUsageList;
 import com.example.billage.UsageList;
 import com.example.billage.databinding.CalendarHeaderBinding;
 import com.example.billage.databinding.DayItemBinding;
@@ -40,12 +41,17 @@ public class CalendarAdapter extends RecyclerView.Adapter {
 
     private List<Object> mCalendarList;
     private ArrayList<UsageList> usageList;
+    private ArrayList<MonthUsageList> monthIncome;
+    private ArrayList<MonthUsageList> monthUsage;
     private Context mContext;
 
-    public CalendarAdapter(Context mContext, List<Object> calendarList, ArrayList<UsageList> items) {
+    public CalendarAdapter(Context mContext, List<Object> calendarList, ArrayList<UsageList> items,ArrayList<MonthUsageList> month_income, ArrayList<MonthUsageList> month_usage) {
         this.mContext = mContext;
         mCalendarList = calendarList;
         usageList = items;
+        monthIncome = month_income;
+        monthUsage = month_usage;
+
     }
 
     public void setCalendarList(List<Object> calendarList) {
@@ -94,10 +100,21 @@ public class CalendarAdapter extends RecyclerView.Adapter {
             Object item = mCalendarList.get(position);
             CalendarHeaderViewModel model = new CalendarHeaderViewModel();
             if (item instanceof Long) {
+
+                Calendar month = Calendar.getInstance();
+                Calendar current_month = Calendar.getInstance();
+                month.setTimeInMillis((Long)item);
+                model.setHeaderEarn("수입: 0원");
+                model.setHeaderUsage("수입: 0원");
+                model.setHeaderCount("수입: 0건");
+
+                int index_tracker = 3 - (current_month.get(Calendar.MONTH) - month.get(Calendar.MONTH) );
+                int total_count = monthIncome.get(index_tracker).getCount() + monthUsage.get(index_tracker).getCount();
+
                 model.setHeaderDate((Long) item);
-                model.setHeaderEarn("수입: "+"300000"+"원"); //월간 수입 값 넣는 곳
-                model.setHeaderUsage("지출: "+"250000"+"원"); //월간 지출 값 넣는 곳
-                model.setHeaderCount("거래 횟수: "+"24"+"건"); //월간 거래 수 값 넣는 곳
+                model.setHeaderEarn("수입: "+monthIncome.get(index_tracker).getCost()+"원"); //월간 수입 값 넣는 곳
+                model.setHeaderUsage("지출: "+monthUsage.get(index_tracker).getCost()+"원"); //월간 지출 값 넣는 곳
+                model.setHeaderCount("거래 횟수: "+total_count+"건"); //월간 거래 수 값 넣는 곳
             }
             holder.setViewModel(model);
 
@@ -109,9 +126,7 @@ public class CalendarAdapter extends RecyclerView.Adapter {
             DayViewHolder holder = (DayViewHolder) viewHolder;
             Object item = mCalendarList.get(position);
             CalendarViewModel model = new CalendarViewModel();
-            Log.d("ccc",mCalendarList+"");
             if (item instanceof Calendar) {
-
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
                 model.setCalendar((Calendar) item);

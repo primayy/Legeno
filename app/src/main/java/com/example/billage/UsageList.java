@@ -14,8 +14,6 @@ public class UsageList {
 
 
     public UsageList(String date, String destination,String time, String cost,String usage_type) {
-
-    public UsageList(String date, String destination, String time, String cost, String usage_type) {
         this.date = date;
         this.cost = cost;
         this.destination = destination;

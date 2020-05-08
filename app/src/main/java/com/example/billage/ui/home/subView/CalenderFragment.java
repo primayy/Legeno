@@ -19,11 +19,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.billage.MonthUsageList;
 import com.example.billage.R;
 import com.example.billage.UsageList;
 import com.example.billage.adapter.CalendarAdapter;
 import com.example.billage.common.AppData;
 import com.example.billage.ui.calendar.CalendarListViewModel;
+import com.example.billage.utils.DateFormat;
 import com.example.billage.utils.Keys;
 import com.example.billage.databinding.CalendarListBinding;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -33,6 +35,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -109,24 +112,30 @@ public class CalenderFragment extends Fragment {
             model.initCalendarList();
         }
 
-        final ArrayList<UsageList> items = AppData.mdb.getTransDaysColumns();
-        observe(getActivity(),items);
+
+        //달별 수입,지출 합, 카운트 리턴
+
+        ArrayList<MonthUsageList> month_income = AppData.mdb.getTransMonthsColumns("입금");
+        ArrayList<MonthUsageList> month_usage = AppData.mdb.getTransMonthsColumns("출금");
+
+
+        ArrayList<UsageList> items = AppData.mdb.getTransDaysColumns();
+        observe(getActivity(),items,month_income,month_usage);
 
         return binding.getRoot();
     }
 
-    private void observe(FragmentActivity activity, final ArrayList<UsageList> items) {
+    private void observe(FragmentActivity activity, ArrayList<UsageList> items,ArrayList<MonthUsageList> month_income, ArrayList<MonthUsageList> month_usage) {
         model.mCalendarList.observe(activity, new Observer<ArrayList<Object>>() {
             @Override
             public void onChanged(ArrayList<Object> objects) {
-                Log.d("change","dd");
                 RecyclerView view = binding.pagerCalendar;
                 CalendarAdapter adapter = (CalendarAdapter) view.getAdapter();
                 if (adapter != null) {
                     adapter.setCalendarList(objects);
                 } else {
                     StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL);
-                    adapter = new CalendarAdapter(view.getContext(),objects,items);
+                    adapter = new CalendarAdapter(view.getContext(),objects,items, month_income, month_usage);
                     view.setLayoutManager(manager);
                     view.setAdapter(adapter);
 
