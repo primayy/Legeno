@@ -1,5 +1,6 @@
 package com.example.billage.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -10,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -19,10 +23,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.example.billage.MonthUsageList;
 import com.example.billage.UsageList;
 import com.example.billage.databinding.CalendarHeaderBinding;
 import com.example.billage.databinding.DayItemBinding;
 import com.example.billage.databinding.EmptyDayBinding;
+import com.example.billage.ui.addUsage.DetailUsage;
 import com.example.billage.ui.calendar.CalendarHeaderViewModel;
 import com.example.billage.ui.calendar.CalendarViewModel;
 import com.example.billage.ui.calendar.EmptyViewModel;
@@ -37,12 +43,17 @@ public class CalendarAdapter extends RecyclerView.Adapter {
 
     private List<Object> mCalendarList;
     private ArrayList<UsageList> usageList;
+    private ArrayList<MonthUsageList> monthIncome;
+    private ArrayList<MonthUsageList> monthUsage;
     private Context mContext;
 
-    public CalendarAdapter(Context mContext, List<Object> calendarList, ArrayList<UsageList> items) {
+    public CalendarAdapter(Context mContext, List<Object> calendarList, ArrayList<UsageList> items,ArrayList<MonthUsageList> month_income, ArrayList<MonthUsageList> month_usage) {
         this.mContext = mContext;
         mCalendarList = calendarList;
         usageList = items;
+        monthIncome = month_income;
+        monthUsage = month_usage;
+
     }
 
     public void setCalendarList(List<Object> calendarList) {
@@ -62,7 +73,6 @@ public class CalendarAdapter extends RecyclerView.Adapter {
 
         }
     }
-
 
     @NonNull
     @Override
@@ -91,12 +101,35 @@ public class CalendarAdapter extends RecyclerView.Adapter {
             Object item = mCalendarList.get(position);
             CalendarHeaderViewModel model = new CalendarHeaderViewModel();
             if (item instanceof Long) {
+
+                Calendar month = Calendar.getInstance();
+                Calendar current_month = Calendar.getInstance();
+                month.setTimeInMillis((Long)item);
+
+                // initialize
+                model.setHeaderEarn("수입: 0원");
+                model.setHeaderUsage("수입: 0원");
+                model.setHeaderCount("수입: 0건");
+
+                int index_tracker = 3 - (current_month.get(Calendar.MONTH) - month.get(Calendar.MONTH) );
+                int total_count = monthIncome.get(index_tracker).getCount() + monthUsage.get(index_tracker).getCount();
+
+                if(monthIncome.get(index_tracker).getCost().equals("")){
+                    model.setHeaderEarn("수입: 0원");
+                }else{
+                    model.setHeaderEarn("수입: "+monthIncome.get(index_tracker).getCost()+"원");//월간 수입 값 넣는 곳
+                }
+                if(monthUsage.get(index_tracker).getCost().equals("")){
+                    model.setHeaderEarn("지출: 0원");
+                }else{
+                    model.setHeaderUsage("지출: "+monthUsage.get(index_tracker).getCost()+"원"); //월간 지출 값 넣는 곳
+                }
+
                 model.setHeaderDate((Long) item);
-                model.setHeaderEarn("수입: "+"300000"+"원"); //월간 수입 값 넣는 곳
-                model.setHeaderUsage("지출: "+"250000"+"원"); //월간 지출 값 넣는 곳
-                model.setHeaderCount("거래 횟수: "+"24"+"건"); //월간 거래 수 값 넣는 곳
+                model.setHeaderCount("거래 횟수: "+total_count+"건"); //월간 거래 수 값 넣는 곳
             }
             holder.setViewModel(model);
+
         } else if (viewType == EMPTY_TYPE) { //비어있는 날짜 타입 꾸미기
             EmptyViewHolder holder = (EmptyViewHolder) viewHolder;
             EmptyViewModel model = new EmptyViewModel();
@@ -106,9 +139,31 @@ public class CalendarAdapter extends RecyclerView.Adapter {
             Object item = mCalendarList.get(position);
             CalendarViewModel model = new CalendarViewModel();
             if (item instanceof Calendar) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
                 model.setCalendar((Calendar) item);
-                model.setCalendarEarn("+"+"10000"); // 일간 수입 값 넣는 곳
-                model.setCalendarUsage("-"+"5000"); // 일간 지출 값 넣는 곳
+                model.setCalendarEarn("");
+                model.setCalendarUsage("");
+
+                for(int i=0;i<usageList.size();i++){
+                    try {
+                        Date date = dateFormat.parse(usageList.get(i).getDate());
+                        if(date.equals(((Calendar) item).getTime())){
+
+                            if(usageList.get(i).getUsage_type().equals("입금")){
+
+                               // model.setCalendarEarn("+"+usageList.get(i).getCost()); // 일간 수입 값 넣는 곳
+                                model.setCalendarEarn("+"+usageList.get(i).getCost());
+                            }else {
+                                model.setCalendarUsage("-" + usageList.get(i).getCost()); // 일간 지출 값 넣는 곳
+                                break;
+                            }
+
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
             holder.setViewModel(model);
 
@@ -162,8 +217,9 @@ public class CalendarAdapter extends RecyclerView.Adapter {
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent=new Intent(view.getContext() ,AddUsage.class);
-                    intent.putExtra("tmp",String.valueOf("sdfs"));
+                    Intent intent=new Intent(view.getContext() , DetailUsage.class);
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    intent.putExtra("click_date",simpleDateFormat.format(binding.getModel().getCalendar().getTime()));
                     mContext.startActivity(intent);
                 }
             });

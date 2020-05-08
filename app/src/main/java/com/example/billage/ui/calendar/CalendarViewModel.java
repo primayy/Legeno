@@ -17,9 +17,12 @@ public class CalendarViewModel extends ViewModel {
     public void setCalendarEarn(String earn) {
         this.mCalendarEarn.setValue(earn);
     }
+
     public void setCalendarUsage(String usage) {
         this.mCalendarUsage.setValue(usage);
     }
-
+    public Calendar getCalendar() {
+        return this.mCalendar.getValue();
+    }
 
 }

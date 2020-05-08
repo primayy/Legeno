@@ -12,6 +12,7 @@ public class UsageList {
     private String time;
     private String usage_type;
 
+
     public UsageList(String date, String destination,String time, String cost,String usage_type) {
         this.date = date;
         this.cost = cost;
@@ -33,6 +34,9 @@ public class UsageList {
     }
 
     public String getTime() { return time; }
+    public String getUsage_type() {return usage_type; }
+
+    public void setUsage_type(String usage_type) { this.usage_type = usage_type; }
 
     public void setDate(String date) {
         this.date = date;

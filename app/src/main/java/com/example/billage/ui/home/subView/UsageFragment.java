@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,32 +72,7 @@ public class UsageFragment extends Fragment {
 
 
         final ArrayList<UsageList> items = AppData.mdb.getTransColumns();
-//
-//        items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000","입금"));
-//        items.add(new UsageList("2020-04-20","다담국수","11:30:01","7000","입금"));
-//
-//        items.add(new UsageList("2020-04-20","꼬꼬마을","11:30:01","5000","입금"));
-//        items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000","입금"));
-//        items.add(new UsageList("2020-04-22","태화장","11:30:01","5000","입금"));
-//        items.add(new UsageList("2020-04-22","사이버블루 PC","11:30:01","30000","입금"));
-//        items.add(new UsageList("2020-04-22","꼬꼬마을","11:30:01","7000","입금"));
-//        items.add(new UsageList("2020-04-22","다담국수","11:30:01","5000","입금"));
-//        items.add(new UsageList("2020-04-23","다담국수","11:30:01","5000","입금"));
-//        items.add(new UsageList("2020-04-23","사이버블루 PC","11:30:01","10000","입금"));
-//        items.add(new UsageList("2020-04-23","태화장","11:30:01","7000","입금"));
-//        items.add(new UsageList("2020-04-23","다담국수","11:30:01","8000","입금"));
-//        items.add(new UsageList("2020-04-24","사이버블루 PC","11:30:01","20000","입금"));
-//        items.add(new UsageList("2020-04-24","꼬꼬마을","11:30:01","8000","입금"));
-//        items.add(new UsageList("2020-04-24","태화장","11:30:01","8000","입금"));
-//        items.add(new UsageList("2020-04-29","다담국수","11:30:01","7000","입금"));
-//        items.add(new UsageList("2020-04-29","사이버블루 PC","11:30:01","10000","입금"));
-
-
-
-
-
-        // ArrayAdapter 생성. 아이템 View를 선택(single choice)가능하도록 만듦.
-      //  final ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items) ;
+        Log.d("ddd",""+items.get(0).getDate());
 
         // listview 생성 및 adapter 지정.
         final ListView listview = (ListView) root.findViewById(R.id.usage_list) ;
