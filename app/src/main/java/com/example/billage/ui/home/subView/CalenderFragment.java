@@ -112,9 +112,7 @@ public class CalenderFragment extends Fragment {
             model.initCalendarList();
         }
 
-
         //달별 수입,지출 합, 카운트 리턴
-
         ArrayList<MonthUsageList> month_income = AppData.mdb.getTransMonthsColumns("입금");
         ArrayList<MonthUsageList> month_usage = AppData.mdb.getTransMonthsColumns("출금");
 

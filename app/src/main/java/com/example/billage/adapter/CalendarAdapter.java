@@ -1,5 +1,6 @@
 package com.example.billage.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -27,6 +28,7 @@ import com.example.billage.UsageList;
 import com.example.billage.databinding.CalendarHeaderBinding;
 import com.example.billage.databinding.DayItemBinding;
 import com.example.billage.databinding.EmptyDayBinding;
+import com.example.billage.ui.addUsage.DetailUsage;
 import com.example.billage.ui.calendar.CalendarHeaderViewModel;
 import com.example.billage.ui.calendar.CalendarViewModel;
 import com.example.billage.ui.calendar.EmptyViewModel;
@@ -215,8 +217,9 @@ public class CalendarAdapter extends RecyclerView.Adapter {
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent=new Intent(view.getContext() ,AddUsage.class);
-                    intent.putExtra("tmp",String.valueOf("sdfs"));
+                    Intent intent=new Intent(view.getContext() , DetailUsage.class);
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    intent.putExtra("click_date",simpleDateFormat.format(binding.getModel().getCalendar().getTime()));
                     mContext.startActivity(intent);
                 }
             });

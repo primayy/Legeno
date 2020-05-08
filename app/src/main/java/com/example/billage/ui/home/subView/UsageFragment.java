@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,7 @@ public class UsageFragment extends Fragment {
 
 
         final ArrayList<UsageList> items = AppData.mdb.getTransColumns();
+        Log.d("ddd",""+items.get(0).getDate());
 
         // listview 생성 및 adapter 지정.
         final ListView listview = (ListView) root.findViewById(R.id.usage_list) ;
