@@ -115,6 +115,8 @@ public class CalendarAdapter extends RecyclerView.Adapter {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
                 model.setCalendar((Calendar) item);
+                model.setCalendarEarn("");
+                model.setCalendarUsage("");
 
                 for(int i=0;i<usageList.size();i++){
                     try {
@@ -135,9 +137,6 @@ public class CalendarAdapter extends RecyclerView.Adapter {
                         e.printStackTrace();
                     }
                 }
-
-
-
             }
             holder.setViewModel(model);
 
