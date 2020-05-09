@@ -1,14 +1,47 @@
 package com.example.billage.ui.home.subView;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.billage.MonthUsageList;
 import com.example.billage.R;
+import com.example.billage.UsageList;
+import com.example.billage.adapter.CalendarAdapter;
+import com.example.billage.common.AppData;
+import com.example.billage.ui.calendar.CalendarListViewModel;
+import com.example.billage.utils.DateFormat;
+import com.example.billage.utils.Keys;
+import com.example.billage.databinding.CalendarListBinding;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
+
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,10 +53,13 @@ public class CalenderFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private CalendarListBinding binding;
+    private CalendarListViewModel model;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ViewModelProvider.AndroidViewModelFactory viewModelFactory;
 
     public CalenderFragment() {
         // Required empty public constructor
@@ -60,6 +96,54 @@ public class CalenderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calender, container, false);
+
+
+
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_calender,container,false);
+
+        if(viewModelFactory == null){
+            viewModelFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication());
+        }
+        model = new ViewModelProvider(getActivity(),viewModelFactory).get(CalendarListViewModel.class);
+        binding.setModel(model);
+        binding.setLifecycleOwner(getActivity());
+
+        if (model != null) {
+            model.initCalendarList();
+        }
+
+        //달별 수입,지출 합, 카운트 리턴
+        ArrayList<MonthUsageList> month_income = AppData.mdb.getTransMonthsColumns("입금");
+        ArrayList<MonthUsageList> month_usage = AppData.mdb.getTransMonthsColumns("출금");
+
+
+        ArrayList<UsageList> items = AppData.mdb.getTransDaysColumns();
+        observe(getActivity(),items,month_income,month_usage);
+
+        return binding.getRoot();
     }
+
+    private void observe(FragmentActivity activity, ArrayList<UsageList> items,ArrayList<MonthUsageList> month_income, ArrayList<MonthUsageList> month_usage) {
+        model.mCalendarList.observe(activity, new Observer<ArrayList<Object>>() {
+            @Override
+            public void onChanged(ArrayList<Object> objects) {
+                RecyclerView view = binding.pagerCalendar;
+                CalendarAdapter adapter = (CalendarAdapter) view.getAdapter();
+                if (adapter != null) {
+                    adapter.setCalendarList(objects);
+                } else {
+                    StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL);
+                    adapter = new CalendarAdapter(view.getContext(),objects,items, month_income, month_usage);
+                    view.setLayoutManager(manager);
+                    view.setAdapter(adapter);
+
+                    if (model.mCenterPosition >= 0) {
+                        view.scrollToPosition(model.mCenterPosition);
+                    }
+                }
+            }
+        });
+    }
+
+
 }

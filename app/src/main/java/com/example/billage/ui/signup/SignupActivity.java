@@ -8,10 +8,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.example.billage.R;
+import com.example.billage.JSONTask_Post;
+
 
 public class SignupActivity extends AppCompatActivity {
+
+    TextView tvData;
+
+    public void settvData(String data){
+        this.tvData.setText(data);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +51,21 @@ public class SignupActivity extends AppCompatActivity {
                 String nickname = input_text2.getText().toString();
                 Log.d("test",name);
                 Log.d("test",nickname);
+
+                try {
+                    //서버에 JSON data post
+                    JSONObject signupData = new JSONObject();
+                    signupData.accumulate("name", name);
+                    signupData.accumulate("nickname",nickname);
+                    JSONTask_Post jsonTask= new JSONTask_Post(signupData);
+                    jsonTask.execute("http://192.168.0.9:3000/UserBack/SignUp");
+
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
             }
         });
     }
 }
+
+
