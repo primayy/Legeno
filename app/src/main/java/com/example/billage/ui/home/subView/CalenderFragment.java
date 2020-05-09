@@ -1,10 +1,12 @@
 package com.example.billage.ui.home.subView;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,19 +19,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.billage.MonthUsageList;
 import com.example.billage.R;
 import com.example.billage.UsageList;
 import com.example.billage.adapter.CalendarAdapter;
+import com.example.billage.common.AppData;
 import com.example.billage.ui.calendar.CalendarListViewModel;
+import com.example.billage.utils.DateFormat;
 import com.example.billage.utils.Keys;
 import com.example.billage.databinding.CalendarListBinding;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -49,6 +59,7 @@ public class CalenderFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ViewModelProvider.AndroidViewModelFactory viewModelFactory;
 
     public CalenderFragment() {
         // Required empty public constructor
@@ -86,8 +97,14 @@ public class CalenderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+
+
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_calender,container,false);
-        model = ViewModelProviders.of(getActivity()).get(CalendarListViewModel.class);
+
+        if(viewModelFactory == null){
+            viewModelFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication());
+        }
+        model = new ViewModelProvider(getActivity(),viewModelFactory).get(CalendarListViewModel.class);
         binding.setModel(model);
         binding.setLifecycleOwner(getActivity());
 
@@ -95,37 +112,19 @@ public class CalenderFragment extends Fragment {
             model.initCalendarList();
         }
 
-
-        final ArrayList<UsageList> items = new ArrayList<>();
-
-        items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000","입금"));
-        items.add(new UsageList("2020-04-20","다담국수","11:30:01","7000","입금"));
-
-        items.add(new UsageList("2020-04-20","꼬꼬마을","11:30:01","5000","입금"));
-        items.add(new UsageList("2020-04-20","사이버블루 PC","11:30:01","10000","입금"));
-        items.add(new UsageList("2020-04-22","태화장","11:30:01","5000","입금"));
-        items.add(new UsageList("2020-04-22","사이버블루 PC","11:30:01","30000","입금"));
-        items.add(new UsageList("2020-04-22","꼬꼬마을","11:30:01","7000","입금"));
-        items.add(new UsageList("2020-04-22","다담국수","11:30:01","5000","입금"));
-        items.add(new UsageList("2020-04-23","다담국수","11:30:01","5000","입금"));
-        items.add(new UsageList("2020-04-23","사이버블루 PC","11:30:01","10000","입금"));
-        items.add(new UsageList("2020-04-23","태화장","11:30:01","7000","입금"));
-        items.add(new UsageList("2020-04-23","다담국수","11:30:01","8000","입금"));
-        items.add(new UsageList("2020-04-24","사이버블루 PC","11:30:01","20000","입금"));
-        items.add(new UsageList("2020-04-24","꼬꼬마을","11:30:01","8000","입금"));
-        items.add(new UsageList("2020-04-24","태화장","11:30:01","8000","입금"));
-        items.add(new UsageList("2020-04-29","다담국수","11:30:01","7000","입금"));
-        items.add(new UsageList("2020-04-29","사이버블루 PC","11:30:01","10000","입금"));
-
-        observe(items);
+        //달별 수입,지출 합, 카운트 리턴
+        ArrayList<MonthUsageList> month_income = AppData.mdb.getTransMonthsColumns("입금");
+        ArrayList<MonthUsageList> month_usage = AppData.mdb.getTransMonthsColumns("출금");
 
 
+        ArrayList<UsageList> items = AppData.mdb.getTransDaysColumns();
+        observe(getActivity(),items,month_income,month_usage);
 
         return binding.getRoot();
     }
 
-    private void observe(final ArrayList<UsageList> items) {
-        model.mCalendarList.observe(getActivity(), new Observer<ArrayList<Object>>() {
+    private void observe(FragmentActivity activity, ArrayList<UsageList> items,ArrayList<MonthUsageList> month_income, ArrayList<MonthUsageList> month_usage) {
+        model.mCalendarList.observe(activity, new Observer<ArrayList<Object>>() {
             @Override
             public void onChanged(ArrayList<Object> objects) {
                 RecyclerView view = binding.pagerCalendar;
@@ -134,12 +133,11 @@ public class CalenderFragment extends Fragment {
                     adapter.setCalendarList(objects);
                 } else {
                     StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL);
-                    adapter = new CalendarAdapter(view.getContext(),objects,items);
+                    adapter = new CalendarAdapter(view.getContext(),objects,items, month_income, month_usage);
                     view.setLayoutManager(manager);
                     view.setAdapter(adapter);
 
                     if (model.mCenterPosition >= 0) {
-                        Log.d("ddd", model.mCenterPosition+"");
                         view.scrollToPosition(model.mCenterPosition);
                     }
                 }

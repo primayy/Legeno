@@ -73,7 +73,7 @@ public class DbOpenHelper {
     public ArrayList<UsageList> getTransColumns(){
         ArrayList<UsageList> trans_data = new ArrayList<UsageList>();
 
-        String query = "SELECT * from 'transaction' order by date asc";
+        String query = "SELECT * from 'transaction' order by date desc";
 
         Cursor c = mDB.rawQuery(query,null);
 
