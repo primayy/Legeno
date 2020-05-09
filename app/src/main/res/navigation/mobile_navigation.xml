@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.billage.ui.home.HomeFragment"
+        android:name="com.example.billage.frontend.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/home" />
 
     <fragment
         android:id="@+id/navigation_billage"
-        android:name="com.example.billage.ui.billage.BillageFragment"
+        android:name="com.example.billage.frontend.ui.billage.BillageFragment"
         android:label="@string/title_billge"
         tools:layout="@layout/quest" />
 
     <fragment
         android:id="@+id/navigation_quest"
-        android:name="com.example.billage.ui.quest.QuestFragment"
+        android:name="com.example.billage.frontend.ui.quest.QuestFragment"
         android:label="@string/title_quest"
         tools:layout="@layout/billage" />
 
     <fragment
         android:id="@+id/navigation_mypage"
-        android:name="com.example.billage.ui.mypage.MypageFragment"
+        android:name="com.example.billage.frontend.ui.mypage.MypageFragment"
         android:label="@string/title_mypage"
         tools:layout="@layout/billage" />
 </navigation>
