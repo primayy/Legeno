@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".common.AppData"
+        android:name=".backend.common.AppData"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,27 +18,27 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.addUsage.DetailUsage"
+            android:name=".frontend.ui.addUsage.DetailUsage"
             android:label="상세정보">
 
         </activity>
         <activity
-            android:name=".ui.addUsage.AddUsage"
+            android:name=".frontend.ui.addUsage.AddUsage"
             android:label="내역추가">
 
         </activity>
         <activity
-            android:name=".ui.signup.SignupActivity"
+            android:name=".frontend.ui.signup.SignupActivity"
             android:label="회원가입" />
         <activity
-            android:name=".MainActivity"
+            android:name=".frontend.MainActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
             android:label="@string/app_name"
             android:launchMode="singleTask">
 
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".frontend.ui.SplashActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/SplashTheme">
             <intent-filter>

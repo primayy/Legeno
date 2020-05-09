@@ -10,7 +10,7 @@
 
         <variable
             name="model"
-            type="com.example.billage.ui.calendar.CalendarViewModel" />
+            type="com.example.billage.frontend.ui.calendar.CalendarViewModel" />
 
     </data>
 
