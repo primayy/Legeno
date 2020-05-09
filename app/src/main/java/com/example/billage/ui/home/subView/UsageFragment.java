@@ -72,7 +72,7 @@ public class UsageFragment extends Fragment {
 
 
         final ArrayList<UsageList> items = AppData.mdb.getTransColumns();
-        Log.d("ddd",""+items.get(0).getDate());
+        //Log.d("ddd",""+items.get(0).getDate());
 
         // listview 생성 및 adapter 지정.
         final ListView listview = (ListView) root.findViewById(R.id.usage_list) ;
