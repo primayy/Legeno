@@ -115,15 +115,15 @@ public class DbOpenHelper {
         String befor_month = Utils.getYear()+"0"+String.valueOf(befor);
         String cur_month = Utils.getYear()+"0"+String.valueOf(cur);
 
-        String query = "SELECT avg(money) from 'transaction' where inout='"+ inout +"' and date >='" + befor_month + "' and date <'" + cur_month+"'";
+        String query = "SELECT sum(money) from 'transaction' where inout='"+ inout +"' and date >='" + befor_month + "' and date <'" + cur_month+"'";
 
         Cursor c = mDB.rawQuery(query,null);
 
         //idx 0: avg
         if(c.moveToFirst()){
             do{
-                Log.d("avg_data",c.getString(0));
-                trans_avg = (int) Double.parseDouble(c.getString(0));
+                trans_avg = (int) Double.parseDouble(c.getString(0))/90;
+                Log.d("avg_data", String.valueOf(trans_avg));
             }while (c.moveToNext());
         }
         return trans_avg;
