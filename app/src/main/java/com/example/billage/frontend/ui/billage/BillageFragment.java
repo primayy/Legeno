@@ -21,54 +21,27 @@ public class BillageFragment extends Fragment {
     private MainActivity mainActivity;
     View playerView;
     FrameLayout father;
-    private BillageViewModel billageViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        billageViewModel =
-//                ViewModelProviders.of(this).get(BillageViewModel.class);
-
-//        final TextView textView = root.findViewById(R.id.text_notifications);
-//        billageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//           public void onChanged(@Nullable String s) {
-//               textView.setText(s);
-//           }
-//        });
         playerView = inflater.inflate(R.layout.billage, container, false);
         father =(FrameLayout)playerView.findViewById(R.id.layout2);
 
-        if(mUnityPlayer!=null)
-            father.addView(mUnityPlayer.getView(), 0);
+        if(mUnityPlayer!=null) {
+                father.addView(mUnityPlayer.getView(), 0);
+        }
         else
             Log.d("unity","no player");
-
-          //  mUnityPlayer.requestFocus();
-        mUnityPlayer.windowFocusChanged(true);
-        //LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.FILL_PARENT);
-       // playerView.setLayoutParams(lp);
-//        if(playerView.getParent() != null){
-//            ((ViewGroup)playerView.getParent()).removeAllViews();
-//        }
-        return playerView;
-        /*
-        View root = inflater.inflate(R.layout.billage, container, false);
-        mUnityPlayer = new UnityPlayer(getActivity());
-
-        father = (FrameLayout)root.findViewById(R.id.layout2);
-
-
-        father.addView(mUnityPlayer.getView(), 0);
 
         mUnityPlayer.requestFocus();
         mUnityPlayer.windowFocusChanged(true);
 
+        return playerView;
 
-        return root;*/
     }
 
     @Override
     public void onAttach(Context context) {
+        Log.d("unity","onAttached");
         super.onAttach(context);
         if(getActivity() != null && getActivity() instanceof MainActivity){
             mUnityPlayer = (UnityPlayer)((MainActivity) getActivity()).GetUnityPlayer();
@@ -79,10 +52,38 @@ public class BillageFragment extends Fragment {
     @Override public void onDestroy ()
     {
         Log.d("unity", "destroied");
-
         father.removeView(mUnityPlayer.getView());
         super.onDestroy();
     }
+
+    // Pause Unity
+    @Override public void onPause()
+    {
+        Log.d("unity", "paused");
+        super.onPause();
+    }
+
+    // Resume Unity
+    @Override public void onResume()
+    {
+        Log.d("unity", "resumed");
+        super.onResume();
+    }
+
+    @Override public void onStart()
+    {
+        //father.removeView(mUnityPlayer.getView());
+        Log.d("unity", "started");
+        super.onStart();
+    }
+
+    @Override public void onStop()
+    {
+        Log.d("unity", "stopped");
+        super.onStop();
+    }
+
+
 /*
     // Pause Unity
     @Override public void onPause()
