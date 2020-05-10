@@ -10,7 +10,7 @@
 
         <variable
             name="model"
-            type="com.example.billage.ui.calendar.CalendarHeaderViewModel" />
+            type="com.example.billage.frontend.ui.calendar.CalendarHeaderViewModel" />
     </data>
 
     <LinearLayout

@@ -23,7 +23,7 @@
         android:layout_weight="5"
         android:gravity="start"
         android:paddingLeft="@dimen/activity_padding_left"
-        android:paddingBottom="5dp"
+        android:paddingVertical="5dp"
         android:text="sdfs"
         android:visibility="gone" />
 
@@ -33,10 +33,10 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingBottom="10dp">
+        android:paddingVertical="5dp">
 
         <TextView
-            android:id="@+id/cost"
+            android:id="@+id/destination"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
@@ -53,10 +53,10 @@
             android:text="sdfs" />
 
         <TextView
-            android:id="@+id/destination"
+            android:id="@+id/cost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:gravity="end"
             android:paddingRight="@dimen/activity_padding_left"
             android:text="sdfs" />

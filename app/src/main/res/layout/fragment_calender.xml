@@ -10,14 +10,15 @@
 
         <variable
             name="model"
-            type="com.example.billage.ui.calendar.CalendarListViewModel" />
+            type="com.example.billage.frontend.ui.calendar.CalendarListViewModel" />
 
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="60dp">
 
         <!--요일-->
         <LinearLayout

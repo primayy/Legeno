@@ -10,7 +10,7 @@
 
         <variable
             name="model"
-            type="com.example.billage.ui.calendar.EmptyViewModel" />
+            type="com.example.billage.frontend.ui.calendar.EmptyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
