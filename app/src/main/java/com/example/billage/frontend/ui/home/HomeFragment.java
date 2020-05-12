@@ -44,19 +44,6 @@ public class HomeFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-
-        FloatingActionButton usageButton = (FloatingActionButton) root.findViewById(R.id.add_usage);
-        usageButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getActivity(), SignupActivity.class);
-                intent.putExtra("tmp",String.valueOf("sdfs"));
-                startActivity(intent);
-            }
-        });
-
-
         return root;
     }
 

@@ -34,5 +34,10 @@
         <item name="android:fontFamily">@font/nanumsquareround</item>
     </style>
 
+    <style name="AppThemeActionBar" parent="@style/Widget.AppCompat.ActionBar">
+
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
+    </style>
 
 </resources>
