@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_line"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -27,41 +28,84 @@
         android:text="sdfs"
         android:visibility="gone" />
 
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingVertical="5dp">
+        card_view:cardCornerRadius="17dp"
+        android:layout_marginLeft="18.3dp"
+        android:layout_marginRight="18.7dp"
+        android:layout_marginBottom="15dp">
 
-        <TextView
-            android:id="@+id/destination"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:gravity="start"
-            android:paddingLeft="@dimen/activity_padding_left"
-            android:text="sdfs" />
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:gravity="start"
-            android:paddingLeft="@dimen/activity_padding_left"
-            android:text="sdfs" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="10dp"
+            android:paddingVertical="10dp">
 
-        <TextView
-            android:id="@+id/cost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:gravity="end"
-            android:paddingRight="@dimen/activity_padding_left"
-            android:text="sdfs" />
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/type_image"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_weight="5"
+                android:layout_marginHorizontal="5dp"
+                android:src="@drawable/deposit"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/destination"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/bank_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:text="TextView" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="start"
+                android:paddingLeft="@dimen/activity_padding_left"
+                android:text="sdfs" />
+
+            <TextView
+                android:id="@+id/cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="end"
+                android:paddingRight="@dimen/activity_padding_left"
+                android:text="sdfs" />
+
+
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
 
 
 </LinearLayout>

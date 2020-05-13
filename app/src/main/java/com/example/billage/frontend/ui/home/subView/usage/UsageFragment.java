@@ -1,11 +1,10 @@
-package com.example.billage.frontend.ui.home.subView;
+package com.example.billage.frontend.ui.home.subView.usage;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import com.example.billage.frontend.adapter.UsageAdapter;
 import com.example.billage.frontend.data.UsageList;
 import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.ui.addUsage.AddUsage;
-import com.example.billage.frontend.ui.signup.SignupActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

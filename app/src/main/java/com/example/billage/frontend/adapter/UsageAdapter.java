@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,11 +25,13 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
     private ListView mListView;
 
 
-    class UserViewHolder {
+    static class UserViewHolder {
         public TextView date;
         public TextView cost;
         public TextView destination;
         public TextView time;
+        public ImageView type_image;
+        public TextView bank_name;
 
     }
 
@@ -66,6 +69,9 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
             viewHolder.cost = (TextView) rowView.findViewById(R.id.cost);
             viewHolder.destination = (TextView) rowView.findViewById(R.id.destination);
             viewHolder.time = (TextView) rowView.findViewById(R.id.time);
+            viewHolder.type_image= (ImageView) rowView.findViewById(R.id.type_image);
+            viewHolder.bank_name = (TextView) rowView.findViewById(R.id.bank_name);
+
 
             rowView.setTag(viewHolder);
 
@@ -108,10 +114,15 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
         viewHolder.destination.setText(usage.getDestination());
         viewHolder.time.setText(usage.getTime());
 
+        // 추후 수정
+        viewHolder.bank_name.setText("신한 은행(카드)");
+
         if(usage.getUsage_type().equals("입금")){
             viewHolder.cost.setText("+ "+usage.getCost()+"원");
+            viewHolder.type_image.setImageResource(R.drawable.deposit);
         }else {
             viewHolder.cost.setText("- "+usage.getCost()+"원");
+            viewHolder.type_image.setImageResource(R.drawable.withdarw);
         }
 
 
