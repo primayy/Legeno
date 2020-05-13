@@ -81,7 +81,7 @@ public class UsageFragment extends Fragment {
        // listview.setAdapter(adapter) ;
 
 
-        final UsageAdapter usageAdapter = new UsageAdapter(getActivity(),items,listview);
+        final UsageAdapter usageAdapter = new UsageAdapter(getActivity(),items,listview,getActivity());
         listview.setAdapter(usageAdapter);
 
         FloatingActionButton usageButton = (FloatingActionButton) root.findViewById(R.id.add_usage);

@@ -7,14 +7,18 @@ public class UsageList {
     private String destination;
     private String time;
     private String usage_type;
+    private String memo;
 
 
-    public UsageList(String date, String destination,String time, String cost,String usage_type) {
+
+
+    public UsageList(String date, String destination, String time, String cost, String usage_type) {
         this.date = date;
         this.cost = cost;
         this.destination = destination;
         this.time=time;
         this.usage_type = usage_type;
+        this.memo = "default"; // 추후 수정
     }
 
     public String getDate() {
@@ -47,5 +51,12 @@ public class UsageList {
     }
 
     public void setTime(String time) { this.time = time; }
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
 
 }

@@ -7,6 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textViewStyle">@style/TextViewStyle</item>
+        <item name="android:selectableItemBackgroundBorderless">@drawable/ripple</item>
+
 
     </style>
 
@@ -39,5 +41,7 @@
         <item name="contentInsetStart">0dp</item>
         <item name="contentInsetEnd">0dp</item>
     </style>
+
+
 
 </resources>
