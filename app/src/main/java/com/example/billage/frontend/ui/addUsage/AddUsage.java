@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,11 +16,13 @@ import android.os.Build;
 import android.os.Bundle;
 import com.example.billage.R;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -186,6 +189,13 @@ public class AddUsage extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.custom_actionbar_addpage);
     }
     private void set_custom_actionbar_detailpage() {
+//
+//        ActionBar actionBar = getSupportActionBar();
+//        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View custom_activity = inflater.inflate(R.layout.custom_actionbar_addpage,null);
+//        TextView title_text = custom_activity.findViewById(R.id.mytext);
+//        title_text.setText("상세정보");
+//        actionBar.setCustomView(custom_activity);
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_actionbar_detailpage);
