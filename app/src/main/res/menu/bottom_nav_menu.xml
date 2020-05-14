@@ -17,8 +17,8 @@
         android:title="@string/title_quest" />
 
     <item
-        android:id="@+id/navigation_mypage"
-        android:icon="@drawable/ic_settings_24px"
-        android:title="@string/title_mypage" />
+    android:id="@+id/navigation_mypage"
+    android:icon="@drawable/ic_settings_24px"
+    android:title="@string/title_mypage" />
 
 </menu>

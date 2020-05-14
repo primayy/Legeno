@@ -25,7 +25,7 @@ import com.example.billage.frontend.data.UsageList;
 import com.example.billage.databinding.CalendarHeaderBinding;
 import com.example.billage.databinding.DayItemBinding;
 import com.example.billage.databinding.EmptyDayBinding;
-import com.example.billage.frontend.ui.addUsage.DetailUsage;
+import com.example.billage.frontend.ui.addUsage.CalendarDetailUsage;
 import com.example.billage.frontend.ui.calendar.CalendarHeaderViewModel;
 import com.example.billage.frontend.ui.calendar.CalendarViewModel;
 import com.example.billage.frontend.ui.calendar.EmptyViewModel;
@@ -213,7 +213,7 @@ public class CalendarAdapter extends RecyclerView.Adapter {
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent=new Intent(view.getContext() , DetailUsage.class);
+                    Intent intent=new Intent(view.getContext() , CalendarDetailUsage.class);
                     @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     intent.putExtra("click_date",simpleDateFormat.format(binding.getModel().getCalendar().getTime()));
                     mContext.startActivity(intent);

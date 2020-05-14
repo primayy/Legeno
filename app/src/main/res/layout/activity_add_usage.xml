@@ -6,4 +6,201 @@
     android:layout_height="match_parent"
     tools:context=".frontend.ui.addUsage.AddUsage">
 
+
+    <EditText
+        android:id="@+id/time_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:ems="10"
+        android:focusable="false"
+        android:gravity="right"
+        android:hint=""
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dest_input"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/dest_input"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.405" />
+
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시간"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dest_text"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="@+id/dest_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.405" />
+
+    <EditText
+        android:id="@+id/memo_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:lines="1"
+        android:scrollHorizontally="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.582"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_input"
+        app:layout_constraintVertical_bias="0.369" />
+
+    <TextView
+        android:id="@+id/memo_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="메모"
+        android:textSize="15sp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/memo_input"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_text"
+        app:layout_constraintVertical_bias="0.392" />
+
+    <EditText
+        android:id="@+id/dest_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="right"
+        android:hint="장소를 입력해주세요"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/memo_input"
+        app:layout_constraintEnd_toEndOf="@+id/memo_input"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/memo_input"
+        app:layout_constraintTop_toBottomOf="@+id/time_input"
+        app:layout_constraintVertical_bias="0.481" />
+
+    <TextView
+        android:id="@+id/dest_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="거래 장소"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/memo_text"
+        app:layout_constraintEnd_toEndOf="@+id/memo_text"
+        app:layout_constraintStart_toStartOf="@+id/memo_text"
+        app:layout_constraintTop_toBottomOf="@+id/time_text" />
+
+
+    <TextView
+        android:id="@+id/type_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="유형"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/cost_text"
+        app:layout_constraintEnd_toEndOf="@+id/cost_text"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/cost_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <TextView
+        android:id="@+id/cost_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="금액"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/time_text"
+        app:layout_constraintEnd_toEndOf="@+id/date_text"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/date_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.427" />
+
+    <EditText
+        android:id="@+id/cost_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="right"
+        android:hint="0"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/time_input"
+        app:layout_constraintEnd_toEndOf="@+id/date_input"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/date_input"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.436" />
+
+    <EditText
+        android:id="@+id/date_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:ems="10"
+        android:focusable="false"
+        android:gravity="right"
+        app:layout_constraintBottom_toTopOf="@+id/time_input"
+        app:layout_constraintEnd_toEndOf="@+id/time_input"
+        app:layout_constraintStart_toStartOf="@+id/time_input"
+        app:layout_constraintTop_toBottomOf="@+id/cost_input" />
+
+    <TextView
+        android:id="@+id/date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="날짜"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/time_text"
+        app:layout_constraintEnd_toEndOf="@+id/time_text"
+        app:layout_constraintStart_toStartOf="@+id/time_text"
+        app:layout_constraintTop_toBottomOf="@+id/cost_text" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/cost_input"
+        app:layout_constraintEnd_toEndOf="@+id/cost_input"
+        app:layout_constraintStart_toStartOf="@+id/cost_input"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <RadioButton
+            android:id="@+id/income_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            android:text="수입"
+            tools:layout_editor_absoluteX="124dp"
+            tools:layout_editor_absoluteY="22dp" />
+
+        <RadioButton
+            android:id="@+id/usage_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지출"
+            tools:layout_editor_absoluteX="203dp"
+            tools:layout_editor_absoluteY="22dp" />
+
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="원"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cost_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.234"
+        app:layout_constraintStart_toEndOf="@+id/cost_input"
+        app:layout_constraintTop_toTopOf="@+id/cost_input" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
