@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.billage.R;
+import com.example.billage.backend.api.Account_balance;
 import com.example.billage.backend.api.Account_transaction;
 import com.example.billage.backend.common.AppData;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -42,13 +43,14 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("access_token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJUOTkxNjIwODEwIiwic2NvcGUiOlsib29iIl0sImlzcyI6Imh0dHBzOi8vd3d3Lm9wZW5iYW5raW5nLm9yLmtyIiwiZXhwIjoxNTk2MDIwODIxLCJqdGkiOiI1MmI5OGIwMy1iYTU1LTRiOTEtYjRhNS00ZGFlNDIwNjE4ZGYifQ.esJCewec6IN-D3QH34DLDpYfenr5oKdRFt2f-25Nfhg");
         editor.putString("client_use_code","T991620810");
         editor.apply();
-
         // 거래내역조회 앱 디비에 데이터 넣을거면 이거 한번 실행하고 다시 주석처리
         // 주석 처리 안하면 같은 데이터 계속 추가됨 -> 수정할 예정
-        //Account_transaction.request_transaction("20200429","20200501");
+//        Account_transaction.request_transaction("20200429","20200501");
 
-
-
+        //잔액 조회
+//        Account_balance.request_balance();
+//        String balance = AppData.getPref().getString("balance","");
+//        Log.d("balance",balance);
 
 
 
