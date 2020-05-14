@@ -54,7 +54,6 @@ public class Account_transaction {
                             JsonObject json = new JsonParser().parse(responseJson).getAsJsonObject();
                             JsonArray value = json.getAsJsonArray("res_list");
                             Log.d("tran_size", String.valueOf(value.size()));
-
                             for(int i = 0 ; i<value.size(); i++){
                                 JsonObject trans = value.get(i).getAsJsonObject();
                                 JsonElement tran_date = trans.get("tran_date");

@@ -40,15 +40,19 @@ public class Account_balance {
                     @Override
                     public void onResponse(@NotNull Call<Map> call, @NotNull Response<Map> response) {
                         if(response.isSuccessful()){
-                            String responseJson = new Gson().toJson(response.body());
-                            JsonObject json = new JsonParser().parse(responseJson).getAsJsonObject();
-                            JsonElement amt_elem = json.get("balance_amt");
-                            String amt = amt_elem.getAsString();
-                            Log.d("balance_amt", amt);
+                            try {
+                                String responseJson = new Gson().toJson(response.body());
+                                JsonObject json = new JsonParser().parse(responseJson).getAsJsonObject();
+                                JsonElement amt_elem = json.get("balance_amt");
+                                String amt = amt_elem.getAsString();
+                                Log.d("balance_amt", amt);
 
-                            SharedPreferences.Editor editor = AppData.getPref().edit();
-                            editor.putString("balance",amt);
-                            editor.apply();
+                                SharedPreferences.Editor editor = AppData.getPref().edit();
+                                editor.putString("balance",amt);
+                                editor.apply();
+                            } catch (Exception e){
+                                Log.d("balance_err", String.valueOf(e));
+                            }
                         }
                     }
 

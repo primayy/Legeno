@@ -125,7 +125,7 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
         viewHolder.time.setText(usage.getTime());
 
         // 추후 수정
-        viewHolder.bank_name.setText("신한 은행(카드)");
+        viewHolder.bank_name.setText(usage.getBank_name());
 
         if(usage.getUsage_type().equals("입금")){
             viewHolder.cost.setText("+ "+usage.getCost()+"원");

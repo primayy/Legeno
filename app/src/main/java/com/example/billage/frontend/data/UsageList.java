@@ -1,23 +1,26 @@
 package com.example.billage.frontend.data;
 
-public class UsageList {
+import com.example.billage.backend.common.Utils;
 
+public class UsageList {
+    private Integer id;
     private String date;
     private String cost;
     private String destination;
     private String time;
     private String usage_type;
     private String memo;
-    private String bank_code;
+    private String bank_name;
 
-    public UsageList(String date, String destination, String time, String cost, String usage_type,String bank_code,String memo) {
+    public UsageList(String date, String destination, String time, String cost, String usage_type, String bank_code, String memo, Integer id) {
         this.date = date;
         this.cost = cost;
         this.destination = destination;
         this.time=time;
         this.usage_type = usage_type;
-        this.memo = memo; // 추후 수정
-        this.bank_code = bank_code;
+        this.memo = memo;
+        this.bank_name = Utils.bankCodeMapping(bank_code);
+        this.id = id;
     }
 
     public String getDate() {
@@ -58,12 +61,15 @@ public class UsageList {
         this.memo = memo;
     }
 
-    public String getBank_code() {
-        return bank_code;
+    public String getBank_name() {
+        return bank_name;
     }
 
-    public void setBank_code(String bank_code) {
-        this.bank_code = bank_code;
+    public void setBank_name(String bank_name) {
+        this.bank_name = bank_name;
     }
 
+    public Integer getId() {
+        return id;
+    }
 }
