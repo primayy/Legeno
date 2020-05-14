@@ -8,17 +8,16 @@ public class UsageList {
     private String time;
     private String usage_type;
     private String memo;
+    private String bank_code;
 
-
-
-
-    public UsageList(String date, String destination, String time, String cost, String usage_type) {
+    public UsageList(String date, String destination, String time, String cost, String usage_type,String bank_code,String memo) {
         this.date = date;
         this.cost = cost;
         this.destination = destination;
         this.time=time;
         this.usage_type = usage_type;
-        this.memo = "default"; // 추후 수정
+        this.memo = memo; // 추후 수정
+        this.bank_code = bank_code;
     }
 
     public String getDate() {
@@ -57,6 +56,14 @@ public class UsageList {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public String getBank_code() {
+        return bank_code;
+    }
+
+    public void setBank_code(String bank_code) {
+        this.bank_code = bank_code;
     }
 
 }
