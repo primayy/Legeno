@@ -1,4 +1,4 @@
-package com.example.billage.frontend.ui.home.subView;
+package com.example.billage.frontend.ui.home.subView.statistic;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;

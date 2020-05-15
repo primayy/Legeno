@@ -22,12 +22,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class DetailUsage extends AppCompatActivity {
+public class CalendarDetailUsage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_usage);
+        setContentView(R.layout.activity_calendar_detail_usage);
 
         Intent intent = getIntent();
         String click_date = Objects.requireNonNull(intent.getExtras()).getString("click_date");
@@ -49,6 +49,7 @@ public class DetailUsage extends AppCompatActivity {
         });
 
         createListView(click_date);
+
 
     }
 

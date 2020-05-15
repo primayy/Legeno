@@ -1,10 +1,10 @@
-package com.example.billage.frontend.ui.home.subView;
+package com.example.billage.frontend.ui.home.subView.usage;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +14,8 @@ import com.example.billage.R;
 import com.example.billage.frontend.adapter.UsageAdapter;
 import com.example.billage.frontend.data.UsageList;
 import com.example.billage.backend.common.AppData;
+import com.example.billage.frontend.ui.addUsage.AddUsage;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -79,9 +81,18 @@ public class UsageFragment extends Fragment {
        // listview.setAdapter(adapter) ;
 
 
-        final UsageAdapter usageAdapter = new UsageAdapter(getActivity(),items,listview);
+        final UsageAdapter usageAdapter = new UsageAdapter(getActivity(),items,listview,getActivity());
         listview.setAdapter(usageAdapter);
 
+        FloatingActionButton usageButton = (FloatingActionButton) root.findViewById(R.id.add_usage);
+        usageButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), AddUsage.class);
+                startActivity(intent);
+            }
+        });
 
         return root;
     }
