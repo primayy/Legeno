@@ -1,6 +1,7 @@
 package com.example.billage.frontend.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ import com.yy.mobile.rollingtextview.strategy.Strategy;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    private ViewPager viewPager;
+    private PageAdaper myPagerAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,12 +43,13 @@ public class HomeFragment extends Fragment {
 //        });
         TabLayout tabLayout = root.findViewById(R.id.three_tabs) ;
 
-        final ViewPager viewPager = root.findViewById(R.id.home_viewpager);
-        final PagerAdapter myPagerAdapter = new PageAdaper(getChildFragmentManager(), tabLayout.getTabCount());
+        viewPager = root.findViewById(R.id.home_viewpager);
+        myPagerAdapter = new PageAdaper(getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(myPagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
 
         RollingTextView rollingTextView = (RollingTextView) root.findViewById(R.id.current_money);
         rollingTextView.setAnimationDuration(1500L);
@@ -56,6 +60,11 @@ public class HomeFragment extends Fragment {
 
 
         return root;
+    }
+
+    public void refresh(){
+        myPagerAdapter.notifyDataSetChanged();
+
     }
 
 

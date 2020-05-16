@@ -52,10 +52,6 @@ public class MainActivity extends AppCompatActivity {
         //Account_transaction.request_transaction("20200429","20200501");
 
 
-
-
-
-
     }
 
 @Override public void onDestroy ()
