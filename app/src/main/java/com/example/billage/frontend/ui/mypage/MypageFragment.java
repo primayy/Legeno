@@ -23,18 +23,8 @@ public class MypageFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        mypageViewModel =
-                ViewModelProviders.of(this).get(MypageViewModel.class);
+        mypageViewModel = ViewModelProviders.of(this).get(MypageViewModel.class);
         View root = inflater.inflate(R.layout.mypage, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-
-        mypageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-
 
         Button button = root.findViewById(R.id.test_btn);
         button.setOnClickListener(new View.OnClickListener() {
