@@ -51,6 +51,8 @@ public class AddUsage extends AppCompatActivity {
             date_picker = findViewById(R.id.date_input);
             time_picker = findViewById(R.id.time_input);
             set_custom_actionbar_addpage();
+            set_cancel_event();
+            set_save_event();
             getDateToday();
             set_date_event();
             set_time_event();
