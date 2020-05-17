@@ -59,6 +59,9 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="10dp"
                 android:text="ㅇㅇㅇ (신한카드마스터) 님"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground"
                 android:textSize="15sp" />
 
             <TextView
@@ -67,6 +70,9 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="10dp"
                 android:text="회원정보 수정"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground"
                 android:textSize="15sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -106,7 +112,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="10dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="은행연동 현황"
                 android:textSize="15sp" />
 
@@ -115,6 +123,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="은행연동 추가"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -158,6 +169,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="앱 비밀번호 설정"
                 android:textSize="15sp" />
 
@@ -166,6 +180,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="알림 설정"
                 android:textSize="15sp" />
         </LinearLayout>
