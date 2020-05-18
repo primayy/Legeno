@@ -14,6 +14,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.billage.R;
+import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.ui.signup.SignupActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -56,7 +57,7 @@ public class HomeFragment extends Fragment {
         rollingTextView.setCharStrategy(Strategy.NormalAnimation());
         rollingTextView.addCharOrder(CharOrder.Number);
         rollingTextView.setAnimationInterpolator(new AccelerateDecelerateInterpolator());
-        rollingTextView.setText("3,100,450");
+        rollingTextView.setText(AppData.getPref().getString("balance","0"));
 
 
         return root;

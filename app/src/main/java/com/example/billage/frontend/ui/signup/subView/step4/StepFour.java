@@ -1,5 +1,6 @@
 package com.example.billage.frontend.ui.signup.subView.step4;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -47,12 +48,22 @@ public class StepFour extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
 
-        View root = inflater.inflate(R.layout.fragment_step4, container, false);
+        LayoutInflater layoutInflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.activity_signup, null);
 
-        nick_name = root.findViewById(R.id.nickname);
+        Button finish_btn = view.findViewById(R.id.next_btn);
 
-        return root;
+        finish_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("test","adf");
+
+            }
+        });
+
+        return inflater.inflate(R.layout.fragment_step4, container, false);
     }
 
     @Override
@@ -62,22 +73,10 @@ public class StepFour extends Fragment {
             @Override
             public void onClick(View view) {
 
-                String nickName = nick_name.getText().toString();
-                try {
-                    //서버에 JSON data post
-                    JSONObject signupData = new JSONObject();
-                    signupData.accumulate("name", nickName);
-                    JSONTask_Post jsonTask = new JSONTask_Post(signupData);
-                    jsonTask.execute("http://18.219.106.101/SignUp");
+                getActivity().finish();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                int currentPage = view_pager.getCurrentItem();
-                view_pager.setCurrentItem(currentPage+1);
             }
         });
         super.onResume();
     }
-
 }

@@ -11,6 +11,8 @@ import android.util.Log;
 import com.example.billage.frontend.data.MonthUsageList;
 import com.example.billage.frontend.data.UsageList;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class DbOpenHelper {
@@ -58,14 +60,46 @@ public class DbOpenHelper {
     }
 
     //transaction 데이터 삽입
-    public long insertTransColumn(String date, String time, String name, String money,String inout){
+    public void insertTransColumn(String date, String time, String name, String money,String inout,String bank_code,String type){
+        ContentValues values = getTransTable(date, time, name, money, inout, bank_code, type);
+        String where_str = "name='"+name+"' and date='"+date+"' and time='"+ time +"' and money='"+money+"' and inout='"+inout+"' and type='"+type+"' and bank_code='"+bank_code+"'";
+
+        checkTransInsertOrUpdate(values, where_str);
+    }
+
+    //transaction 데이터 삽입, memo포함
+    public void insertTransColumn(String date, String time, String name, String money,String inout,String memo,String bank_code,String type){
+        ContentValues values = getTransTable(date, time, name, money, inout, bank_code, type);
+        values.put(Databases.CreateDB.MEMO, memo);
+
+        String where_str = "name='"+name+"' and date='"+date+"' and time='"+ time +"' and money='"+money+"' and inout='"+inout+"' and type='"+type+"' and bank_code='"+bank_code+"'";
+
+        checkTransInsertOrUpdate(values, where_str);
+    }
+
+    //transaciont tale에 insert할지 update할지 결정
+    private void checkTransInsertOrUpdate(ContentValues values, String where_str) {
+        Cursor c = mDB.rawQuery("select * from 'transaction' where " + where_str, null);
+        System.out.println(c.getCount());
+        if (c.getCount() == 0) {
+            mDB.insert(Databases.CreateDB._TABLENAME0, null, values);
+        } else {
+            mDB.update(Databases.CreateDB._TABLENAME0, values, where_str, null);
+        }
+    }
+
+    //transaction table 구조에 맞춰 값 입력
+    @NotNull
+    private ContentValues getTransTable(String date, String time, String name, String money, String inout, String bank_code, String type) {
         ContentValues values = new ContentValues();
         values.put(Databases.CreateDB.NAME, name);
         values.put(Databases.CreateDB.TIME, time);
         values.put(Databases.CreateDB.DATE, date);
         values.put(Databases.CreateDB.MONEY, money);
         values.put(Databases.CreateDB.INOUT, inout);
-        return mDB.insert(Databases.CreateDB._TABLENAME0, null, values);
+        values.put(Databases.CreateDB.TYPE, type);
+        values.put(Databases.CreateDB.BANK_CODE, bank_code);
+        return values;
     }
 
     //transaction 데이터 조회 후 UsageList로 반환
@@ -75,11 +109,11 @@ public class DbOpenHelper {
         String query = "SELECT * from 'transaction' order by date desc";
 
         Cursor c = mDB.rawQuery(query,null);
-
+        //분당정자점 20190101 010101 입금 1000000 097 "" api 170
         if(c.moveToFirst()){
             do{
-//                Log.d("trans_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2)+" "+c.getString(3)+" "+c.getString(4));
-                trans_data.add(new UsageList(Utils.transformDate(c.getString(1)),c.getString(0),Utils.transformTime(c.getString(2)),c.getString(4),c.getString(3)));
+                Log.d("trans_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2)+" "+c.getString(3)+" "+c.getString(4)+" "+c.getString(5)+" "+c.getString(6)+" "+c.getString(7) + " "+c.getString(8));
+                trans_data.add(new UsageList(Utils.transformDate(c.getString(1)),c.getString(0),Utils.transformTime(c.getString(2)),c.getString(4),c.getString(3),c.getString(5),c.getString(6),c.getInt(8),c.getString(7)));
             }while (c.moveToNext());
         }
         return trans_data;
@@ -89,15 +123,15 @@ public class DbOpenHelper {
     public ArrayList<UsageList> getTransDaysColumns(){
         ArrayList<UsageList> days_data = new ArrayList<UsageList>();
 
-        String query = "SELECT date,inout,sum(money) from 'transaction' group by date, inout order by date asc";
+        String query = "SELECT date,inout,sum(money),id,type from 'transaction' group by date, inout order by date asc";
 
         Cursor c = mDB.rawQuery(query,null);
 
-        //idx 0: date, 1: inout, 2:sum
+        //idx 0: date, 1: inout, 2:sum, 3:id, 4:type
         if(c.moveToFirst()){
             do{
                 Log.d("days_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2));
-                days_data.add(new UsageList(Utils.transformDate(c.getString(0)),"","",c.getString(2),c.getString(1)));
+                days_data.add(new UsageList(Utils.transformDate(c.getString(0)),"","",c.getString(2),c.getString(1),"","",c.getInt(3),c.getString(4)));
             }while (c.moveToNext());
         }
         return days_data;
@@ -166,5 +200,8 @@ public class DbOpenHelper {
         return months_data;
     }
 
-
+    public void delUserTrans(Integer id){
+        String query = "DELETE from 'transaction' where id='"+id+"'";
+        mDB.execSQL(query);
+    }
 }

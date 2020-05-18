@@ -1,5 +1,6 @@
 package com.example.billage.frontend.ui.signup.subView.step3;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,7 @@ public class StepThree extends Fragment {
     private Button next_btn;
     private ViewPager view_pager;
     private EditText user_name;
+    private EditText nick_name;
 
     public StepThree(Button parent_view,ViewPager viewPager) {
         next_btn = parent_view;
@@ -54,6 +56,7 @@ public class StepThree extends Fragment {
         View root = inflater.inflate(R.layout.fragment_step3, container, false);
 
         user_name = root.findViewById(R.id.user_name);
+        nick_name = root.findViewById(R.id.nickname);
         return root;
     }
 
@@ -66,21 +69,23 @@ public class StepThree extends Fragment {
 
 
                 String name = user_name.getText().toString();
-                Log.d("test", name);
+                String nickname = nick_name.getText().toString();
+                Log.d("test", name+nickname);
 
                 try {
                     //서버에 JSON data post
                     JSONObject signupData = new JSONObject();
                     signupData.accumulate("name", name);
-                    JSONTask_Post jsonTask = new JSONTask_Post(signupData);
+                    signupData.accumulate("nickname",nickname);
+                    JSONTask_Post jsonTask= new JSONTask_Post(signupData);
                     jsonTask.execute("http://18.219.106.101/SignUp");
 
-                } catch (JSONException e) {
+                }catch (JSONException e) {
                     e.printStackTrace();
                 }
                 int currentPage = view_pager.getCurrentItem();
                 view_pager.setCurrentItem(currentPage + 1);
-
+                next_btn.setText("시작하기");
             }
         });
         super.onResume();

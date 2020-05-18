@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.billage.R;
-import com.example.billage.backend.api.Statistic_transaction;
+import com.example.billage.backend.api.StatisticTransaction;
 import com.example.billage.backend.common.AppData;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -74,8 +74,8 @@ public class StatisticFragment extends Fragment {
         ArrayList<Entry> income_entries = new ArrayList<>();
         ArrayList<Entry> usage_entries = new ArrayList<>();
 
-        ArrayList<Integer> income = Statistic_transaction.monthly_statistic("입금");
-        ArrayList<Integer> usage = Statistic_transaction.monthly_statistic("출금");
+        ArrayList<Integer> income = StatisticTransaction.monthly_statistic("입금");
+        ArrayList<Integer> usage = StatisticTransaction.monthly_statistic("출금");
 
         for(int i=1;i<=income.size();i++){
             income_entries.add(new Entry(i, income.get(i-1)));
@@ -89,7 +89,7 @@ public class StatisticFragment extends Fragment {
 
         //통계데이터 호출 코드
         try {
-            ArrayList<Integer> bar_data = Statistic_transaction.daily_statistic("출금");
+            ArrayList<Integer> bar_data = StatisticTransaction.daily_statistic("출금");
             for(int i=1;i<=bar_data.size();i++){
                 barEntries.add(new BarEntry(i, bar_data.get(i-1)));
             }
