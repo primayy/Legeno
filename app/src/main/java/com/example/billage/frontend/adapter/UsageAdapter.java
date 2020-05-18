@@ -146,6 +146,7 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
                 intent.putExtra("cardDestInfo",usage.getDestination());
                 intent.putExtra("cardMemoInfo",usage.getMemo());
                 intent.putExtra("cardTransTypeInfo",usage.getType());
+                intent.putExtra("cardId",usage.getId());
 
                 mActivity.startActivity(intent);
             }

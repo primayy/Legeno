@@ -169,5 +169,9 @@ public class DbOpenHelper {
         return months_data;
     }
 
+    public void delUserTrans(Integer id){
+        String query = "DELETE from 'transaction' where id='"+id+"'";
+        mDB.execSQL(query);
+    }
 
 }

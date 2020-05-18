@@ -87,6 +87,7 @@ public class AddUsage extends AppCompatActivity {
             String dest_info = intent.getExtras().getString("cardDestInfo");
             String memo_info = intent.getExtras().getString("cardMemoInfo");
             String trans_type_info = intent.getExtras().getString("cardTransTypeInfo");
+            Integer id_info = intent.getExtras().getInt("cardId");
 
             RadioGroup radioGroup = findViewById(R.id.radioGroup);
             EditText cost_input = findViewById(R.id.cost_input);
@@ -103,7 +104,7 @@ public class AddUsage extends AppCompatActivity {
             set_custom_actionbar_detailpage();
             set_cancel_event();
             set_save_event();
-            if(trans_type_info.equals("user")) set_delete_event();
+            if(trans_type_info.equals("user")) set_delete_event(id_info);
 
             for (int i = 0; i < radioGroup.getChildCount(); i++) {
                 radioGroup.getChildAt(i).setClickable(false);
@@ -269,7 +270,7 @@ public class AddUsage extends AppCompatActivity {
                     for(int i=0; i<time_arr.length;i++){
                         time += time_arr[i];
                     }
-                    time+="00";
+                    time+="00";//초 관련해서 임의값 추가
 //                    Log.d("user_trans",cost_input.getText().toString()+" "+date+" "+time+" "+dest_input.getText().toString()+" "+memo_input.getText().toString()+" "+rb.getText().toString()+" ");
                     AppData.mdb.insertTransColumn(date,time,dest_input.getText().toString(),cost_input.getText().toString(),rb.getText().toString(),memo_input.getText().toString(),"","user");
                 }catch(Exception e){
@@ -282,14 +283,16 @@ public class AddUsage extends AppCompatActivity {
         });
     }
 
-    private void set_delete_event() {
+    private void set_delete_event(Integer id) {
         Button delete_btn = findViewById(R.id.delete_btn);
         delete_btn.setVisibility(View.VISIBLE);
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //To-do
+                AppData.mdb.delUserTrans(id);
+                Toast save_text = Toast.makeText(getApplicationContext(),"삭제되었습니다.",Toast.LENGTH_SHORT);
+                save_text.show();
+                finish();
             }
         });
     }
