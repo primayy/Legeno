@@ -15,12 +15,15 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import com.example.billage.R;
+import com.example.billage.backend.common.AppData;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -40,7 +43,10 @@ public class AddUsage extends AppCompatActivity {
     private int hour, minute;
     private int new_hour, new_minute;
     private EditText date_picker, time_picker;
-
+    private String hour_string;
+    private String minute_string;
+    private String month_string;
+    private String day_string;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,9 +134,20 @@ public class AddUsage extends AppCompatActivity {
 
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
             new_hour = hourOfDay;
             new_minute = minute;
+
+            if (hourOfDay >= 10) {
+                hour_string = String.valueOf(new_hour);
+            } else {
+                hour_string = "0"+String.valueOf(new_hour);
+            }
+
+            if (minute >= 10) {
+                minute_string = String.valueOf(new_minute);
+            } else {
+                minute_string = "0"+String.valueOf(new_minute);
+            }
 
             updateEditTime();
         }
@@ -138,7 +155,7 @@ public class AddUsage extends AppCompatActivity {
 
     private void updateEditTime(){
         StringBuffer stringBuffer = new StringBuffer();
-        time_picker.setText(stringBuffer.append(new_hour).append("시 ").append(new_minute).append("분"));
+        time_picker.setText(stringBuffer.append(hour_string).append(":").append(minute_string));
     }
 
     private void set_date_event() {
@@ -162,7 +179,7 @@ public class AddUsage extends AppCompatActivity {
     private void getDateToday(){
 
         currentDate = new Date();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat date = new SimpleDateFormat("yyyy년 MM월 dd일");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 
         date_picker.setText(date.format(currentDate));
     }
@@ -176,13 +193,25 @@ public class AddUsage extends AppCompatActivity {
             new_month = month;
             new_day = day;
 
+            if (new_month >= 10) {
+                month_string = String.valueOf(new_month+1);
+            } else {
+                month_string = "0"+String.valueOf(new_month+1);
+            }
+
+            if (new_day >= 10) {
+                day_string = String.valueOf(new_day);
+            } else {
+                day_string = "0"+String.valueOf(new_day);
+            }
+
             updateEditDate();
         }
     };
 
     private void updateEditDate(){
         StringBuffer stringBuffer = new StringBuffer();
-        date_picker.setText(stringBuffer.append(new_year).append("년 ").append(new_month+1).append("월 ").append(new_day).append("일"));
+        date_picker.setText(stringBuffer.append(new_year).append("-").append(month_string).append("-").append(day_string));
     }
 
     private void set_custom_actionbar_addpage() {
@@ -220,6 +249,31 @@ public class AddUsage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // To-do
+                try{
+                    RadioGroup radioGroup = findViewById(R.id.radioGroup);
+                    EditText cost_input = findViewById(R.id.cost_input);
+                    EditText date_input = findViewById(R.id.date_input);
+                    EditText time_input = findViewById(R.id.time_input);
+                    EditText dest_input = findViewById(R.id.dest_input);
+                    EditText memo_input = findViewById(R.id.memo_input);
+                    RadioButton rb = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
+                    String date = "";
+                    String time = "";
+                    String[] date_arr = date_input.getText().toString().split("-");
+                    String[] time_arr = time_input.getText().toString().split(":");
+
+                    for(int i=0; i<date_arr.length;i++){
+                        date += date_arr[i];
+                    }
+                    for(int i=0; i<time_arr.length;i++){
+                        time += time_arr[i];
+                    }
+                    time+="00";
+//                    Log.d("user_trans",cost_input.getText().toString()+" "+date+" "+time+" "+dest_input.getText().toString()+" "+memo_input.getText().toString()+" "+rb.getText().toString()+" ");
+                    AppData.mdb.insertTransColumn(date,time,dest_input.getText().toString(),cost_input.getText().toString(),rb.getText().toString(),memo_input.getText().toString(),"","user");
+                }catch(Exception e){
+                    Log.d("user_trans_err", String.valueOf(e));
+                }
                 Toast save_text = Toast.makeText(getApplicationContext(),"저장되었습니다.",Toast.LENGTH_SHORT);
                 save_text.show();
                 finish();
