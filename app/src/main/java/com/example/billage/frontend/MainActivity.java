@@ -6,13 +6,10 @@ import android.util.Log;
 import android.view.Window;
 
 import com.example.billage.R;
-<<<<<<< HEAD
+
 import com.example.billage.backend.JSONTask_Post;
-import com.example.billage.backend.api.Account_transaction;
-=======
 import com.example.billage.backend.api.AccountBalance;
 import com.example.billage.backend.api.AccountTransaction;
->>>>>>> 938022e9f9f9dcc05f7d00cad0055f094734ea83
 import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.data.UsageList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

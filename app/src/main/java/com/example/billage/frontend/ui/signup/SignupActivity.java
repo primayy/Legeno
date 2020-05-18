@@ -62,12 +62,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int currentPage = viewPager.getCurrentItem();
                 viewPager.setCurrentItem(currentPage+1);
-<<<<<<< HEAD
-
-                if(currentPage==3){
-=======
                 if(currentPage==2){
->>>>>>> 938022e9f9f9dcc05f7d00cad0055f094734ea83
                     next_btn.setText("시작하기");
                     Log.d("asdfasdf",user_name);
                 }
