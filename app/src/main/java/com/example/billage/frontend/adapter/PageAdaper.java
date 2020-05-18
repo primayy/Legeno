@@ -4,15 +4,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.billage.frontend.ui.home.subView.UsageFragment;
-import com.example.billage.frontend.ui.home.subView.CalenderFragment;
-import com.example.billage.frontend.ui.home.subView.StatisticFragment;
+import com.example.billage.frontend.ui.home.subView.usage.UsageFragment;
+import com.example.billage.frontend.ui.home.subView.calendar.CalenderFragment;
+import com.example.billage.frontend.ui.home.subView.statistic.StatisticFragment;
 
 public class PageAdaper extends FragmentStatePagerAdapter {
     int mNumOfTabs; //tab의 갯수
 
     public PageAdaper(FragmentManager fm, int numOfTabs) {
-        super(fm);
+        super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.mNumOfTabs = numOfTabs;
     }
 

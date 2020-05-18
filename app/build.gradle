@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.billage"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -93,6 +93,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.preference:preference:1.1.0-rc01'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -113,6 +114,12 @@ dependencies {
     implementation 'com.github.prolificinteractive:material-calendarview:1.4.3'
 
     implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
 
+    implementation 'com.github.YvesCheung:RollingText:1.2.0'
+
+    implementation "com.google.android.material:material:1.2.0-alpha06"
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.jaredrummler:animated-svg-view:1.0.6'
 
 }

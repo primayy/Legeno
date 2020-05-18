@@ -1,44 +1,56 @@
 package com.example.billage.frontend.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 
 import com.example.billage.R;
 import com.example.billage.frontend.data.UsageList;
+import com.example.billage.frontend.ui.addUsage.AddUsage;
+import com.example.billage.frontend.ui.home.subView.usage.UsageFragment;
 
 
 import java.util.List;
 
 public class UsageAdapter extends ArrayAdapter<UsageList> {
 
+    private Activity mActivity;
     private Context context;
     private List mList;
     private ListView mListView;
 
 
-    class UserViewHolder {
+    static class UserViewHolder {
         public TextView date;
         public TextView cost;
         public TextView destination;
         public TextView time;
+        public ImageView type_image;
+        public TextView bank_name;
+        public CardView cardView;
 
     }
 
 
-    public UsageAdapter(Context context, List<UsageList> list, ListView listview) {
+    public UsageAdapter(Context context, List<UsageList> list, ListView listview, Activity activity) {
         super(context, 0, list);
 
         this.context = context;
         this.mList = list;
         this.mListView = listview;
+        this.mActivity = activity;
     }
 
     // ListView의  한 줄(row)이 렌더링(rendering)될 때 호출되는 메소드로 row를 위한 view를 리턴.
@@ -66,6 +78,10 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
             viewHolder.cost = (TextView) rowView.findViewById(R.id.cost);
             viewHolder.destination = (TextView) rowView.findViewById(R.id.destination);
             viewHolder.time = (TextView) rowView.findViewById(R.id.time);
+            viewHolder.type_image= (ImageView) rowView.findViewById(R.id.type_image);
+            viewHolder.bank_name = (TextView) rowView.findViewById(R.id.bank_name);
+            viewHolder.cardView = (CardView) rowView.findViewById(R.id.cardview);
+
 
             rowView.setTag(viewHolder);
 
@@ -108,16 +124,36 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
         viewHolder.destination.setText(usage.getDestination());
         viewHolder.time.setText(usage.getTime());
 
+        // 추후 수정
+        viewHolder.bank_name.setText("신한 은행(카드)");
+
         if(usage.getUsage_type().equals("입금")){
             viewHolder.cost.setText("+ "+usage.getCost()+"원");
+            viewHolder.type_image.setImageResource(R.drawable.deposit);
         }else {
             viewHolder.cost.setText("- "+usage.getCost()+"원");
+            viewHolder.type_image.setImageResource(R.drawable.withdarw);
         }
 
+        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (mActivity, AddUsage.class);
+                intent.putExtra("cardTypeInfo",usage.getUsage_type());
+                intent.putExtra("cardCostInfo",usage.getCost());
+                intent.putExtra("cardDateInfo",usage.getDate());
+                intent.putExtra("cardTimeInfo",usage.getTime());
+                intent.putExtra("cardDestInfo",usage.getDestination());
+                intent.putExtra("cardMemoInfo",usage.getMemo());
+
+                mActivity.startActivity(intent);
+            }
+        });
 
         rowView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+
                 return true;
             }
         });

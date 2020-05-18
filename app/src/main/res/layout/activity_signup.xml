@@ -6,71 +6,78 @@
     android:layout_height="match_parent"
     tools:context=".frontend.ui.signup.SignupActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="178dp"
-        android:layout_marginRight="178dp"
-        android:text="이름"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/name"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/signup_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="이름"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.217" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="178dp"
-        android:layout_marginRight="178dp"
-        android:text="닉네임"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.339" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/nickname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="닉네임"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.441" />
+        app:layout_constraintVertical_bias="1.0">
+
+
+    </androidx.viewpager.widget.ViewPager>
 
     <Button
-        android:id="@+id/confirm_btn"
+        android:id="@+id/next_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="입력완료"
+        android:background="@drawable/button_effect"
+        android:shadowColor="@android:color/transparent"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="다음"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.76" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_viewpager"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/circle_tab"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/next_btn"
+        app:layout_constraintVertical_bias="0.229"
+        app:tabBackground="@drawable/tab_indicator_default"
+        app:tabGravity="center"
+        app:tabIndicator="@drawable/tab_indicator_circle"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorGravity="center"
+        app:tabRippleColor="@null">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="20dp" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.tabs.TabLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

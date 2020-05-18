@@ -18,15 +18,27 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".frontend.ui.addUsage.DetailUsage"
-            android:label="상세정보">
-
+            android:name=".frontend.ui.mypage.subView.SetNotify"
+            android:label="@string/mypage_set_notify">
         </activity>
         <activity
+            android:name=".frontend.ui.mypage.subView.SetPassword"
+            android:label="@string/mypage_set_password"/>
+        <activity
+            android:name=".frontend.ui.mypage.subView.AddBank"
+            android:label="@string/mypage_add_bank"/>
+        <activity
+            android:name=".frontend.ui.mypage.subView.CurrentBank"
+            android:label="@string/mypage_current_bank"/>
+        <activity
+            android:name=".frontend.ui.mypage.subView.AccountModify"
+            android:label="@string/mypage_account_modify"/>
+        <activity
+            android:name=".frontend.ui.addUsage.CalendarDetailUsage"
+            android:label="상세정보" />
+        <activity
             android:name=".frontend.ui.addUsage.AddUsage"
-            android:label="내역추가">
-
-        </activity>
+            android:label="내역추가" />
         <activity
             android:name=".frontend.ui.signup.SignupActivity"
             android:label="회원가입" />
@@ -34,13 +46,10 @@
             android:name=".frontend.MainActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
             android:label="@string/app_name"
-            android:launchMode="singleTask">
-
-        </activity>
+            android:launchMode="singleTask" />
         <activity
             android:name=".frontend.ui.SplashActivity"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/SplashTheme">
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
