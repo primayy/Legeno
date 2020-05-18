@@ -9,12 +9,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.billage.R;
+import com.example.billage.frontend.ui.mypage.subView.AccountModify;
+import com.example.billage.frontend.ui.mypage.subView.AddBank;
+import com.example.billage.frontend.ui.mypage.subView.CurrentBank;
+import com.example.billage.frontend.ui.mypage.subView.SetNotify;
+import com.example.billage.frontend.ui.mypage.subView.SetPassword;
 import com.example.billage.frontend.ui.signup.SignupActivity;
 
 public class MypageFragment extends Fragment {
@@ -23,18 +26,8 @@ public class MypageFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        mypageViewModel =
-                ViewModelProviders.of(this).get(MypageViewModel.class);
-        View root = inflater.inflate(R.layout.mypage, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-
-        mypageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-
+        mypageViewModel = ViewModelProviders.of(this).get(MypageViewModel.class);
+        View root = inflater.inflate(R.layout.mypage_main, container, false);
 
         Button button = root.findViewById(R.id.test_btn);
         button.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +37,60 @@ public class MypageFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        setTextviewClickEvent(root);
+
         return root;
     }
+
+    private void setTextviewClickEvent(View root) {
+        TextView account_modify = root.findViewById(R.id.account_modify);
+        TextView add_bank = root.findViewById(R.id.add_bank);
+        TextView current_bank = root.findViewById(R.id.current_bank);
+        TextView set_password = root.findViewById(R.id.app_password);
+        TextView set_notify = root.findViewById(R.id.notification);
+
+        account_modify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AccountModify.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+        add_bank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AddBank.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+        current_bank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), CurrentBank.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+        set_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), SetPassword.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+        set_notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), SetNotify.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+    }
+
+
 }

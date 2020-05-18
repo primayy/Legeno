@@ -24,6 +24,7 @@ import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.ui.addUsage.AddUsage;
 import com.example.billage.frontend.ui.home.HomeFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.jaredrummler.android.widget.AnimatedSvgView;
 
 import java.util.ArrayList;
 
@@ -101,7 +102,6 @@ public class UsageFragment extends Fragment {
 
         SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#FFC100"));
-
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
