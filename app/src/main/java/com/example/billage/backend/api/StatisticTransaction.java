@@ -10,7 +10,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Statistic_transaction {
+public class StatisticTransaction {
 
     //오늘 날짜를 기준으로 일주일(월~금)의 수입,지출 통계 반환
     //parameter: "입금", "츨금"

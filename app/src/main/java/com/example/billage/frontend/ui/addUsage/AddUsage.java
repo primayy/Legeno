@@ -15,6 +15,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import com.example.billage.R;
+import com.example.billage.backend.common.AppData;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,9 +43,10 @@ public class AddUsage extends AppCompatActivity {
     private int hour, minute;
     private int new_hour, new_minute;
     private EditText date_picker, time_picker;
-
     private String hour_string;
     private String minute_string;
+    private String month_string;
+    private String day_string;
 
     private String type;
     private String cost;
@@ -84,6 +86,9 @@ public class AddUsage extends AppCompatActivity {
             String time_info = intent.getExtras().getString("cardTimeInfo");
             String dest_info = intent.getExtras().getString("cardDestInfo");
             String memo_info = intent.getExtras().getString("cardMemoInfo");
+            String trans_type_info = intent.getExtras().getString("cardTransTypeInfo");
+            Integer id_info = intent.getExtras().getInt("cardId");
+            String bank_code = intent.getExtras().getString("cardBankCode");
 
             RadioGroup radioGroup = findViewById(R.id.radioGroup);
             EditText cost_input = findViewById(R.id.cost_input);
@@ -91,7 +96,6 @@ public class AddUsage extends AppCompatActivity {
             EditText time_input = findViewById(R.id.time_input);
             EditText dest_input = findViewById(R.id.dest_input);
             EditText memo_input = findViewById(R.id.memo_input);
-
             cost_input.setText(cost_info);
             date_input.setText(date_info);
             time_input.setText(time_info);
@@ -100,8 +104,8 @@ public class AddUsage extends AppCompatActivity {
 
             set_custom_actionbar_detailpage();
             set_cancel_event();
-            set_save_event();
-            set_delete_event();
+            set_save_event(trans_type_info,bank_code);
+            if(trans_type_info.equals("user")) set_delete_event(id_info);
 
             for (int i = 0; i < radioGroup.getChildCount(); i++) {
                 radioGroup.getChildAt(i).setClickable(false);
@@ -161,7 +165,7 @@ public class AddUsage extends AppCompatActivity {
 
     private void updateEditTime(){
         StringBuffer stringBuffer = new StringBuffer();
-        time_picker.setText(stringBuffer.append(hour_string).append("시 ").append(minute_string).append("분"));
+        time_picker.setText(stringBuffer.append(hour_string).append(":").append(minute_string));
     }
 
     private void set_date_event() {
@@ -185,7 +189,7 @@ public class AddUsage extends AppCompatActivity {
     private void getDateToday(){
 
         currentDate = new Date();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat date = new SimpleDateFormat("yyyy년 MM월 dd일");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 
         date_picker.setText(date.format(currentDate));
     }
@@ -199,13 +203,25 @@ public class AddUsage extends AppCompatActivity {
             new_month = month;
             new_day = day;
 
+            if (new_month >= 10) {
+                month_string = String.valueOf(new_month+1);
+            } else {
+                month_string = "0"+String.valueOf(new_month+1);
+            }
+
+            if (new_day >= 10) {
+                day_string = String.valueOf(new_day);
+            } else {
+                day_string = "0"+String.valueOf(new_day);
+            }
+
             updateEditDate();
         }
     };
 
     private void updateEditDate(){
         StringBuffer stringBuffer = new StringBuffer();
-        date_picker.setText(stringBuffer.append(new_year).append("년 ").append(new_month+1).append("월 ").append(new_day).append("일"));
+        date_picker.setText(stringBuffer.append(new_year).append("-").append(month_string).append("-").append(day_string));
     }
 
     private void set_custom_actionbar_addpage() {
@@ -228,19 +244,42 @@ public class AddUsage extends AppCompatActivity {
             }
         });
     }
-
     private void set_save_event() {
+        set_save_event("user","");
+    }
+    private void set_save_event(String type,String bank_code) {
         Button save_btn = findViewById(R.id.save_btn);
         save_btn.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view) {
-
-
-                EditText time = findViewById(R.id.time_input);
-                Log.d("test",time.getText().toString());
-
                 // To-do
+                try{
+                    RadioGroup radioGroup = findViewById(R.id.radioGroup);
+                    EditText cost_input = findViewById(R.id.cost_input);
+                    EditText date_input = findViewById(R.id.date_input);
+                    EditText time_input = findViewById(R.id.time_input);
+                    EditText dest_input = findViewById(R.id.dest_input);
+                    EditText memo_input = findViewById(R.id.memo_input);
+                    RadioButton rb = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
+                    String date = "";
+                    String time = "";
+                    String[] date_arr = date_input.getText().toString().split("-");
+                    String[] time_arr = time_input.getText().toString().split(":");
+
+                    for(int i=0; i<date_arr.length;i++){
+                        date += date_arr[i];
+                    }
+                    for(int i=0; i<time_arr.length;i++){
+                        time += time_arr[i];
+                    }
+                    if(time.length()!=6) time+="00";//초 관련해서 임의값 추가
+                    Log.d("user_trans",cost_input.getText().toString()+" "+date+" "+time+" "+dest_input.getText().toString()+" "+memo_input.getText().toString()+" "+rb.getText().toString()+" ");
+                    AppData.mdb.insertTransColumn(date,time,dest_input.getText().toString(),cost_input.getText().toString(),rb.getText().toString(),memo_input.getText().toString(),bank_code,type);
+                    //todo-id로 찾는게 더 정확함
+
+                }catch(Exception e){
+                    Log.d("user_trans_err", String.valueOf(e));
+                }
                 Toast save_text = Toast.makeText(getApplicationContext(),"저장되었습니다.",Toast.LENGTH_SHORT);
                 save_text.show();
                 finish();
@@ -248,14 +287,16 @@ public class AddUsage extends AppCompatActivity {
         });
     }
 
-    private void set_delete_event() {
+    private void set_delete_event(Integer id) {
         Button delete_btn = findViewById(R.id.delete_btn);
         delete_btn.setVisibility(View.VISIBLE);
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //To-do
+                AppData.mdb.delUserTrans(id);
+                Toast save_text = Toast.makeText(getApplicationContext(),"삭제되었습니다.",Toast.LENGTH_SHORT);
+                save_text.show();
+                finish();
             }
         });
     }
