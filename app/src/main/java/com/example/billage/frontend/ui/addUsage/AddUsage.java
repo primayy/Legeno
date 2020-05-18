@@ -88,6 +88,7 @@ public class AddUsage extends AppCompatActivity {
             String memo_info = intent.getExtras().getString("cardMemoInfo");
             String trans_type_info = intent.getExtras().getString("cardTransTypeInfo");
             Integer id_info = intent.getExtras().getInt("cardId");
+            String bank_code = intent.getExtras().getString("cardBankCode");
 
             RadioGroup radioGroup = findViewById(R.id.radioGroup);
             EditText cost_input = findViewById(R.id.cost_input);
@@ -103,7 +104,7 @@ public class AddUsage extends AppCompatActivity {
 
             set_custom_actionbar_detailpage();
             set_cancel_event();
-            set_save_event();
+            set_save_event(trans_type_info,bank_code);
             if(trans_type_info.equals("user")) set_delete_event(id_info);
 
             for (int i = 0; i < radioGroup.getChildCount(); i++) {
@@ -243,11 +244,12 @@ public class AddUsage extends AppCompatActivity {
             }
         });
     }
-
     private void set_save_event() {
+        set_save_event("user","");
+    }
+    private void set_save_event(String type,String bank_code) {
         Button save_btn = findViewById(R.id.save_btn);
         save_btn.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view) {
                 // To-do
@@ -270,9 +272,11 @@ public class AddUsage extends AppCompatActivity {
                     for(int i=0; i<time_arr.length;i++){
                         time += time_arr[i];
                     }
-                    time+="00";//초 관련해서 임의값 추가
-//                    Log.d("user_trans",cost_input.getText().toString()+" "+date+" "+time+" "+dest_input.getText().toString()+" "+memo_input.getText().toString()+" "+rb.getText().toString()+" ");
-                    AppData.mdb.insertTransColumn(date,time,dest_input.getText().toString(),cost_input.getText().toString(),rb.getText().toString(),memo_input.getText().toString(),"","user");
+                    if(time.length()!=6) time+="00";//초 관련해서 임의값 추가
+                    Log.d("user_trans",cost_input.getText().toString()+" "+date+" "+time+" "+dest_input.getText().toString()+" "+memo_input.getText().toString()+" "+rb.getText().toString()+" ");
+                    AppData.mdb.insertTransColumn(date,time,dest_input.getText().toString(),cost_input.getText().toString(),rb.getText().toString(),memo_input.getText().toString(),bank_code,type);
+                    //todo-id로 찾는게 더 정확함
+
                 }catch(Exception e){
                     Log.d("user_trans_err", String.valueOf(e));
                 }

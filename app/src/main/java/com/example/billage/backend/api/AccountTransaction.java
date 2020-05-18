@@ -65,7 +65,7 @@ public class AccountTransaction {
                                 String memo = "";
                                 Log.d("tran",tran_date.getAsString()+" "+inout_type.getAsString()+" "+tran_amt.getAsString()+" "+branch_name.getAsString()+" "+bank_code.getAsString());
                                 //앱 로컬db에 거래 일자, 거래시간, 거래장소, 금액, 거래 타입을 저장
-                                AppData.mdb.insertTransColumn(tran_date.getAsString(),tran_time.getAsString(), branch_name.getAsString(),tran_amt.getAsString(),inout_type.getAsString(),"",bank_code.getAsString(),"api");
+                                AppData.mdb.insertTransColumn(tran_date.getAsString(),tran_time.getAsString(), branch_name.getAsString(),tran_amt.getAsString(),inout_type.getAsString(),bank_code.getAsString(),"api");
                             }
                         }
                     }

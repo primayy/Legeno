@@ -24,7 +24,7 @@ public class Databases {
                 INOUT         + " TEXT NOT NULL," +
                 MONEY        + " TEXT NOT NULL," +
                 BANK_CODE        + " TEXT NOT NULL," +
-                MEMO        + " TEXT NOT NULL,"+
+                MEMO        + " TEXT,"+
                 TYPE        + " TEXT NOT NULL,"+
                 ID        + " INTEGER PRIMARY KEY AUTOINCREMENT" + ")";
     }
