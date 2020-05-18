@@ -1,12 +1,15 @@
 package com.example.billage.frontend.ui.signup.subView.step5;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.billage.R;
 
@@ -57,6 +60,20 @@ public class StepFive extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        LayoutInflater layoutInflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.activity_signup, null);
+
+        Button finish_btn = view.findViewById(R.id.next_btn);
+
+        finish_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("test","adf");
+
+            }
+        });
+
         return inflater.inflate(R.layout.fragment_step5, container, false);
     }
 }
