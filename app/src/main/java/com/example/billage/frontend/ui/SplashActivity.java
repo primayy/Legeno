@@ -36,6 +36,7 @@ public class SplashActivity extends Activity {
         public void run() {
             startActivity(new Intent(getApplication(), MainActivity.class)); //로딩이 끝난 후, ChoiceFunction 이동
             SplashActivity.this.finish(); // 로딩페이지 Activity stack에서 제거
+
         }
     }
 }

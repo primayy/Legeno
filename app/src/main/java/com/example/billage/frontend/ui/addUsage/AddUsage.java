@@ -16,11 +16,13 @@ import android.os.Build;
 import android.os.Bundle;
 import com.example.billage.R;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -41,6 +43,15 @@ public class AddUsage extends AppCompatActivity {
     private int new_hour, new_minute;
     private EditText date_picker, time_picker;
 
+    private String hour_string;
+    private String minute_string;
+
+    private String type;
+    private String cost;
+    private String date;
+    private String time;
+    private String dest;
+    private String memo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,9 +139,20 @@ public class AddUsage extends AppCompatActivity {
 
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
             new_hour = hourOfDay;
             new_minute = minute;
+
+            if (hourOfDay >= 10) {
+                hour_string = String.valueOf(new_hour);
+            } else {
+                hour_string = "0"+String.valueOf(new_hour);
+            }
+
+            if (minute >= 10) {
+                minute_string = String.valueOf(new_minute);
+            } else {
+                minute_string = "0"+String.valueOf(new_minute);
+            }
 
             updateEditTime();
         }
@@ -138,7 +160,7 @@ public class AddUsage extends AppCompatActivity {
 
     private void updateEditTime(){
         StringBuffer stringBuffer = new StringBuffer();
-        time_picker.setText(stringBuffer.append(new_hour).append("시 ").append(new_minute).append("분"));
+        time_picker.setText(stringBuffer.append(hour_string).append("시 ").append(minute_string).append("분"));
     }
 
     private void set_date_event() {
@@ -191,13 +213,6 @@ public class AddUsage extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.custom_actionbar_addpage);
     }
     private void set_custom_actionbar_detailpage() {
-//
-//        ActionBar actionBar = getSupportActionBar();
-//        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View custom_activity = inflater.inflate(R.layout.custom_actionbar_addpage,null);
-//        TextView title_text = custom_activity.findViewById(R.id.mytext);
-//        title_text.setText("상세정보");
-//        actionBar.setCustomView(custom_activity);
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_actionbar_detailpage);
@@ -219,6 +234,11 @@ public class AddUsage extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+
+
+                EditText time = findViewById(R.id.time_input);
+                Log.d("test",time.getText().toString());
+
                 // To-do
                 Toast save_text = Toast.makeText(getApplicationContext(),"저장되었습니다.",Toast.LENGTH_SHORT);
                 save_text.show();

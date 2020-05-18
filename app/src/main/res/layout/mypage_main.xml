@@ -17,20 +17,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_mypage_cardview2"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_cardview2"
         app:layout_constraintVertical_bias="0.549" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/_mypage_cardview1"
+        android:id="@+id/mypage_cardview1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
         android:layout_margin="20dp"
         app:cardCornerRadius="17dp"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,9 +54,6 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="10dp"
                 android:text="ㅇㅇㅇ (신한카드마스터) 님"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?android:attr/selectableItemBackground"
                 android:textSize="15sp" />
 
             <TextView
@@ -69,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="10dp"
-                android:text="회원정보 수정"
+                android:text="@string/mypage_account_modify"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?android:attr/selectableItemBackground"
@@ -78,17 +70,15 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/_mypage_cardview2"
+        android:id="@+id/mypage_cardview2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_margin="20dp"
         app:cardCornerRadius="17dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_mypage_cardview1"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_cardview1"
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
@@ -115,7 +105,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?android:attr/selectableItemBackground"
-                android:text="은행연동 현황"
+                android:text="@string/mypage_current_bank"
                 android:textSize="15sp" />
 
             <TextView
@@ -126,26 +116,22 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?android:attr/selectableItemBackground"
-                android:text="은행연동 추가"
+                android:text="@string/mypage_add_bank"
                 android:textSize="15sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/_mypage_cardview3"
+        android:id="@+id/mypage_cardview3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_mypage_cardview2"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_cardview2"
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
@@ -172,7 +158,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?android:attr/selectableItemBackground"
-                android:text="앱 비밀번호 설정"
+                android:text="@string/mypage_set_password"
                 android:textSize="15sp" />
 
             <TextView
@@ -183,7 +169,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?android:attr/selectableItemBackground"
-                android:text="알림 설정"
+                android:text="@string/mypage_set_notify"
                 android:textSize="15sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -201,7 +187,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_mypage_cardview3"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_cardview3"
         app:layout_constraintVertical_bias="0.763" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
