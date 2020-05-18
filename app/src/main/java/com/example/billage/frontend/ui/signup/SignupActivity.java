@@ -58,7 +58,7 @@ public class SignupActivity extends AppCompatActivity {
                     signupData.accumulate("name", name);
                     signupData.accumulate("nickname",nickname);
                     JSONTask_Post jsonTask= new JSONTask_Post(signupData);
-                    jsonTask.execute("http://192.168.0.9:3000/UserBack/SignUp");
+                    jsonTask.execute("http://18.219.106.101/SignUp");
 
                 }catch (JSONException e){
                     e.printStackTrace();
