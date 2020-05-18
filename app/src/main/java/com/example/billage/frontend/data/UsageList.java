@@ -10,9 +10,10 @@ public class UsageList {
     private String time;
     private String usage_type;
     private String memo;
+    private String type;
     private String bank_name;
 
-    public UsageList(String date, String destination, String time, String cost, String usage_type, String bank_code, String memo, Integer id) {
+    public UsageList(String date, String destination, String time, String cost, String usage_type, String bank_code, String memo, Integer id, String type) {
         this.date = date;
         this.cost = cost;
         this.destination = destination;
@@ -21,6 +22,7 @@ public class UsageList {
         this.memo = memo;
         this.bank_name = Utils.bankCodeMapping(bank_code);
         this.id = id;
+        this.type = type;
     }
 
     public String getDate() {
@@ -71,5 +73,13 @@ public class UsageList {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

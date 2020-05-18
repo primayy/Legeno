@@ -15,6 +15,7 @@ public class Databases {
         public static final String MEMO = "memo";
         public static final String BANK_CODE = "bank_code";
         public static final String ID = "id";
+        public static final String TYPE = "type";
         public static final String _TABLENAME0 = "'transaction'";
         public static final String _CREATE0 = "CREATE TABLE IF NOT EXISTS "+_TABLENAME0+" (" +
                 NAME         + " TEXT NOT NULL," +
@@ -24,6 +25,7 @@ public class Databases {
                 MONEY        + " TEXT NOT NULL," +
                 BANK_CODE        + " TEXT NOT NULL," +
                 MEMO        + " TEXT NOT NULL,"+
+                TYPE        + " TEXT NOT NULL,"+
                 ID        + " INTEGER PRIMARY KEY AUTOINCREMENT" + ")";
     }
 }

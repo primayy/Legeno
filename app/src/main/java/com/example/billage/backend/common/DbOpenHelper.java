@@ -58,7 +58,7 @@ public class DbOpenHelper {
     }
 
     //transaction 데이터 삽입
-    public long insertTransColumn(String date, String time, String name, String money,String inout,String memo,String bank_code){
+    public long insertTransColumn(String date, String time, String name, String money,String inout,String memo,String bank_code,String type){
         ContentValues values = new ContentValues();
         values.put(Databases.CreateDB.NAME, name);
         values.put(Databases.CreateDB.TIME, time);
@@ -66,6 +66,7 @@ public class DbOpenHelper {
         values.put(Databases.CreateDB.MONEY, money);
         values.put(Databases.CreateDB.INOUT, inout);
         values.put(Databases.CreateDB.MEMO, memo);
+        values.put(Databases.CreateDB.TYPE, type);
         values.put(Databases.CreateDB.BANK_CODE, bank_code);
         return mDB.insert(Databases.CreateDB._TABLENAME0, null, values);
     }
@@ -80,8 +81,8 @@ public class DbOpenHelper {
 
         if(c.moveToFirst()){
             do{
-                Log.d("trans_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2)+" "+c.getString(3)+" "+c.getString(4)+" "+c.getString(5)+" "+c.getString(6)+" "+c.getString(7));
-                trans_data.add(new UsageList(Utils.transformDate(c.getString(1)),c.getString(0),Utils.transformTime(c.getString(2)),c.getString(4),c.getString(3),c.getString(5),c.getString(6),c.getInt(7)));
+                Log.d("trans_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2)+" "+c.getString(3)+" "+c.getString(4)+" "+c.getString(5)+" "+c.getString(6)+" "+c.getString(7) + " "+c.getString(8));
+                trans_data.add(new UsageList(Utils.transformDate(c.getString(1)),c.getString(0),Utils.transformTime(c.getString(2)),c.getString(4),c.getString(3),c.getString(5),c.getString(6),c.getInt(7),c.getString(8)));
             }while (c.moveToNext());
         }
         return trans_data;
@@ -91,7 +92,7 @@ public class DbOpenHelper {
     public ArrayList<UsageList> getTransDaysColumns(){
         ArrayList<UsageList> days_data = new ArrayList<UsageList>();
 
-        String query = "SELECT date,inout,sum(money),id from 'transaction' group by date, inout order by date asc";
+        String query = "SELECT date,inout,sum(money),id,type from 'transaction' group by date, inout order by date asc";
 
         Cursor c = mDB.rawQuery(query,null);
 
@@ -99,7 +100,7 @@ public class DbOpenHelper {
         if(c.moveToFirst()){
             do{
                 Log.d("days_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2));
-                days_data.add(new UsageList(Utils.transformDate(c.getString(0)),"","",c.getString(2),c.getString(1),"","",c.getInt(3)));
+                days_data.add(new UsageList(Utils.transformDate(c.getString(0)),"","",c.getString(2),c.getString(1),"","",c.getInt(3),c.getString(4)));
             }while (c.moveToNext());
         }
         return days_data;
