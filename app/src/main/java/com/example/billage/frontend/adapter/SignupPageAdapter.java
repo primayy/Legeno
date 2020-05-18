@@ -1,6 +1,5 @@
 package com.example.billage.frontend.adapter;
 
-import android.view.View;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
@@ -12,7 +11,6 @@ import com.example.billage.frontend.ui.signup.subView.step1.StepOne;
 import com.example.billage.frontend.ui.signup.subView.step2.StepTwo;
 import com.example.billage.frontend.ui.signup.subView.step3.StepThree;
 import com.example.billage.frontend.ui.signup.subView.step4.StepFour;
-import com.example.billage.frontend.ui.signup.subView.step5.StepFive;
 
 public class SignupPageAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs; //tab의 갯수
@@ -42,9 +40,6 @@ public class SignupPageAdapter extends FragmentStatePagerAdapter {
             case 3:
                 StepFour tab4 = new StepFour(parent,view_pager);
                 return tab4;
-            case 4:
-                StepFive tab5 = new StepFive();
-                return tab5;
             default:
                 return null;
         }

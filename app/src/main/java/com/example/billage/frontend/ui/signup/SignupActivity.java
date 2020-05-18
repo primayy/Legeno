@@ -30,6 +30,8 @@ public class SignupActivity extends AppCompatActivity {
 
     TextView tvData;
 
+    private String user_name;
+
     public void settvData(String data){
         this.tvData.setText(data);
     }
@@ -60,10 +62,11 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int currentPage = viewPager.getCurrentItem();
                 viewPager.setCurrentItem(currentPage+1);
-                if(currentPage==3){
+                if(currentPage==2){
                     next_btn.setText("시작하기");
+                    Log.d("asdfasdf",user_name);
                 }
-                if(currentPage==4){
+                if(currentPage==3){
                     Log.d("test", viewPager.getCurrentItem()+"");
                     finish();
                 }
