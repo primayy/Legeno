@@ -202,5 +202,22 @@
         app:layout_constraintStart_toEndOf="@+id/cost_input"
         app:layout_constraintTop_toTopOf="@+id/cost_input" />
 
+    <Button
+        android:id="@+id/delete_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:background="#B50808"
+        android:text="삭제하기"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/memo_input"
+        app:layout_constraintVertical_bias="0.469" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
