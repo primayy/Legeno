@@ -78,11 +78,11 @@ public class DbOpenHelper {
         String query = "SELECT * from 'transaction' order by date desc";
 
         Cursor c = mDB.rawQuery(query,null);
-
+        //분당정자점 20190101 010101 입금 1000000 097 "" api 170
         if(c.moveToFirst()){
             do{
                 Log.d("trans_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2)+" "+c.getString(3)+" "+c.getString(4)+" "+c.getString(5)+" "+c.getString(6)+" "+c.getString(7) + " "+c.getString(8));
-                trans_data.add(new UsageList(Utils.transformDate(c.getString(1)),c.getString(0),Utils.transformTime(c.getString(2)),c.getString(4),c.getString(3),c.getString(5),c.getString(6),c.getInt(7),c.getString(8)));
+                trans_data.add(new UsageList(Utils.transformDate(c.getString(1)),c.getString(0),Utils.transformTime(c.getString(2)),c.getString(4),c.getString(3),c.getString(5),c.getString(6),c.getInt(8),c.getString(7)));
             }while (c.moveToNext());
         }
         return trans_data;
@@ -96,7 +96,7 @@ public class DbOpenHelper {
 
         Cursor c = mDB.rawQuery(query,null);
 
-        //idx 0: date, 1: inout, 2:sum, 3:id
+        //idx 0: date, 1: inout, 2:sum, 3:id, 4:type
         if(c.moveToFirst()){
             do{
                 Log.d("days_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2));

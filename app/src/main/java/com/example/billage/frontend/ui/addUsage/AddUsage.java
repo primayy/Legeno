@@ -86,6 +86,7 @@ public class AddUsage extends AppCompatActivity {
             String time_info = intent.getExtras().getString("cardTimeInfo");
             String dest_info = intent.getExtras().getString("cardDestInfo");
             String memo_info = intent.getExtras().getString("cardMemoInfo");
+            String trans_type_info = intent.getExtras().getString("cardTransTypeInfo");
 
             RadioGroup radioGroup = findViewById(R.id.radioGroup);
             EditText cost_input = findViewById(R.id.cost_input);
@@ -93,7 +94,6 @@ public class AddUsage extends AppCompatActivity {
             EditText time_input = findViewById(R.id.time_input);
             EditText dest_input = findViewById(R.id.dest_input);
             EditText memo_input = findViewById(R.id.memo_input);
-
             cost_input.setText(cost_info);
             date_input.setText(date_info);
             time_input.setText(time_info);
@@ -103,7 +103,7 @@ public class AddUsage extends AppCompatActivity {
             set_custom_actionbar_detailpage();
             set_cancel_event();
             set_save_event();
-            set_delete_event();
+            if(trans_type_info.equals("user")) set_delete_event();
 
             for (int i = 0; i < radioGroup.getChildCount(); i++) {
                 radioGroup.getChildAt(i).setClickable(false);
