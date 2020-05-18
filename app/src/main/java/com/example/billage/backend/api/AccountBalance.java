@@ -20,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Account_balance {
+public class AccountBalance {
     public static void request_balance(){
 //        String accessToken = AppData.getPref().getString("access_token","");
         //사용자 인증 후 발급 받은 토큰으로 변경해야함. 사용자별로 다름

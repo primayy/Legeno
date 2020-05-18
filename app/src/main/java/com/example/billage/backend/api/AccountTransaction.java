@@ -20,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Account_transaction {
+public class AccountTransaction {
 
     //거래내역 요청
     //값 변수로 넣을 수 있게 수정해야함
@@ -65,7 +65,7 @@ public class Account_transaction {
                                 String memo = "";
                                 Log.d("tran",tran_date.getAsString()+" "+inout_type.getAsString()+" "+tran_amt.getAsString()+" "+branch_name.getAsString()+" "+bank_code.getAsString());
                                 //앱 로컬db에 거래 일자, 거래시간, 거래장소, 금액, 거래 타입을 저장
-                                AppData.mdb.insertTransColumn(tran_date.getAsString(),tran_time.getAsString(), branch_name.getAsString(),tran_amt.getAsString(),inout_type.getAsString(),"",bank_code.getAsString());
+                                AppData.mdb.insertTransColumn(tran_date.getAsString(),tran_time.getAsString(), branch_name.getAsString(),tran_amt.getAsString(),inout_type.getAsString(),"",bank_code.getAsString(),"api");
                             }
                         }
                     }
