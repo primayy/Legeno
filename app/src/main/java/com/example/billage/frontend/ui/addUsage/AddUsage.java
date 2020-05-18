@@ -67,6 +67,7 @@ public class AddUsage extends AppCompatActivity {
             getDateToday();
             set_date_event();
             set_time_event();
+
         }
 
 
@@ -75,7 +76,6 @@ public class AddUsage extends AppCompatActivity {
     private boolean isDetailPage() {
         try{
             // 사용자가 직접 추가한 부분인지 확인한번 해야함 추가예정
-
             Intent intent = getIntent();
 
             String type_info = intent.getExtras().getString("cardTypeInfo");
@@ -101,6 +101,7 @@ public class AddUsage extends AppCompatActivity {
             set_custom_actionbar_detailpage();
             set_cancel_event();
             set_save_event();
+            set_delete_event();
 
             for (int i = 0; i < radioGroup.getChildCount(); i++) {
                 radioGroup.getChildAt(i).setClickable(false);
@@ -243,6 +244,18 @@ public class AddUsage extends AppCompatActivity {
                 Toast save_text = Toast.makeText(getApplicationContext(),"저장되었습니다.",Toast.LENGTH_SHORT);
                 save_text.show();
                 finish();
+            }
+        });
+    }
+
+    private void set_delete_event() {
+        Button delete_btn = findViewById(R.id.delete_btn);
+        delete_btn.setVisibility(View.VISIBLE);
+        delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //To-do
             }
         });
     }
