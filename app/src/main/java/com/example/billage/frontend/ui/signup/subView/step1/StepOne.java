@@ -63,7 +63,7 @@ public class StepOne extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_step1, container, false);
+        View root = inflater.inflate(R.layout.signup_step1, container, false);
 
         setAnimation(root);
 
