@@ -1,28 +1,17 @@
 package com.example.billage.frontend.ui.signup;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.example.billage.R;
-import com.example.billage.backend.JSONTask_Post;
-import com.example.billage.frontend.adapter.PageAdaper;
 import com.example.billage.frontend.adapter.SignupPageAdapter;
-import com.example.billage.frontend.ui.signup.subView.step2.StepTwo;
-import com.example.billage.frontend.ui.signup.subView.step3.StepThree;
 import com.google.android.material.tabs.TabLayout;
 
 
@@ -39,7 +28,7 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.signup);
 
         setViewPage();
     }

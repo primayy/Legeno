@@ -14,10 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.billage.R;
-import com.example.billage.backend.JSONTask_Post;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class StepFour extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,7 +47,7 @@ public class StepFour extends Fragment {
         // Inflate the layout for this fragment
 
         LayoutInflater layoutInflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.activity_signup, null);
+        View view = layoutInflater.inflate(R.layout.signup, null);
 
         Button finish_btn = view.findViewById(R.id.next_btn);
 
@@ -63,7 +59,7 @@ public class StepFour extends Fragment {
             }
         });
 
-        return inflater.inflate(R.layout.fragment_step4, container, false);
+        return inflater.inflate(R.layout.signup_step4, container, false);
     }
 
     @Override
