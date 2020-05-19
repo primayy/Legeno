@@ -1,8 +1,10 @@
 package com.example.billage.backend;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -16,12 +18,20 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.example.billage.backend.common.AppData;
+
+
 public class JSONTask_Post extends AsyncTask<String,String,String> {
 
     JSONObject jsonObject=new JSONObject();
+    String response="";
 
     public JSONTask_Post(JSONObject postingdata){
         this.jsonObject=postingdata;
+    }
+
+    public String getResponse(){
+        return response;
     }
 
     @Override
@@ -51,9 +61,21 @@ public class JSONTask_Post extends AsyncTask<String,String,String> {
                 writer.flush();
                 writer.close();//buffer 종료
 
-                int is=con.getResponseCode();
+                //서버로부터 데이터를 받아옴
+                InputStream stream=con.getInputStream();
 
-                return Integer.toString(is);//서버로 부터 받은값을 return
+                reader=new BufferedReader(new InputStreamReader(stream));
+
+                StringBuffer buffer=new StringBuffer();
+
+                String line="";
+                while((line=reader.readLine())!=null){
+                    buffer.append(line);
+                }
+                Log.d("resp",buffer.toString());
+                this.response=buffer.toString();
+                return buffer.toString();//서버로 부터 받은값을 return
+
             }catch (MalformedURLException e){
                 e.printStackTrace();
             }catch (IOException e){
@@ -77,6 +99,17 @@ public class JSONTask_Post extends AsyncTask<String,String,String> {
     @Override
     protected void onPostExecute(String result){
         super.onPostExecute(result);
-        //호출한 class textview에 result set
+        //호출한 class별로 할거 나눌수도 있음, 지금은 signup에 해당하는 userid저장만 구현
+        try {
+            if(this.jsonObject.getString("callID")=="signUp") {
+                SharedPreferences.Editor editor = AppData.getPref().edit();
+                editor.putString("user_info", this.response);
+                editor.apply();
+
+                Log.d("ttest",AppData.getPref().getString("user_info",null));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

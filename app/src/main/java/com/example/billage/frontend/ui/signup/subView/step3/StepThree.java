@@ -1,5 +1,7 @@
 package com.example.billage.frontend.ui.signup.subView.step3;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,7 +16,9 @@ import android.widget.EditText;
 
 import com.example.billage.R;
 import com.example.billage.backend.JSONTask_Post;
+import com.example.billage.backend.common.AppData;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,7 +56,7 @@ public class StepThree extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.signup_step3, container, false);
+        View root = inflater.inflate(R.layout.fragment_step3, container, false);
 
         user_name = root.findViewById(R.id.user_name);
         nick_name = root.findViewById(R.id.nickname);
@@ -76,10 +80,13 @@ public class StepThree extends Fragment {
                     JSONObject signupData = new JSONObject();
                     signupData.accumulate("name", name);
                     signupData.accumulate("nickname",nickname);
+                    signupData.accumulate("callID","signUp");
                     JSONTask_Post jsonTask= new JSONTask_Post(signupData);
-                    jsonTask.execute("http://18.219.106.101/SignUp");
+                    jsonTask.execute("http://192.168.25.80:3000/SignUp");
 
                 }catch (JSONException e) {
+                    e.printStackTrace();
+                }catch (Exception e){
                     e.printStackTrace();
                 }
                 int currentPage = view_pager.getCurrentItem();
