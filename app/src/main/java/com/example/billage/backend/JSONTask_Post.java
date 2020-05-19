@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -99,8 +100,16 @@ public class JSONTask_Post extends AsyncTask<String,String,String> {
     protected void onPostExecute(String result){
         super.onPostExecute(result);
         //호출한 class별로 할거 나눌수도 있음, 지금은 signup에 해당하는 userid저장만 구현
-        SharedPreferences.Editor editor = AppData.getPref().edit();
-        editor.putString("user_id", this.response);
-        editor.apply();
+        try {
+            if(this.jsonObject.getString("callID")=="signUp") {
+                SharedPreferences.Editor editor = AppData.getPref().edit();
+                editor.putString("user_info", this.response);
+                editor.apply();
+
+                Log.d("ttest",AppData.getPref().getString("user_info",null));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

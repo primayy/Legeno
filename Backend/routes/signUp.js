@@ -36,10 +36,10 @@ router.post('/',function(req,res){
           }
           //if(req.body.password) 비밀번호 유효성검사
           connection.query(`insert into Billage.user(user_name,nickname,bank_list,auth_check) values("${postdata.name}","${postdata.nickname}",NULL,false)`)//새로운 User row생성
-          connection.query(`select user_id from Billage.user where user_name="${postdata.name}" and nickname="${postdata.nickname}"`,function(err,rows,fields){
-            var newUserId=JSON.parse(JSON.stringify(rows))[0].user_id
-            connection.query(`insert into Billage.billage(user_id,coin,size,obj_info,billage_cost,billage_like) values("${newUserId}",0,5,'{"Obj_data":[]}',0,0)`)//새로운 billage row 생성
-            res.write(String(newUserId))//response로 새로 생성된 user의 id전달
+          connection.query(`select * from Billage.user where user_name="${postdata.name}" and nickname="${postdata.nickname}"`,function(err,rows,fields){
+            var newUserInfo=JSON.parse(JSON.stringify(rows))//[0].user_id
+            connection.query(`insert into Billage.billage(user_id,coin,size,obj_info,billage_cost,billage_like) values("${newUserInfo[0].user_id}",0,5,'{"Obj_data":[]}',0,0)`)//새로운 billage row 생성
+            res.write(JSON.stringify(newUserInfo))//response로 새로 생성된 user의 id전달
             res.end();
           })
         }

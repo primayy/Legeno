@@ -18,12 +18,15 @@ connection.connect();
 
 function calDate(today,daybefore){
   //today는 String,daybefore는 int
-  if(daybefore==0) return today;
-  else{
-    var tmp=String(parseInt(today.replace(/-/gi,""))-daybefore)
-    var targetDay=tmp.substr(0,4)+"-"+tmp.substr(4,2)+"-"+tmp.substr(6,2)
-    return targetDay
-  }
+  return new Promise(function(resolve,reject){
+    console.log(today)
+    if(daybefore==0) resolve(today)
+    else{
+      var tmp=String(parseInt(String(today).replace(/-/gi,""))-daybefore)
+      var targetDay=tmp.substr(0,4)+"-"+tmp.substr(4,2)+"-"+tmp.substr(6,2)
+      return resolve(targetDay)
+    }
+  })
 }
 
 router.post('/checkQuest',function(req,res){
@@ -141,24 +144,28 @@ function IsDailySaveLv3(cost,expectation){
 
 function checkDailyPlan(targetDay,Data,expectation){
   //특정 날짜의 일간 계획소비 퀘스트 달성여부 확인
-  for(i=0;i<Data.length;i++){
-    if(Data[i].date==targetDay){
-      if(parseFloat(Data[i].cost)<=expectation*1.05&&parseFloat(Data[i].cost)>=expectation*0.95) return 1
-      else return 0;
+  return new Promise(function(resolve,reject){
+    for(i=0;i<Data.length;i++){
+      if(Data[i].date==targetDay){
+        if(parseFloat(Data[i].cost)<=expectation*1.05&&parseFloat(Data[i].cost)>=expectation*0.95) resolve(1)
+        else resolve(0)
+      }
     }
-  }
+  })
+
 }
 
-function checkWeeklyPlan(today,day,Data,expectation){
+async function checkWeeklyPlan(today,day,Data,expectation){
   var count=0;
-  console.log(day,typeof(day));
   for(i=1;i<day;i++){
-    var targetDay=calDate(today,i)
-    console.log(targetDay);
-    // if(checkDailyPlan(targetDay,Data,expectation)==1)count++
+    var targetDay =""
+    await calDate(today,i).then(function(res){
+        targetDay=res;
+    })
+    console.log("td:" +targetDay)
+    if(await checkDailyPlan(targetDay,Data,expectation)==1)count++
     // else continue;
   }
-  console.log(count);
   if(count>=7) return 3
   else if(count>=5&&count<7) return 2
   else if(count<5&&count>=3) return 1
