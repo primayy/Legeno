@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.billage.R;
+import com.example.billage.backend.GetADUserInfo;
 import com.example.billage.backend.JSONTask_Post;
 
 import org.json.JSONException;

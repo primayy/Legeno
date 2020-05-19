@@ -105,8 +105,6 @@ public class JSONTask_Post extends AsyncTask<String,String,String> {
                 SharedPreferences.Editor editor = AppData.getPref().edit();
                 editor.putString("user_info", this.response);
                 editor.apply();
-
-                Log.d("ttest",AppData.getPref().getString("user_info",null));
             }
         } catch (JSONException e) {
             e.printStackTrace();

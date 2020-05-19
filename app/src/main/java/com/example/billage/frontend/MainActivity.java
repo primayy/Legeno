@@ -7,6 +7,7 @@ import android.view.Window;
 
 import com.example.billage.R;
 
+import com.example.billage.backend.GetADUserInfo;
 import com.example.billage.backend.JSONTask_Post;
 import com.example.billage.backend.api.AccountBalance;
 import com.example.billage.backend.api.AccountTransaction;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         // 주석 처리 안하면 같은 데이터 계속 추가됨 -> 수정할 예정
         AccountTransaction.request_transaction("20200429","20200501");
         ArrayList<UsageList> tmp=AppData.mdb.getTransDaysColumns();
+
 
         //퀘스트 전처리
 //        JSONObject data2Quest=new JSONObject();
