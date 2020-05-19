@@ -4,9 +4,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.billage.frontend.ui.home.subView.calendar.CalenderFragment;
-import com.example.billage.frontend.ui.home.subView.statistic.StatisticFragment;
-import com.example.billage.frontend.ui.home.subView.usage.UsageFragment;
+import com.example.billage.frontend.ui.quest.subView.daily.Daily;
+import com.example.billage.frontend.ui.quest.subView.month.Month;
+import com.example.billage.frontend.ui.quest.subView.weekend.Weekend;
 
 public class QuestPageAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs; //tab의 갯수
@@ -21,13 +21,13 @@ public class QuestPageAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                UsageFragment tab1 = new UsageFragment();
+                Daily tab1 = new Daily();
                 return tab1;
             case 1:
-                CalenderFragment tab2 = new CalenderFragment();
+                Month tab2 = new Month();
                 return tab2;
             case 2:
-                StatisticFragment tab3 = new StatisticFragment();
+                Weekend tab3 = new Weekend();
                 return tab3;
             default:
                 return null;

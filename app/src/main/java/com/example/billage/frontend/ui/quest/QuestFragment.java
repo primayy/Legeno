@@ -5,18 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.billage.R;
 import com.example.billage.backend.common.AppData;
-import com.example.billage.frontend.adapter.PageAdaper;
+import com.example.billage.frontend.adapter.QuestPageAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.yy.mobile.rollingtextview.CharOrder;
 import com.yy.mobile.rollingtextview.RollingTextView;
@@ -28,7 +25,7 @@ public class QuestFragment extends Fragment {
 
     private QuestViewModel questViewModel;
     private ViewPager viewPager;
-    private PageAdaper myPagerAdapter;
+    private QuestPageAdapter myPagerAdapter;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -44,7 +41,7 @@ public class QuestFragment extends Fragment {
         TabLayout tabLayout = root.findViewById(R.id.three_tabs) ;
 
         viewPager = root.findViewById(R.id.quest_viewpager);
-        myPagerAdapter = new PageAdaper(getChildFragmentManager(), tabLayout.getTabCount());
+        myPagerAdapter = new QuestPageAdapter(getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(myPagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));

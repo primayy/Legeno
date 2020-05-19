@@ -19,11 +19,11 @@ public class Weekend extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.quest_weekend, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.quest_weekend, container, false);
+        return root;
     }
 }
