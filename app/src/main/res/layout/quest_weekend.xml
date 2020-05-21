@@ -5,10 +5,62 @@
     android:layout_height="match_parent"
     tools:context=".frontend.ui.quest.subView.weekend.Weekend">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="퀘스트 달성도"
+            android:textAlignment="center"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ProgressBar
+                android:max="100"
+                android:progress="51"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="18dp"/>
+
+            <TextView
+                android:id="@+id/progress_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="51%"
+                />
+
+        </RelativeLayout>
+
+
+        <ListView
+            android:id="@+id/weekend_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="0dp"
+            android:divider="#00000000"
+            android:layout_marginBottom="60dp"
+            >
+
+
+        </ListView>
+
+    </LinearLayout>
+
+
+
 
 </FrameLayout>

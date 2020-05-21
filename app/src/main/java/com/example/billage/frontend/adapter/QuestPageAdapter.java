@@ -24,10 +24,10 @@ public class QuestPageAdapter extends FragmentStatePagerAdapter {
                 Daily tab1 = new Daily();
                 return tab1;
             case 1:
-                Month tab2 = new Month();
+                Weekend tab2 = new Weekend();
                 return tab2;
             case 2:
-                Weekend tab3 = new Weekend();
+                Month tab3 = new Month();
                 return tab3;
             default:
                 return null;
