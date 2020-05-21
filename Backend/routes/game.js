@@ -67,5 +67,27 @@ router.get('/getObjectDB',function(req,res){
     })
 
 })
+router.get('/getRankingDB',function(req,res){
+    connection.query(`select user.user_id,nickname,billage_cost,billage_like from Billage.billage left join Billage.user On user.user_id = billage.user_id order by billage_cost DESC;`,function(err,rows,fiels){
+        if(!err){
+            var RankingDBList=rows
 
+            console.log(RankingDBList);            
+            res.send(RankingDBList);
+        }
+    })
+
+})
+
+router.get('/getLikeRankingDB',function(req,res){
+    connection.query(`select user.user_id,nickname,billage_cost,billage_like from Billage.billage left join Billage.user On user.user_id = billage.user_id order by billage_like DESC;`,function(err,rows,fiels){
+        if(!err){
+            var RankingDBList=rows
+
+            console.log(RankingDBList);            
+            res.send(RankingDBList);
+        }
+    })
+
+})
 module.exports = router;
