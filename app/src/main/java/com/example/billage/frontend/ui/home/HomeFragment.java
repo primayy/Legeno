@@ -9,6 +9,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -31,12 +32,14 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private ViewPager viewPager;
     private PageAdaper myPagerAdapter;
+    private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.home, container, false);
+
+
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        root = inflater.inflate(R.layout.home, container, false);
 //        final TextView textView = root.findViewById(R.id.text_home);
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
 //            @Override
@@ -44,15 +47,6 @@ public class HomeFragment extends Fragment {
 //                textView.setText(s);
 //            }
 //        });
-        TabLayout tabLayout = root.findViewById(R.id.three_tabs) ;
-
-        viewPager = root.findViewById(R.id.home_viewpager);
-        myPagerAdapter = new PageAdaper(getChildFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(myPagerAdapter);
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
 
         DecimalFormat number_format = new DecimalFormat("###,###");
 
@@ -63,14 +57,27 @@ public class HomeFragment extends Fragment {
         rollingTextView.setAnimationInterpolator(new AccelerateDecelerateInterpolator());
         rollingTextView.setText(number_format.format(Integer.parseInt(AppData.getPref().getString("balance","0"))));
 
-
         return root;
     }
 
-    public void refresh(){
+    private void refresh() {
         myPagerAdapter.notifyDataSetChanged();
-
     }
 
+    @Override
+    public void onResume()
+    {
+        TabLayout tabLayout = root.findViewById(R.id.three_tabs) ;
+
+        viewPager = root.findViewById(R.id.home_viewpager);
+        myPagerAdapter = new PageAdaper(getChildFragmentManager(), tabLayout.getTabCount());
+
+        viewPager.setAdapter(myPagerAdapter);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        super.onResume();
+    }
 
 }

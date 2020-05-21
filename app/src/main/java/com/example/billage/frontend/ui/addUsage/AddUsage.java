@@ -3,8 +3,11 @@ package com.example.billage.frontend.ui.addUsage;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -16,6 +19,8 @@ import android.os.Build;
 import android.os.Bundle;
 import com.example.billage.R;
 import com.example.billage.backend.common.AppData;
+import com.example.billage.frontend.MainActivity;
+import com.example.billage.frontend.ui.home.subView.usage.UsageFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +52,7 @@ public class AddUsage extends AppCompatActivity {
     private String minute_string;
     private String month_string;
     private String day_string;
+    private Activity activity;
 
     private String type;
     private String cost;
@@ -59,6 +65,8 @@ public class AddUsage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_usage);
+
+        activity = this;
 
         if(!isDetailPage()){
             date_picker = findViewById(R.id.date_input);
@@ -280,9 +288,11 @@ public class AddUsage extends AppCompatActivity {
                 }catch(Exception e){
                     Log.d("user_trans_err", String.valueOf(e));
                 }
+
                 Toast save_text = Toast.makeText(getApplicationContext(),"저장되었습니다.",Toast.LENGTH_SHORT);
                 save_text.show();
                 finish();
+
             }
         });
     }
@@ -300,6 +310,7 @@ public class AddUsage extends AppCompatActivity {
             }
         });
     }
+
 }
 
 

@@ -1,5 +1,6 @@
 package com.example.billage.frontend;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.unity3d.player.*;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -41,8 +44,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         mUnityPlayer = new UnityPlayer(this);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -142,4 +146,5 @@ public class MainActivity extends AppCompatActivity {
     public UnityPlayer GetUnityPlayer() {
         return this.mUnityPlayer;
     }
+
 }
