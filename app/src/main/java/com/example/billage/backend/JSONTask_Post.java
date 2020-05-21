@@ -72,7 +72,7 @@ public class JSONTask_Post extends AsyncTask<String,String,String> {
                 while((line=reader.readLine())!=null){
                     buffer.append(line);
                 }
-                Log.d("resp",buffer.toString());
+                Log.d("Post_resp",buffer.toString());
                 this.response=buffer.toString();
                 return buffer.toString();//서버로 부터 받은값을 return
 
@@ -105,8 +105,6 @@ public class JSONTask_Post extends AsyncTask<String,String,String> {
                 SharedPreferences.Editor editor = AppData.getPref().edit();
                 editor.putString("user_info", this.response);
                 editor.apply();
-
-                Log.d("ttest",AppData.getPref().getString("user_info",null));
             }
         } catch (JSONException e) {
             e.printStackTrace();

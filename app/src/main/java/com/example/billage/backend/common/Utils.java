@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 public class Utils {
 
@@ -156,4 +158,60 @@ public class Utils {
         return "은행";
     }
 
+    public static String convertMapToString(Map<?, ?> paramMap) {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<?,?> e : paramMap.entrySet()) {
+            if (sb.length() > 0) {
+                sb.append("&");
+            }
+            sb.append(String.format("%s=%s", defaultString(e.getKey()), defaultString(e.getValue())));
+        }
+        return sb.toString();
+    }
+
+    // String null 체크
+    public static String defaultString(final String str) {
+        return str == null ? "" : str;
+    }
+
+    // Object 를 string 으로 변환
+    public static String defaultString(Object src){
+        return defaultString(src, null);
+    }
+
+    // Object 를 string 으로 변환
+    public static String defaultString(Object src, final String defaultStr){
+        if(src != null){
+            if(src instanceof String){
+                return (String)src;
+            }else{
+                return String.valueOf(src);
+            }
+        }else{
+            return (defaultStr == null) ? "" : defaultStr;
+        }
+    }
+
+    // url 문자열에 포함된 특정 파라미터의 값을 리턴한다.
+    public static String getParamValFromUrlString(String url, String paramKey){
+
+        Log.d("## url", url);
+        String[] urlParamPair = url.split("\\?");
+        if(urlParamPair.length < 2){
+            Log.d("##", "파라미터가 존재하지 않는 URL 입니다.");
+            return "";
+        }
+        String queryString = urlParamPair[1];
+        Log.d("## queryString", queryString);
+        StringTokenizer st = new StringTokenizer(queryString, "&");
+        while(st.hasMoreTokens()){
+            String pair = st.nextToken();
+            Log.d("## pair", pair);
+            String[] pairArr = pair.split("=");
+            if(paramKey.equals(pairArr[0])){
+                return pairArr[1]; // 찾았을 경우
+            }
+        }
+        return "";
+    }
 }
