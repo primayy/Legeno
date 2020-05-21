@@ -24,6 +24,8 @@ import com.yy.mobile.rollingtextview.CharOrder;
 import com.yy.mobile.rollingtextview.RollingTextView;
 import com.yy.mobile.rollingtextview.strategy.Strategy;
 
+import java.text.DecimalFormat;
+
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
@@ -52,12 +54,14 @@ public class HomeFragment extends Fragment {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
 
+        DecimalFormat number_format = new DecimalFormat("###,###");
+
         RollingTextView rollingTextView = (RollingTextView) root.findViewById(R.id.current_money);
-        rollingTextView.setAnimationDuration(1500L);
+        rollingTextView.setAnimationDuration(1000L);
         rollingTextView.setCharStrategy(Strategy.NormalAnimation());
         rollingTextView.addCharOrder(CharOrder.Number);
         rollingTextView.setAnimationInterpolator(new AccelerateDecelerateInterpolator());
-        rollingTextView.setText(AppData.getPref().getString("balance","0"));
+        rollingTextView.setText(number_format.format(Integer.parseInt(AppData.getPref().getString("balance","0"))));
 
 
         return root;

@@ -99,8 +99,9 @@ public class QuestChecker {
         cal.setTime(today);
         int day=cal.get(Calendar.DAY_OF_WEEK);
         for(int i=1;i<day;i++){
-            if(che)
+            //if(che)
         }
+        return 0;
     }
 
 }

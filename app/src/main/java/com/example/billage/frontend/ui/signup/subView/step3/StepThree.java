@@ -56,7 +56,7 @@ public class StepThree extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_step3, container, false);
+        View root = inflater.inflate(R.layout.signup_step3, container, false);
 
         user_name = root.findViewById(R.id.user_name);
         nick_name = root.findViewById(R.id.nickname);
