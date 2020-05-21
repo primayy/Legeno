@@ -30,7 +30,7 @@ public class BillageFragment extends Fragment {
                 father.addView(mUnityPlayer.getView(), 0);
         }
         else
-            Log.d("unity","no player");
+            Log.d("unity","no  player");
 
         mUnityPlayer.requestFocus();
         mUnityPlayer.windowFocusChanged(true);
