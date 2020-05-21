@@ -1,8 +1,10 @@
 package com.example.billage.backend.api.data.token;
 
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Log;
 
+import com.example.billage.backend.common.ApiConst;
 import com.example.billage.backend.common.AppData;
 import com.example.billage.backend.http.ApiCallAdapter;
 import com.google.gson.Gson;
@@ -20,19 +22,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TokenRequest {
-    public static void request_token(){
-        String client_id = "dukjFhxkn3ji94NDLBzGCZwMomK526dfK9M6cIM8";
-        String client_secret = "2zsTRQkDSavQP170dpTZmvbnDzEZNT61NFCTEnT7";
-        String auth_code = "m0WMfi2oSHfBk0SyDrfMAupzsoGiCD"; //user별 코드 받도록 해야함
+    public static void request_token(Bundle args){
+//        String auth_code = "m0WMfi2oSHfBk0SyDrfMAupzsoGiCD"; //user별 코드 받도록 해야함
+        String auth_code = args.getString("code",""); //user별 코드 받도록 해야함
         HashMap<String, String> paramMap = new HashMap<>();
 
         paramMap.put("code", auth_code);
-        paramMap.put("client_id", client_id);
-        paramMap.put("client_secret", client_secret);
-//        paramMap.put("scope", "oob");   // 고정값
-//        paramMap.put("grant_type", "client_credentials");   // 고정값
+        paramMap.put("client_id", ApiConst.CLIENT_ID);
+        paramMap.put("client_secret", ApiConst.CLIENT_SECRET);
         paramMap.put("grant_type", "authorization_code");   // 고정값
-        paramMap.put("redirect_uri", "https://localhost:8890/callback");   // 고정값
+        paramMap.put("redirect_uri", ApiConst.CALLBACK_URL);   // 고정값
 
         ApiCallAdapter.getInstance()
                 .token(paramMap)
@@ -58,9 +57,6 @@ public class TokenRequest {
                             editor.putString("client_use_code",cl_use_code);
 
                             editor.apply();
-
-
-
                         }
                     }
 

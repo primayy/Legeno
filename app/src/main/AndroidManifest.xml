@@ -17,22 +17,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".frontend.ui.auth.AuthActivity"
+            android:label="인증"></activity>
         <activity
             android:name=".frontend.ui.mypage.subView.SetNotify"
-            android:label="@string/mypage_set_notify">
-        </activity>
+            android:label="@string/mypage_set_notify"></activity>
         <activity
             android:name=".frontend.ui.mypage.subView.SetPassword"
-            android:label="@string/mypage_set_password"/>
+            android:label="@string/mypage_set_password" />
         <activity
             android:name=".frontend.ui.mypage.subView.AddBank"
-            android:label="@string/mypage_add_bank"/>
+            android:label="@string/mypage_add_bank" />
         <activity
             android:name=".frontend.ui.mypage.subView.CurrentBank"
-            android:label="@string/mypage_current_bank"/>
+            android:label="@string/mypage_current_bank" />
         <activity
             android:name=".frontend.ui.mypage.subView.AccountModify"
-            android:label="@string/mypage_account_modify"/>
+            android:label="@string/mypage_account_modify" />
         <activity
             android:name=".frontend.ui.addUsage.CalendarDetailUsage"
             android:label="상세정보" />

@@ -8,10 +8,21 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 
 public interface ApiCallInterface {
+    // 본인확인 웹뷰 호출시(사용자인증)
+    String authorizeUrl = "/oauth/2.0/authorize";
+
+    // 본인확인 웹뷰 호출시(계좌등록확인)
+    String authorizeAccountUrl = "/oauth/2.0/authorize_account";
+
+    // 본인확인 웹뷰 호출전 정상유무 테스트용
+    @GET(authorizeUrl)
+    Call<Map> authorize(@HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> params);
+
     // access_token 획득
     @FormUrlEncoded
     @POST("/oauth/2.0/token")
