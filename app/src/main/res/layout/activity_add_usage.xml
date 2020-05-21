@@ -175,7 +175,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="50dp"
             android:layout_marginRight="50dp"
-            android:text="수입"
+            android:text="입금"
             tools:layout_editor_absoluteX="124dp"
             tools:layout_editor_absoluteY="22dp" />
 
@@ -183,7 +183,7 @@
             android:id="@+id/usage_checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="지출"
+            android:text="출금"
             tools:layout_editor_absoluteX="203dp"
             tools:layout_editor_absoluteY="22dp" />
 
@@ -201,6 +201,23 @@
         app:layout_constraintHorizontal_bias="0.234"
         app:layout_constraintStart_toEndOf="@+id/cost_input"
         app:layout_constraintTop_toTopOf="@+id/cost_input" />
+
+    <Button
+        android:id="@+id/delete_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:background="#B50808"
+        android:text="삭제하기"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/memo_input"
+        app:layout_constraintVertical_bias="0.469" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

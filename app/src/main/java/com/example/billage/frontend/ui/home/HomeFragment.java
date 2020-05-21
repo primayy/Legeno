@@ -1,6 +1,7 @@
 package com.example.billage.frontend.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.billage.R;
+import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.ui.signup.SignupActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -22,9 +24,13 @@ import com.yy.mobile.rollingtextview.CharOrder;
 import com.yy.mobile.rollingtextview.RollingTextView;
 import com.yy.mobile.rollingtextview.strategy.Strategy;
 
+import java.text.DecimalFormat;
+
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    private ViewPager viewPager;
+    private PageAdaper myPagerAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,22 +46,30 @@ public class HomeFragment extends Fragment {
 //        });
         TabLayout tabLayout = root.findViewById(R.id.three_tabs) ;
 
-        final ViewPager viewPager = root.findViewById(R.id.home_viewpager);
-        final PagerAdapter myPagerAdapter = new PageAdaper(getChildFragmentManager(), tabLayout.getTabCount());
+        viewPager = root.findViewById(R.id.home_viewpager);
+        myPagerAdapter = new PageAdaper(getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(myPagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+
+        DecimalFormat number_format = new DecimalFormat("###,###");
+
         RollingTextView rollingTextView = (RollingTextView) root.findViewById(R.id.current_money);
-        rollingTextView.setAnimationDuration(1500L);
+        rollingTextView.setAnimationDuration(1000L);
         rollingTextView.setCharStrategy(Strategy.NormalAnimation());
         rollingTextView.addCharOrder(CharOrder.Number);
         rollingTextView.setAnimationInterpolator(new AccelerateDecelerateInterpolator());
-        rollingTextView.setText("3,100,450");
+        rollingTextView.setText(number_format.format(Integer.parseInt(AppData.getPref().getString("balance","0"))));
 
 
         return root;
+    }
+
+    public void refresh(){
+        myPagerAdapter.notifyDataSetChanged();
+
     }
 
 

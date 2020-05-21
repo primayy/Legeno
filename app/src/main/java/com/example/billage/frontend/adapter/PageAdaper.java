@@ -12,7 +12,7 @@ public class PageAdaper extends FragmentStatePagerAdapter {
     int mNumOfTabs; //tab의 갯수
 
     public PageAdaper(FragmentManager fm, int numOfTabs) {
-        super(fm);
+        super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.mNumOfTabs = numOfTabs;
     }
 

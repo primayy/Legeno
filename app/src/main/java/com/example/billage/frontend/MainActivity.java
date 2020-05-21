@@ -3,10 +3,15 @@ package com.example.billage.frontend;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 
 import com.example.billage.R;
-import com.example.billage.backend.api.Account_transaction;
+
+import com.example.billage.backend.JSONTask_Post;
+import com.example.billage.backend.api.AccountBalance;
+import com.example.billage.backend.api.AccountTransaction;
 import com.example.billage.backend.common.AppData;
+import com.example.billage.frontend.data.UsageList;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.unity3d.player.*;
 
@@ -16,6 +21,15 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUnityPlayer = new UnityPlayer(this);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -43,14 +58,62 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("client_use_code","T991620810");
         editor.apply();
 
+
         // 거래내역조회 앱 디비에 데이터 넣을거면 이거 한번 실행하고 다시 주석처리
         // 주석 처리 안하면 같은 데이터 계속 추가됨 -> 수정할 예정
-        //Account_transaction.request_transaction("20200429","20200501");
+        AccountTransaction.request_transaction("20200429","20200501");
+        ArrayList<UsageList> tmp=AppData.mdb.getTransDaysColumns();
 
+        //퀘스트 전처리
+//        JSONObject data2Quest=new JSONObject();
+//        Date today=new Date();
+//        SimpleDateFormat date =new SimpleDateFormat("yyyy-MM-dd");
+//        //오늘 날짜와 요일을 계산
+//        String today2Str=date.format(today);
+//        Calendar cal=Calendar.getInstance();
+//        cal.setTime(today);
+//        String day=Integer.toString(cal.get(Calendar.DAY_OF_WEEK));//일요일:1~토요일:7
+//        //예상 소비량
+//        int expectedOutcome=AppData.mdb.getTransThreeMonthsAvg("출금");
+//        try {
+//            //오늘날짜,요일,예상소비량,일별 날짜와지출을 json형식의 데이터로 저장
+//            /*데이터 형식
+//            data2Quest:{
+//            today:오늘날짜
+//            day:오늘 요일
+//            expectation:예상 소비량
+//            daily:[
+//                {
+//                    date:날짜
+//                    cost:지출
+//                }
+//            ]
+//            jsonarray 접근하려면 data2Quest.daily.get(index)
+//            */
+//            data2Quest.accumulate("today",today2Str);
+//            data2Quest.accumulate("day",day);
+//            data2Quest.accumulate("expectation",Integer.toString(expectedOutcome));
+//            JSONArray jarray=new JSONArray();
+//            for(int i=0;i<tmp.size();i++){
+//                JSONObject dailyData=new JSONObject();
+//                dailyData.accumulate("date",tmp.get(i).getDate());
+//                dailyData.accumulate("cost",tmp.get(i).getCost());
+//                jarray.put(dailyData);
+//            }
+//            data2Quest.accumulate("daily",jarray);
+//            Log.d("questdata",data2Quest.toString());
+//
+//            JSONTask_Post jsonTask=new JSONTask_Post(data2Quest);
+//            jsonTask.execute("http://192.168.0.9:3000/Quest/checkQuest");
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
-
-
-
+        //잔액 조회
+        AccountBalance.request_balance();
+//        String balance = AppData.getPref().getString("balance","");
+//        Log.d("balance",balance);
 
     }
 

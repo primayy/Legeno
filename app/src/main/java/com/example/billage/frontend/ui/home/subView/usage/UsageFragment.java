@@ -1,10 +1,13 @@
 package com.example.billage.frontend.ui.home.subView.usage;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import com.example.billage.frontend.data.UsageList;
 import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.ui.addUsage.AddUsage;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.jaredrummler.android.widget.AnimatedSvgView;
 
 import java.util.ArrayList;
 
@@ -26,12 +30,10 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class UsageFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -47,7 +49,6 @@ public class UsageFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment usageFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static UsageFragment newInstance(String param1, String param2) {
         UsageFragment fragment = new UsageFragment();
         Bundle args = new Bundle();
@@ -94,6 +95,23 @@ public class UsageFragment extends Fragment {
             }
         });
 
+        SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.refresh_layout);
+        swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#FFC100"));
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                //To-do
+                Log.d("refesh","dd");
+
+                // 새로고침 로드 완료
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+        });
+
         return root;
     }
+
 }

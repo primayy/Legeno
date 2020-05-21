@@ -1,25 +1,25 @@
 package com.example.billage.frontend.ui.signup;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.example.billage.R;
-import com.example.billage.backend.JSONTask_Post;
+import com.example.billage.frontend.adapter.SignupPageAdapter;
+import com.google.android.material.tabs.TabLayout;
 
 
 public class SignupActivity extends AppCompatActivity {
 
     TextView tvData;
+
+    private String user_name;
 
     public void settvData(String data){
         this.tvData.setText(data);
@@ -28,44 +28,43 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.signup);
 
-        Intent intent = new Intent(this.getIntent());
-        String tmp = intent.getStringExtra("tmp");
+        setViewPage();
+    }
+
+    private void setViewPage() {
+        TabLayout tabLayout = findViewById(R.id.circle_tab) ;
+        Button next_btn = findViewById(R.id.next_btn);
+
+        final ViewPager viewPager = findViewById(R.id.signup_viewpager);
+        final PagerAdapter myPagerAdapter = new SignupPageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),next_btn,viewPager);
+        viewPager.setAdapter(myPagerAdapter);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.setOffscreenPageLimit(0);
 
 
-        Button confirm = (Button) findViewById(R.id.confirm_btn);
-
-        // 입력완료 버튼 클릭 이벤트 처리
-        confirm.setOnClickListener(new View.OnClickListener(){
-
+        next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // input 객체 선언
-                EditText input_text1 = (EditText) findViewById(R.id.name);
-                EditText input_text2 = (EditText) findViewById(R.id.nickname);
-
-                //객체에서 입력값 가져오기
-                String name = input_text1.getText().toString();
-                String nickname = input_text2.getText().toString();
-                Log.d("test",name);
-                Log.d("test",nickname);
-
-                try {
-                    //서버에 JSON data post
-                    JSONObject signupData = new JSONObject();
-                    signupData.accumulate("name", name);
-                    signupData.accumulate("nickname",nickname);
-                    JSONTask_Post jsonTask= new JSONTask_Post(signupData);
-                    jsonTask.execute("http://192.168.0.9:3000/UserBack/SignUp");
-
-                }catch (JSONException e){
-                    e.printStackTrace();
+                int currentPage = viewPager.getCurrentItem();
+                viewPager.setCurrentItem(currentPage+1);
+                if(currentPage==2){
+                    next_btn.setText("시작하기");
+                    Log.d("asdfasdf",user_name);
+                }
+                if(currentPage==3){
+                    Log.d("test", viewPager.getCurrentItem()+"");
+                    finish();
                 }
             }
         });
     }
+
+
+
 }
 
 

@@ -1,6 +1,7 @@
 package com.example.billage.backend.common;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -103,6 +104,56 @@ public class Utils {
         String transTime = afterFormat.format(tempTime);
 
         return transTime;
+    }
+
+    //은행 코드를 은행명으로 매핑
+    public static String bankCodeMapping(String bank_code){
+        Log.d("qwe",bank_code);
+        switch (bank_code){
+            case "002":
+                return "KDB산업은행";
+            case "003":
+                return "IBK기업은행";
+            case "004":
+                return "KB국민은행";
+            case "007":
+                return "수협은행";
+            case "011":
+                return "NH농협은행";
+            case "020":
+                return "우리은행";
+            case "023":
+                return "SC제일은행";
+            case "027":
+                return "한국씨티은행";
+            case "031":
+                return "대구은행";
+            case "032":
+                return "부산은행";
+            case "034":
+                return "광주은행";
+            case "035":
+                return "제주은행";
+            case "037":
+                return "전북은행";
+            case "039":
+                return "경남은행";
+            case "045":
+                return "새마을금고";
+            case "050":
+                return "상호저축은행";
+            case "081":
+                return "KEB하나은행";
+            case "088":
+                return "신한은행";
+            case "089":
+                return "케이뱅크";
+            case "090":
+                return "카카오은행";
+            case "097":
+                return "오픈은행";
+        }
+        return "은행";
     }
 
 }

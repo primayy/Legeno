@@ -7,14 +7,21 @@
     tools:context=".frontend.ui.home.subView.usage.UsageFragment">
 
 
-    <ListView
-        android:id="@+id/usage_list"
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="0dp"
-        android:divider="#00000000"
-        android:layout_marginBottom="60dp"
-        />
+        android:layout_marginBottom="60dp">
+        <ListView
+            android:id="@+id/usage_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="0dp"
+            android:divider="#00000000" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_usage"
@@ -25,5 +32,6 @@
         android:src="@drawable/ic_addbtn"
         android:layout_marginBottom="80dp"
         android:layout_marginRight="20dp" />
+
 
 </FrameLayout>
