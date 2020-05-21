@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.billage.R;
+import com.example.billage.backend.api.AccountTransaction;
 import com.example.billage.frontend.adapter.UsageAdapter;
 import com.example.billage.frontend.data.UsageList;
 import com.example.billage.backend.common.AppData;
@@ -34,6 +35,7 @@ public class UsageFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private UsageAdapter usageAdapter;
+    private View root;
 
     public UsageFragment() {
     }
@@ -56,23 +58,17 @@ public class UsageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_usage, container, false);
-
+        root = inflater.inflate(R.layout.fragment_usage, container, false);
 
         final ArrayList<UsageList> items = AppData.mdb.getTransColumns();
         //Log.d("ddd",""+items.get(0).getDate());
 
         // listview 생성 및 adapter 지정.
         final ListView listview = (ListView) root.findViewById(R.id.usage_list) ;
-       // listview.setAdapter(adapter) ;
-
-
-
+        // listview.setAdapter(adapter) ;
 
         usageAdapter = new UsageAdapter(getActivity(),items,listview,getActivity());
         listview.setAdapter(usageAdapter);
-
-        usageAdapter.notifyDataSetChanged();
 
         FloatingActionButton usageButton = (FloatingActionButton) root.findViewById(R.id.add_usage);
         usageButton.setOnClickListener(new View.OnClickListener(){
@@ -93,14 +89,25 @@ public class UsageFragment extends Fragment {
 
                 //To-do
                 Log.d("refesh","dd");
-
-                // 새로고침 로드 완료
+                AccountTransaction.request_transaction("20200429","20200501");
+                refresh();
                 swipeRefreshLayout.setRefreshing(false);
             }
 
         });
 
         return root;
+    }
+
+    public void refresh(){
+        final ArrayList<UsageList> items = new ArrayList<>();
+        //Log.d("ddd",""+items.get(0).getDate());
+        // listview 생성 및 adapter 지정.
+        final ListView listview = (ListView) root.findViewById(R.id.usage_list) ;
+        // listview.setAdapter(adapter) ;
+
+        usageAdapter = new UsageAdapter(getActivity(),items,listview,getActivity());
+        listview.setAdapter(usageAdapter);
     }
 
 
