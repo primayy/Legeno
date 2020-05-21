@@ -49,7 +49,7 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
          ConstraintLayout quest_detail;
 
     }
-    
+
     public QuestAdapter(Context context, List<QuestList> list, ListView listview, Activity activity) {
         super(context, 0, list);
 
