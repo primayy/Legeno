@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.billage.R;
+import com.example.billage.frontend.ui.auth.AuthActivity;
 import com.example.billage.frontend.ui.mypage.subView.AccountModify;
 import com.example.billage.frontend.ui.mypage.subView.AddBank;
 import com.example.billage.frontend.ui.mypage.subView.CurrentBank;
@@ -37,6 +38,16 @@ public class MypageFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        Button button2 = root.findViewById(R.id.test_auth);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AuthActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         setTextviewClickEvent(root);
 
