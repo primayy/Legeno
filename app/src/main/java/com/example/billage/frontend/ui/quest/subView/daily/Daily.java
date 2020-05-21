@@ -40,8 +40,8 @@ public class Daily extends Fragment {
         ListView listview = (ListView) root.findViewById(R.id.daliy_list) ;
         // listview.setAdapter(adapter) ;
 
-        QuestAdapter usageAdapter = new QuestAdapter(getActivity(),items,listview,getActivity());
-        listview.setAdapter(usageAdapter);
+        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity());
+        listview.setAdapter(questAdapter);
         return root;
     }
 }
