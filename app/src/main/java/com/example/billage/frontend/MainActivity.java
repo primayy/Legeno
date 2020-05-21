@@ -1,5 +1,6 @@
 package com.example.billage.frontend;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.unity3d.player.*;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 거래내역조회 앱 디비에 데이터 넣을거면 이거 한번 실행하고 다시 주석처리
         // 주석 처리 안하면 같은 데이터 계속 추가됨 -> 수정할 예정
-        AccountTransaction.request_transaction("20200429","20200501");
+       // AccountTransaction.request_transaction("20200429","20200501");
         ArrayList<UsageList> tmp=AppData.mdb.getTransDaysColumns();
 
         //퀘스트 전처리
@@ -159,4 +162,5 @@ public class MainActivity extends AppCompatActivity {
     public UnityPlayer GetUnityPlayer() {
         return this.mUnityPlayer;
     }
+
 }

@@ -1,10 +1,13 @@
 package com.example.billage.frontend.ui.home.subView.usage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
@@ -19,16 +22,10 @@ import com.example.billage.frontend.data.UsageList;
 import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.ui.addUsage.AddUsage;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.jaredrummler.android.widget.AnimatedSvgView;
 
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UsageFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class UsageFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,19 +33,11 @@ public class UsageFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    private UsageAdapter usageAdapter;
 
     public UsageFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment usageFragment.
-     */
     public static UsageFragment newInstance(String param1, String param2) {
         UsageFragment fragment = new UsageFragment();
         Bundle args = new Bundle();
@@ -61,10 +50,6 @@ public class UsageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -82,8 +67,12 @@ public class UsageFragment extends Fragment {
        // listview.setAdapter(adapter) ;
 
 
-        final UsageAdapter usageAdapter = new UsageAdapter(getActivity(),items,listview,getActivity());
+
+
+        usageAdapter = new UsageAdapter(getActivity(),items,listview,getActivity());
         listview.setAdapter(usageAdapter);
+
+        usageAdapter.notifyDataSetChanged();
 
         FloatingActionButton usageButton = (FloatingActionButton) root.findViewById(R.id.add_usage);
         usageButton.setOnClickListener(new View.OnClickListener(){
@@ -91,7 +80,7 @@ public class UsageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getActivity(), AddUsage.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -113,5 +102,6 @@ public class UsageFragment extends Fragment {
 
         return root;
     }
+
 
 }
