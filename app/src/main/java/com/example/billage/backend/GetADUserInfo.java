@@ -7,10 +7,16 @@ import org.json.JSONException;
 
 public class GetADUserInfo {
 
-    public String getUserInfo(String key) throws JSONException {
-        JSONArray jarray=new JSONArray(AppData.getPref().getString("user_info",null));
+    public String getUserInfo(String key) {
+        JSONArray jarray= null;
+        try {
+            jarray = new JSONArray(AppData.getPref().getString("user_info",null));
+            return jarray.getJSONObject(0).getString(key);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        return jarray.getJSONObject(0).getString(key);
+        return null;
     }
 
     public boolean IsThereUserInfo(){
