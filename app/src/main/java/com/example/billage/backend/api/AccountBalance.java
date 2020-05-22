@@ -24,7 +24,7 @@ public class AccountBalance {
     public static void request_balance(){
 //        String accessToken = AppData.getPref().getString("access_token","");
         //사용자 인증 후 발급 받은 토큰으로 변경해야함. 사용자별로 다름
-        String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAwNzU4NDkwIiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE1OTYwMjM0NDgsImp0aSI6IjZmYzg2ZmIyLWI1MDUtNGNlZS04Yjg1LWE3YmYyZTJlZmZiMiJ9.nEM9xPjedWztnQ8BPKR3m5lMDJ1imwt04rGFIJcYYuc";
+        String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAwNzU4NDkwIiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE1OTc4MzQ4ODksImp0aSI6IjVlYzI4MTA2LTg3YzItNDk3Zi1iOGIwLWYxNTMxYjM3YzE1NSJ9.LSLwAEHPQ1YjrnJwcEG_YOgKQ_QtFZXjTp3JoD7ty_k";
 
         HashMap<String, String> paramMap = new HashMap<>();
         //요청시 필요한 parameters
