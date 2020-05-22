@@ -94,9 +94,7 @@ public class MainActivity extends AppCompatActivity {
                     jarray.put(dailyData);
                 }
                 data2Quest.accumulate("daily",jarray);
-                Log.d("questdata",data2Quest.toString());
                 QuestChecker questChecker=new QuestChecker(data2Quest);
-                Log.d("qtest",questChecker.parseQuestList().get(3).getComplete());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -107,11 +105,6 @@ public class MainActivity extends AppCompatActivity {
         }
         //잔액 조회
         AccountBalance.request_balance();
-        try {
-            Log.d("profile",getADUserInfo.getUserInfo("user_name"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
     }
 
