@@ -57,7 +57,7 @@ public class QuestChecker {
         }
         try {
             JSONTask_Get jsonTask = new JSONTask_Get();
-            JSONArray questList = new JSONArray(jsonTask.execute("http://192.168.25.80:3000/Quest/getQuest").get());
+            JSONArray questList = new JSONArray(jsonTask.execute("http://192.168.0.9:3000/Quest/getQuest").get());
 
             //퀘스트 description 수정
             questList.getJSONObject(0).put("quest_description",questList.getJSONObject(0).getString("quest_description").replace("%","%(~"+Double.toString(getExpectation() *0.95)+")"));
@@ -150,7 +150,7 @@ public class QuestChecker {
             postdata.put("user_id",getUserInfo.getUserInfo("user_id"));
             JSONTask_Post jspost=new JSONTask_Post(postdata);
 
-            String res=jspost.execute("http://192.168.25.80:3000/Quest/checkCoin").get();
+            String res=jspost.execute("http://192.168.0.9:3000/Quest/checkCoin").get();
 
             JSONArray coinCost=new JSONArray(res);
             if(coinCost.getJSONObject(0).getInt("coin")>=coinCost.getJSONObject(0).getInt("billage_cost")*0.1){
