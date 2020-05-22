@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/usage_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".frontend.ui.home.subView.usage.UsageFragment">
-
-
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp">
+
         <ListView
             android:id="@+id/usage_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="0dp"
-            android:divider="#00000000" />
+            android:divider="#00000000"
+            android:dividerHeight="0dp" >
+
+
+        </ListView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -27,11 +31,11 @@
         android:id="@+id/add_usage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:layout_gravity="right|bottom"
-        android:src="@drawable/ic_addbtn"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="80dp"
-        android:layout_marginRight="20dp" />
+        android:clickable="true"
+        android:src="@drawable/ic_addbtn" />
 
 
 </FrameLayout>

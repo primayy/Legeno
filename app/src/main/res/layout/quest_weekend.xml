@@ -23,14 +23,15 @@
 
 
             <ProgressBar
-                android:max="100"
-                android:progress="51"
+                android:id="@+id/quest_progress"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:progressDrawable="@drawable/progressbar"
                 android:layout_width="match_parent"
                 android:layout_height="18dp"
+                android:layout_marginHorizontal="18dp"
                 android:layout_marginVertical="10dp"
-                android:layout_marginHorizontal="18dp"/>
+                android:max="100"
+                android:progress="51"
+                android:progressDrawable="@drawable/progressbar" />
 
             <TextView
                 android:id="@+id/progress_text"

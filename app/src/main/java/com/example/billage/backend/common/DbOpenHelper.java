@@ -153,9 +153,15 @@ public class DbOpenHelper {
         Cursor c = mDB.rawQuery(query,null);
 
         //idx 0: avg
+        Log.d("avg_test", String.valueOf(c.getCount()));
         if(c.moveToFirst()){
             do{
-                trans_avg = (int) Double.parseDouble(c.getString(0))/90;
+                try{
+                    trans_avg = (int) Double.parseDouble(c.getString(0))/90;
+                } catch(Exception e){
+                    Log.d("trans_avg_err", String.valueOf(e));
+                    trans_avg = 0;
+                }
                 Log.d("avg_data", String.valueOf(trans_avg));
             }while (c.moveToNext());
         }
