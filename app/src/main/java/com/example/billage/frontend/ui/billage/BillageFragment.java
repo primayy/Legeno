@@ -11,16 +11,23 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.billage.backend.GetADUserInfo;
 import com.example.billage.frontend.MainActivity;
 import com.unity3d.player.*;
 
 import com.example.billage.R;
 
+import org.json.JSONException;
+
 public class BillageFragment extends Fragment {
     private UnityPlayer mUnityPlayer;
     private MainActivity mainActivity;
+    private GetADUserInfo AppDB;
+    String userInfo;
     View playerView;
     FrameLayout father;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         playerView = inflater.inflate(R.layout.billage, container, false);
@@ -31,7 +38,7 @@ public class BillageFragment extends Fragment {
         }
         else
             Log.d("unity","no  player");
-
+        Log.d("unity","onCreate");
         mUnityPlayer.requestFocus();
         mUnityPlayer.windowFocusChanged(true);
 
@@ -46,6 +53,12 @@ public class BillageFragment extends Fragment {
         if(getActivity() != null && getActivity() instanceof MainActivity){
             mUnityPlayer = (UnityPlayer)((MainActivity) getActivity()).GetUnityPlayer();
         }
+//        try {
+//            userInfo = AppDB.getUserInfo("user_id");
+//            Log.d("받아온 값", userInfo);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
     }
 
 
@@ -74,6 +87,7 @@ public class BillageFragment extends Fragment {
     {
         //father.removeView(mUnityPlayer.getView());
         Log.d("unity", "started");
+        UnityPlayer.UnitySendMessage("AndroidManager","GetUserID","2");
         super.onStart();
     }
 
