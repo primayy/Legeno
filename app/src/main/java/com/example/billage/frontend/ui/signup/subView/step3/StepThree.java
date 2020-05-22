@@ -82,7 +82,7 @@ public class StepThree extends Fragment {
                     signupData.accumulate("nickname",nickname);
                     signupData.accumulate("callID","signUp");
                     JSONTask_Post jsonTask= new JSONTask_Post(signupData);
-                    jsonTask.execute("http://192.168.25.80:3000/SignUp");
+                    jsonTask.execute("http://18.219.106.101/SignUp");
 
                 }catch (JSONException e) {
                     e.printStackTrace();

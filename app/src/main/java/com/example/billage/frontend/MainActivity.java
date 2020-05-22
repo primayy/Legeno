@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             data2Quest.accumulate("daily",jarray);
             Log.d("questdata",data2Quest.toString());
             QuestChecker questChecker=new QuestChecker(data2Quest);
-            Log.d("qtest",questChecker.parseQuestList().get(0).getComplete());
+            Log.d("qtest",questChecker.parseQuestList().get(3).getComplete());
         } catch (JSONException e) {
             e.printStackTrace();
         }
