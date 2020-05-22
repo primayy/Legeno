@@ -23,7 +23,6 @@ router.get('/getQuest',function(req,res){
     if(!err){
       questList=rows
 
-      console.log(questList);
       res.write(JSON.stringify(questList))
       res.end();
     }else{
@@ -32,5 +31,18 @@ router.get('/getQuest',function(req,res){
   })
 })
 
+
+router.post('/checkCoin',function(req,res){
+  var str=JSON.stringify(req.body)
+  var postdata=JSON.parse(Object.keys(JSON.parse(str)))
+  connection.query(`select coin,billage_cost from Billage.billage where user_id=${postdata.user_id}`,function(err,rows,fields){
+    if(!err){
+      res.write(JSON.stringify(rows))
+      res.end();
+    }else{
+      console.log("checkCoin error");
+    }
+  })
+})
 
 module.exports = router;

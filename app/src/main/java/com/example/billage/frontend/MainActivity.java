@@ -28,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             data2Quest.accumulate("daily",jarray);
             Log.d("questdata",data2Quest.toString());
             QuestChecker questChecker=new QuestChecker(data2Quest);
+            Log.d("qtest",questChecker.parseQuestList().get(0).getComplete());
         } catch (JSONException e) {
             e.printStackTrace();
         }
