@@ -104,6 +104,7 @@ public class JSONTask_Post extends AsyncTask<String,String,String> {
             if(this.jsonObject.getString("callID")=="signUp") {
                 SharedPreferences.Editor editor = AppData.getPref().edit();
                 editor.putString("user_info", this.response);
+                editor.putInt("attendanceCount",0);
                 editor.apply();
             }
         } catch (JSONException e) {
