@@ -16,6 +16,7 @@ import com.example.billage.backend.api.AccountBalance;
 import com.example.billage.backend.api.AccountTransaction;
 import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.data.UsageList;
+import com.example.billage.frontend.ui.signup.SignupActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.unity3d.player.*;
 
@@ -74,35 +75,43 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<UsageList> tmp=AppData.mdb.getTransDaysColumns();
 
 
-        //퀘스트 전처리
-        JSONObject data2Quest=new JSONObject();
-        Date today=new Date();
-        Calendar cal=Calendar.getInstance();
-        cal.setTime(today);
-        //예상 소비량
-        int expectedOutcome=AppData.mdb.getTransThreeMonthsAvg("출금");
-        try {
-            data2Quest.accumulate("dateInfo",cal);
-            data2Quest.accumulate("expectation",Integer.toString(expectedOutcome));
-            JSONArray jarray=new JSONArray();
-            for(int i=0;i<tmp.size();i++){
-                JSONObject dailyData=new JSONObject();
-                dailyData.accumulate("date",tmp.get(i).getDate());
-                dailyData.accumulate("cost",tmp.get(i).getCost());
-                jarray.put(dailyData);
+        GetADUserInfo getADUserInfo = new GetADUserInfo();
+        if(getADUserInfo.IsThereUserInfo()){
+            JSONObject data2Quest=new JSONObject();
+            Date today=new Date();
+            Calendar cal=Calendar.getInstance();
+            cal.setTime(today);
+            //예상 소비량
+            int expectedOutcome=AppData.mdb.getTransThreeMonthsAvg("출금");
+            try {
+                data2Quest.accumulate("dateInfo",cal);
+                data2Quest.accumulate("expectation",Integer.toString(expectedOutcome));
+                JSONArray jarray=new JSONArray();
+                for(int i=0;i<tmp.size();i++){
+                    JSONObject dailyData=new JSONObject();
+                    dailyData.accumulate("date",tmp.get(i).getDate());
+                    dailyData.accumulate("cost",tmp.get(i).getCost());
+                    jarray.put(dailyData);
+                }
+                data2Quest.accumulate("daily",jarray);
+                Log.d("questdata",data2Quest.toString());
+                QuestChecker questChecker=new QuestChecker(data2Quest);
+                Log.d("qtest",questChecker.parseQuestList().get(3).getComplete());
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            data2Quest.accumulate("daily",jarray);
-            Log.d("questdata",data2Quest.toString());
-            QuestChecker questChecker=new QuestChecker(data2Quest);
-            Log.d("qtest",questChecker.parseQuestList().get(3).getComplete());
+        }
+        else{
+            Intent intent = new Intent(this, SignupActivity.class);
+            startActivity(intent);
+        }
+        //잔액 조회
+        AccountBalance.request_balance();
+        try {
+            Log.d("profile",getADUserInfo.getUserInfo("user_name"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        //잔액 조회
-        AccountBalance.request_balance();
-//        String balance = AppData.getPref().getString("balance","");
-//        Log.d("balance",balance);
 
     }
 

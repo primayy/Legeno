@@ -12,4 +12,9 @@ public class GetADUserInfo {
 
         return jarray.getJSONObject(0).getString(key);
     }
+
+    public boolean IsThereUserInfo(){
+        if(AppData.getPref().getString("user_info",null)==null) return false;
+        else return true;
+    }
 }
