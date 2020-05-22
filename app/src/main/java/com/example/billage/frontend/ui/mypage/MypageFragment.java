@@ -51,6 +51,8 @@ public class MypageFragment extends Fragment {
 
         setTextviewClickEvent(root);
 
+
+
         return root;
     }
 

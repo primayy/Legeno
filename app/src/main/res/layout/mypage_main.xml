@@ -57,27 +57,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="내 정보"
+                android:text="내 프로필"
                 android:textSize="12sp" />
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/user_img"
+                android:background="@drawable/image_border"/>
 
             <TextView
                 android:id="@+id/account_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="10dp"
-                android:text="ㅇㅇㅇ (신한카드마스터) 님"
+                android:textAlignment="center"
+                android:text="ㅇㅇㅇ (신한카드마스터)"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/account_modify"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="10dp"
-                android:text="@string/mypage_account_modify"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?android:attr/selectableItemBackground"
-                android:textSize="15sp" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/account_modify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="10dp"
+                    android:textAlignment="center"
+                    android:text="@string/mypage_account_modify"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/edit_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="start|center"
+
+                    android:src="@drawable/edit" />
+
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
