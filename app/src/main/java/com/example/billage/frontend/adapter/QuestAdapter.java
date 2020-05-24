@@ -97,8 +97,16 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
         viewHolder.name.setText(quest.getName());
         viewHolder.description.setText(quest.getDescription());
         viewHolder.reward.setText(quest.getReward());
-        viewHolder.complete.setText(quest.getComplete());
-        viewHolder.complete2.setText(quest.getComplete());
+
+        if(quest.getComplete().equals("0")){
+            viewHolder.complete.setText("진행중");
+            viewHolder.complete2.setText("진행중");
+        }
+        else{
+            viewHolder.complete.setText("완료");
+            viewHolder.complete2.setText("완료");
+        }
+
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

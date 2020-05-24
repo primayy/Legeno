@@ -1,10 +1,9 @@
-package com.example.billage.frontend.ui.quest.subView.weekend;
+package com.example.billage.frontend.ui.quest.subView.ingame;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,54 +12,34 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.billage.R;
-import com.example.billage.backend.QuestChecker;
-import com.example.billage.frontend.MainActivity;
 import com.example.billage.frontend.adapter.QuestAdapter;
 import com.example.billage.frontend.data.QuestList;
 
-import org.json.JSONException;
-
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Weekend extends Fragment {
 
+public class InGame extends Fragment {
 
-    public Weekend() {
+    public InGame() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        int complete_rate = 25;
+        int complete_rate = 75;
         // Inflate the layout for this fragment\
-        View root = inflater.inflate(R.layout.quest_weekend, container, false);
+        View root = inflater.inflate(R.layout.quest_in_game, container, false);
 
-        MainActivity mainActivity = new MainActivity();
-        QuestChecker questChecker = mainActivity.getQuestChecker();
+        // ArrayList<UsageList> items = AppData.mdb.getTransColumns();
+        ArrayList<QuestList> items = new ArrayList<>();
+        items.add(new QuestList(1,"계획 소비","일일 소비량을 10000원 이내로 사용한다.","완료","1200","일간"));
+        items.add(new QuestList(1,"계획 소비","일일 소비량을 10000원 이내로 사용한다.","완료","1200","일간"));
+        items.add(new QuestList(1,"계획 소비","일일 소비량을 10000원 이내로 사용한다.","진행중","1200","일간"));
+        items.add(new QuestList(1,"계획 소비","일일 소비량을 10000원 이내로 사용한다.","완료","1200","일간"));
 
-        ArrayList<QuestList> items = null;
-        try {
-            items = questChecker.parseQuestList();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        int size = items.size();
-        for(int i=0;i<size;i++){
-            if(!(items.get(i).getType().equals("weekly"))){
-                items.remove(i);
-                size--;
-                i--;
-            }
-        }
-
-        ListView listview = (ListView) root.findViewById(R.id.weekend_list);
+        ListView listview = (ListView) root.findViewById(R.id.ingame_list);
 
         QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity());
         listview.setAdapter(questAdapter);
@@ -71,5 +50,5 @@ public class Weekend extends Fragment {
         TextView progress_text = root.findViewById(R.id.progress_text);
         progress_text.setText(complete_rate+"%");
         return root;
-    }
+}
 }

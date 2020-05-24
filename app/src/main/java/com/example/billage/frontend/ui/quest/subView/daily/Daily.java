@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.billage.frontend.data.QuestList;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class Daily extends Fragment {
@@ -46,8 +48,14 @@ public class Daily extends Fragment {
             e.printStackTrace();
         }
 
-        for(int i=0;i<items.size();i++){
-            items
+        int size = items.size();
+        for(int i=0;i<size;i++){
+
+            if(!(items.get(i).getType().equals("daily"))){
+                items.remove(i);
+                size--;
+                i--;
+            }
         }
 
         ListView listview = (ListView) root.findViewById(R.id.daliy_list) ;
