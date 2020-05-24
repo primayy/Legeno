@@ -11,10 +11,10 @@ public class GetSetDB {
     public String setCoin(int coin){
         try {
             JSONObject postdata = new JSONObject();
-            postdata.accumulate("coin", coin);
+            postdata.accumulate("coin", Integer.toString(coin));
             JSONTask_Post jstask = new JSONTask_Post(postdata);
             GetADUserInfo getUserInfo=new GetADUserInfo();
-            return jstask.execute("http://192.168.35.108:3000/Update/Coin/"+getUserInfo.getUserInfo("user_id")).get();
+            return jstask.execute("http://18.219.106.101/Update/Coin/"+getUserInfo.getUserInfo("user_id")).get();
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -31,7 +31,7 @@ public class GetSetDB {
         try{
             JSONTask_Get jstask=new JSONTask_Get();
             GetADUserInfo getUserInfo=new GetADUserInfo();
-            return Integer.parseInt(jstask.execute("http://192.168.35.108:3000/Update/Coin/"+getUserInfo.getUserInfo("user_id")).get());
+            return Integer.parseInt(jstask.execute("http://18.219.106.101/Read/Coin/"+getUserInfo.getUserInfo("user_id")).get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

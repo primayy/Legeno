@@ -16,10 +16,11 @@ var connection=mysql.createConnection({
 
 connection.connect();
 
-router.get('/Coin/:idx'function(req,res){
+router.get('/Coin/:idx',function(req,res){
   connection.query(`select coin from Billage.billage where user_id=${req.params.idx}`,function(err,rows,fields){
     if(!err){
-      res.write(JSON.stringify(rows))
+      console.log(JSON.stringify(rows[0].coin));
+      res.write(JSON.stringify(rows[0].coin))
       res.end();
     }else{
       console.log("getcoin error");
