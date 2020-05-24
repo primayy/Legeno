@@ -9,6 +9,7 @@ import android.view.Window;
 import com.example.billage.R;
 
 import com.example.billage.backend.GetADUserInfo;
+import com.example.billage.backend.GetSetDB;
 import com.example.billage.backend.JSONTask_Get;
 import com.example.billage.backend.JSONTask_Post;
 import com.example.billage.backend.QuestChecker;
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         // 거래내역조회 앱 디비에 데이터 넣을거면 이거 한번 실행하고 다시 주석처리
         // 주석 처리 안하면 같은 데이터 계속 추가됨 -> 수정할 예정
         //AccountTransaction.request_transaction("20200429","20200501");
+        ArrayList<UsageList> tmp=AppData.mdb.getTransDaysColumns();
+
 
         //잔액 조회
         AccountBalance.request_balance();
