@@ -16,4 +16,15 @@ var connection=mysql.createConnection({
 
 connection.connect();
 
+router.get('/Coin/:idx'function(req,res){
+  connection.query(`select coin from Billage.billage where user_id=${req.params.idx}`,function(err,rows,fields){
+    if(!err){
+      res.write(JSON.stringify(rows))
+      res.end();
+    }else{
+      console.log("getcoin error");
+    }
+  })
+})
+
 module.exports = router;
