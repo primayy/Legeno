@@ -4,26 +4,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
 
 import com.example.billage.R;
 
 import com.example.billage.backend.GetADUserInfo;
-import com.example.billage.backend.GetSetDB;
-import com.example.billage.backend.JSONTask_Get;
-import com.example.billage.backend.JSONTask_Post;
 import com.example.billage.backend.QuestChecker;
 import com.example.billage.backend.api.AccountBalance;
-import com.example.billage.backend.api.AccountTransaction;
 import com.example.billage.backend.common.AppData;
+import com.example.billage.frontend.data.QuestList;
 import com.example.billage.frontend.data.UsageList;
 import com.example.billage.frontend.ui.signup.SignupActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.unity3d.player.*;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -33,18 +27,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private UnityPlayer mUnityPlayer; //이름 바꾸지말 것. Unityplayer
     public static  QuestChecker questChecker;
+
+    public static  ArrayList<QuestList> dailyQuestList;
+    public static  ArrayList<QuestList> weekendQuestList;
+
+    public static  ArrayList<QuestList> monthQuestList;
+    public static  ArrayList<QuestList> ingameQuestList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
 
         questPreprocessing();
-
+        getQuestList(); // 퀘스트 리스트 set
 
         // 거래내역조회 앱 디비에 데이터 넣을거면 이거 한번 실행하고 다시 주석처리
         // 주석 처리 안하면 같은 데이터 계속 추가됨 -> 수정할 예정
@@ -83,6 +82,34 @@ public class MainActivity extends AppCompatActivity {
         //잔액 조회
         AccountBalance.request_balance();
 
+    }
+
+    private void getQuestList() {
+
+        dailyQuestList = getQuest(dailyQuestList,"daily");
+        weekendQuestList = getQuest(weekendQuestList,"weekly");
+        monthQuestList = getQuest(monthQuestList,"monthly");
+        ingameQuestList = getQuest(ingameQuestList,"ingame");
+    }
+
+    private ArrayList<QuestList> getQuest( ArrayList<QuestList> questList, String key) {
+        try {
+            questList = questChecker.parseQuestList();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        int size = questList.size();
+        for(int i=0;i<size;i++){
+
+            if(!(questList.get(i).getType().equals(key))){
+                questList.remove(i);
+                size--;
+                i--;
+            }
+        }
+
+        return questList;
     }
 
     private void questPreprocessing() {
@@ -182,5 +209,19 @@ public class MainActivity extends AppCompatActivity {
 
     public QuestChecker getQuestChecker(){
         return questChecker;
+    }
+
+    public ArrayList<QuestList> getDailyQuestList() {
+        return dailyQuestList;
+    }
+    public ArrayList<QuestList> getWeekendQuestList() {
+        return weekendQuestList;
+    }
+    public ArrayList<QuestList> getMonthQuestList() {
+        return monthQuestList;
+    }
+
+    public ArrayList<QuestList> getIngameQuestList() {
+        return ingameQuestList;
     }
 }

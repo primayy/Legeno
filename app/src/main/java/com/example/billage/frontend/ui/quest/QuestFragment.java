@@ -29,12 +29,14 @@ public class QuestFragment extends Fragment {
     private ViewPager viewPager;
     private QuestPageAdapter myPagerAdapter;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         questViewModel = ViewModelProviders.of(this).get(QuestViewModel.class);
         View root = inflater.inflate(R.layout.quest, container, false);
 
+        GetSetDB getSetDB = new GetSetDB();
+        TextView coin = root.findViewById(R.id.coin_value);
+        coin.setText(String.valueOf(getSetDB.getCoin()));
 
         int avg_usage = AppData.mdb.getTransThreeMonthsAvg("출금");
         DecimalFormat number_format = new DecimalFormat("###,###");
@@ -43,7 +45,7 @@ public class QuestFragment extends Fragment {
         TabLayout tabLayout = root.findViewById(R.id.three_tabs) ;
 
         viewPager = root.findViewById(R.id.quest_viewpager);
-        myPagerAdapter = new QuestPageAdapter(getChildFragmentManager(), tabLayout.getTabCount());
+        myPagerAdapter = new QuestPageAdapter(getChildFragmentManager(), tabLayout.getTabCount(),coin);
         viewPager.setAdapter(myPagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
@@ -57,9 +59,8 @@ public class QuestFragment extends Fragment {
         rollingTextView.setAnimationInterpolator(new AccelerateDecelerateInterpolator());
         rollingTextView.setText(String.valueOf(number_format.format(avg_usage)));
 
-        GetSetDB getSetDB = new GetSetDB();
-        TextView coin = root.findViewById(R.id.coin_value);
-        coin.setText(String.valueOf(getSetDB.getCoin()));
+
+
 
 
         return root;

@@ -27,11 +27,12 @@ import java.util.ArrayList;
  */
 public class Weekend extends Fragment {
 
+    TextView coin;
 
-    public Weekend() {
+    public Weekend(TextView coin) {
+        this.coin = coin;
         // Required empty public constructor
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,28 +42,11 @@ public class Weekend extends Fragment {
         View root = inflater.inflate(R.layout.quest_weekend, container, false);
 
         MainActivity mainActivity = new MainActivity();
-        QuestChecker questChecker = mainActivity.getQuestChecker();
 
-        ArrayList<QuestList> items = null;
-        try {
-            items = questChecker.parseQuestList();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        int size = items.size();
-        for(int i=0;i<size;i++){
-            if(!(items.get(i).getType().equals("weekly"))){
-                items.remove(i);
-                size--;
-                i--;
-            }
-        }
-
+        ArrayList<QuestList> items = mainActivity.getWeekendQuestList();
         ListView listview = (ListView) root.findViewById(R.id.weekend_list);
 
-        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity());
+        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
         listview.setAdapter(questAdapter);
 
         ProgressBar progressBar = root.findViewById(R.id.quest_progress);
