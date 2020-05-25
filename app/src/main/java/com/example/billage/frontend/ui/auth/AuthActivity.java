@@ -223,5 +223,11 @@ public class AuthActivity extends AppCompatActivity {
     void goNext() {
         TokenRequest.request_token(args);
     }
+    @Override
+    public void onBackPressed() {
 
+        finish();
+        overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
+        super.onBackPressed();
+    }
 }

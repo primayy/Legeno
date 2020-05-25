@@ -38,7 +38,7 @@ public class QuestChecker {
             String description=questlist.getJSONObject(i).getString("quest_description");
             String complete=questlist.getJSONObject(i).getString("complete");
             String reward=questlist.getJSONObject(i).getString("quest_reward");
-            String type=questlist.getJSONObject(i).getString("quest_type");
+            String type=questlist.getJSONObject(i).getString("quest_type"   );
 
             QuestList ql=new QuestList(id,qname,description,complete,reward,type);
             questListAL.add(ql);
