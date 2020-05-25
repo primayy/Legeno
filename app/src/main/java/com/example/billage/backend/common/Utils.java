@@ -1,14 +1,16 @@
 package com.example.billage.backend.common;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.billage.backend.api.AccountBalance;
+import com.example.billage.backend.api.AccountTransaction;
 import com.example.billage.backend.api.data.UserAccount;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -253,5 +255,26 @@ public class Utils {
             e.printStackTrace();
         }
         return user_accounts;
+    }
+
+    public static void getUserBalance(){
+        ArrayList<UserAccount> user_accounts = Utils.getUserAccount();
+        //저장된 잔액 초기화
+        SharedPreferences.Editor editor = AppData.getPref().edit();
+        editor.putString("balance","0");
+        editor.apply();
+
+        for(int i=0; i<user_accounts.size();i++)
+        {
+            AccountBalance.request_balance(user_accounts.get(i).getFintech_num());
+        }
+    }
+    public static void getUserTrans(){
+        ArrayList<UserAccount> user_accounts = Utils.getUserAccount();
+
+        for(int i=0; i<user_accounts.size();i++)
+        {
+            AccountTransaction.request_transaction(user_accounts.get(i).getFintech_num());
+        }
     }
 }
