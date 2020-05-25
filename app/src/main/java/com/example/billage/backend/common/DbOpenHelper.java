@@ -148,7 +148,7 @@ public class DbOpenHelper {
         String befor_month = Utils.getYear()+"0"+String.valueOf(befor);
         String cur_month = Utils.getYear()+"0"+String.valueOf(cur);
 
-        String query = "SELECT sum(money) from 'transaction' where inout='"+ inout +"' and date >='" + befor_month + "' and date <'" + cur_month+"'";
+        String query = "SELECT sum(money) from 'transaction' where inout='"+ inout +"'and type= 'api'" + " and date >='" + befor_month + "' and date <'" + cur_month+"'";
 
         Cursor c = mDB.rawQuery(query,null);
 

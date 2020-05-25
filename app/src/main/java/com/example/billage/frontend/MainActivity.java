@@ -1,7 +1,6 @@
 package com.example.billage.frontend;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -9,8 +8,10 @@ import com.example.billage.R;
 
 import com.example.billage.backend.GetADUserInfo;
 import com.example.billage.backend.QuestChecker;
+import com.example.billage.backend.api.UserInfo;
 import com.example.billage.backend.api.AccountBalance;
 import com.example.billage.backend.common.AppData;
+import com.example.billage.backend.common.Utils;
 import com.example.billage.frontend.data.QuestList;
 import com.example.billage.frontend.data.UsageList;
 import com.example.billage.frontend.ui.signup.SignupActivity;
@@ -31,6 +32,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import okhttp3.internal.Util;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -62,15 +65,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        //유저 코드 저장 api 쓸거면 이거 주석 풀고 한번 실행해야댐
-
-        SharedPreferences.Editor editor = AppData.getPref().edit();
-        editor.putString("auth_code","m0WMfi2oSHfBk0SyDrfMAupzsoGiCD");
-        editor.putString("access_token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJUOTkxNjIwODEwIiwic2NvcGUiOlsib29iIl0sImlzcyI6Imh0dHBzOi8vd3d3Lm9wZW5iYW5raW5nLm9yLmtyIiwiZXhwIjoxNTk2MDIwODIxLCJqdGkiOiI1MmI5OGIwMy1iYTU1LTRiOTEtYjRhNS00ZGFlNDIwNjE4ZGYifQ.esJCewec6IN-D3QH34DLDpYfenr5oKdRFt2f-25Nfhg");
-        editor.putString("client_use_code","T991620810");
-        editor.apply();
-
         questPreprocessing();
+
+        //유저정보 조회
+        UserInfo.request_userInfo();
         getQuestList(); // 퀘스트 리스트 set
 
         // 거래내역조회 앱 디비에 데이터 넣을거면 이거 한번 실행하고 다시 주석처리
@@ -78,10 +76,9 @@ public class MainActivity extends AppCompatActivity {
         //AccountTransaction.request_transaction("20200429","20200501");
         ArrayList<UsageList> tmp=AppData.mdb.getTransDaysColumns();
 
-
-        //잔액 조회
-        AccountBalance.request_balance();
-
+        //잔액 및 거래내역 조회
+        Utils.getUserBalance();
+        Utils.getUserTrans();
     }
 
     private void getQuestList() {

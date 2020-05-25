@@ -4,12 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.billage.backend.api.data.token.AccessToken;
-
 public class AppData extends Application {
 
     public static Context appContext;
-    public static AccessToken accessToken;
     public static DbOpenHelper mdb;
     @Override
     public void onCreate() {
@@ -18,7 +15,6 @@ public class AppData extends Application {
         mdb = new DbOpenHelper(appContext);
         mdb.open();
         mdb.create();
-//        accessToken;
 
     }
 
