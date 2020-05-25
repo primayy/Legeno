@@ -1,8 +1,6 @@
 package com.example.billage.backend.api;
 
 import android.os.Bundle;
-import android.util.Log;
-
 import com.example.billage.backend.common.ApiConst;
 import com.example.billage.backend.common.Utils;
 
@@ -12,7 +10,6 @@ import java.util.HashMap;
 public class Authorize {
     public static Bundle request_authorize(){
         String url ="https://testapi.openbanking.or.kr/oauth/2.0/authorize";
-        //사용자 인증 후 발급 받은 토큰으로 변경해야함. 사용자별로 다름
         String state = Utils.numberGen(32);
         HashMap<String, String> paramMap = new HashMap<>();
         //요청시 필요한 parameters
