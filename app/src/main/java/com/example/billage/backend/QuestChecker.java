@@ -70,10 +70,10 @@ public class QuestChecker {
             JSONArray questList = new JSONArray(jsonTask.execute("http://18.219.106.101/Quest/getQuest").get());
 
             //퀘스트 description 수정
-            questList.getJSONObject(0).put("quest_description",questList.getJSONObject(0).getString("quest_description").replace("%","%(~"+Double.toString(getExpectation() *0.95)+")"));
-            questList.getJSONObject(1).put("quest_description",questList.getJSONObject(1).getString("quest_description").replace("%","%(~"+Double.toString(getExpectation() *0.90)+")"));
-            questList.getJSONObject(2).put("quest_description",questList.getJSONObject(2).getString("quest_description").replace("%","%(~"+Double.toString(getExpectation() *0.80)+")"));
-            questList.getJSONObject(3).put("quest_description",questList.getJSONObject(3).getString("quest_description").replace("%","%("+Double.toString(getExpectation() *0.95)+"~"+Double.toString(getExpectation() *1.05)+")"));
+            questList.getJSONObject(0).put("quest_description",questList.getJSONObject(0).getString("quest_description").replace("%","%(~"+Integer.toString((int)Math.round(getExpectation() *0.95*0.1)*10)+")"));
+            questList.getJSONObject(1).put("quest_description",questList.getJSONObject(1).getString("quest_description").replace("%","%(~"+Integer.toString((int)Math.round(getExpectation() *0.90*0.1)*10)+")"));
+            questList.getJSONObject(2).put("quest_description",questList.getJSONObject(2).getString("quest_description").replace("%","%(~"+Integer.toString((int)Math.round(getExpectation() *0.80*0.1)*10)+")"));
+            questList.getJSONObject(3).put("quest_description",questList.getJSONObject(3).getString("quest_description").replace("%","%("+Integer.toString((int)Math.round(getExpectation() *0.95*0.1)*10)+"~"+Integer.toString((int)Math.round(getExpectation() *1.05*0.1)*10)+")"));
 
             //일간 소비절약확인
             int checkDailySaveRes=checkDailySave(subDate(1), getDaily(), getExpectation());
@@ -166,6 +166,8 @@ public class QuestChecker {
             if(coinCost.getJSONObject(0).getInt("coin")>=coinCost.getJSONObject(0).getInt("billage_cost")*0.1){
                 questList.getJSONObject(19).put("complete",true);
             }
+
+            Log.d("ppap",questList.toString());
             return questList;
         } catch (InterruptedException e) {
             e.printStackTrace();
