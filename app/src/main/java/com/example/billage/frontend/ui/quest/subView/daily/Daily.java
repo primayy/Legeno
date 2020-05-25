@@ -17,6 +17,7 @@ import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.MainActivity;
 import com.example.billage.frontend.adapter.QuestAdapter;
 import com.example.billage.frontend.data.QuestList;
+import com.yy.mobile.rollingtextview.RollingTextView;
 
 import org.json.JSONException;
 
@@ -26,9 +27,9 @@ import java.util.Iterator;
 
 public class Daily extends Fragment {
 
-    TextView coin;
+    RollingTextView coin;
 
-    public Daily(TextView coin) {
+    public Daily(RollingTextView coin) {
         this.coin = coin;
         // Required empty public constructor
     }
