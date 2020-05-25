@@ -58,13 +58,16 @@
                 <TextView
                     android:id="@+id/quest_reward"
                     android:layout_width="wrap_content"
+                    android:minWidth="35dp"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:text="1231" />
+                    android:textAlignment="textStart"
+                    android:text="1231"
+                    tools:ignore="RtlCompat" />
 
                 <TextView
                     android:id="@+id/quest_complete"
-                    android:layout_width="60dp"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:gravity="center"
