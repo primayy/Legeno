@@ -132,6 +132,26 @@ public class MainActivity extends AppCompatActivity {
                     jarray.put(dailyData);
                 }
                 data2Quest.accumulate("daily",jarray);
+                for(int i=1;i<cal.get(Calendar.DATE);i++){
+                    int itIs=0;
+                    cal.add(Calendar.DATE,-i);
+                    Date cmpDate=cal.getTime();
+                    SimpleDateFormat date2str=new SimpleDateFormat("yyyy-MM-dd");
+                    for(int j=0;j<data2Quest.getJSONArray("daily").length();j++){
+                        if(data2Quest.getJSONArray("daily").getJSONObject(i).getString("date").equals(date2str.format(cmpDate))){
+                            itIs=1;
+                            break;
+                        } else ;
+                    }
+                    if(itIs==0){
+                        JSONObject zeroData=new JSONObject();
+                        zeroData.accumulate("date",date2str.format(cmpDate));
+                        zeroData.accumulate("cost",0);
+                        data2Quest.getJSONArray("daily").put(zeroData);
+                    }
+                    cal.add(Calendar.DATE,i);
+                }
+
                 questChecker=new QuestChecker(data2Quest);
             } catch (JSONException e) {
                 e.printStackTrace();
