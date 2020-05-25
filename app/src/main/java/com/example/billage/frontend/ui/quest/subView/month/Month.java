@@ -22,8 +22,10 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class Month extends Fragment {
+    TextView coin;
 
-    public Month() {
+    public Month(TextView coin) {
+        this.coin = coin;
         // Required empty public constructor
     }
 
@@ -40,7 +42,7 @@ public class Month extends Fragment {
         ArrayList<QuestList> items = mainActivity.getMonthQuestList();
         ListView listview = (ListView) root.findViewById(R.id.month_list);
 
-        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity());
+        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
         listview.setAdapter(questAdapter);
 
         ProgressBar progressBar = root.findViewById(R.id.quest_progress);

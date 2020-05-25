@@ -20,11 +20,12 @@ import java.util.ArrayList;
 
 
 public class InGame extends Fragment {
+    TextView coin;
 
-    public InGame() {
+    public InGame(TextView coin) {
+        this.coin = coin;
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,7 +39,7 @@ public class InGame extends Fragment {
         ArrayList<QuestList> items = mainActivity.getIngameQuestList();
         ListView listview = (ListView) root.findViewById(R.id.ingame_list);
 
-        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity());
+        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
         listview.setAdapter(questAdapter);
 
         ProgressBar progressBar = root.findViewById(R.id.quest_progress);
