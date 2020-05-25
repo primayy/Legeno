@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.billage.R;
+import com.example.billage.backend.GetSetDB;
 import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.adapter.QuestPageAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -54,6 +56,10 @@ public class QuestFragment extends Fragment {
         rollingTextView.addCharOrder(CharOrder.Number);
         rollingTextView.setAnimationInterpolator(new AccelerateDecelerateInterpolator());
         rollingTextView.setText(String.valueOf(number_format.format(avg_usage)));
+
+        GetSetDB getSetDB = new GetSetDB();
+        TextView coin = root.findViewById(R.id.coin_value);
+        coin.setText(String.valueOf(getSetDB.getCoin()));
 
 
         return root;

@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.billage.R;
+import com.example.billage.backend.GetADUserInfo;
 import com.example.billage.frontend.ui.auth.AuthActivity;
 import com.example.billage.frontend.ui.mypage.subView.AccountModify;
 import com.example.billage.frontend.ui.mypage.subView.AddBank;
@@ -30,15 +31,6 @@ public class MypageFragment extends Fragment {
         mypageViewModel = ViewModelProviders.of(this).get(MypageViewModel.class);
         View root = inflater.inflate(R.layout.mypage_main, container, false);
 
-        Button button = root.findViewById(R.id.test_btn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SignupActivity.class);
-                startActivity(intent);
-            }
-        });
-
         Button button2 = root.findViewById(R.id.test_auth);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,9 +41,11 @@ public class MypageFragment extends Fragment {
         });
 
 
+        GetADUserInfo getADUserInfo = new GetADUserInfo();
+        TextView account_info = root.findViewById(R.id.account_info);
+        account_info.setText(String.format("%s (%s)", getADUserInfo.getUserInfo("user_name"), getADUserInfo.getUserInfo("nickname")));
+
         setTextviewClickEvent(root);
-
-
 
         return root;
     }

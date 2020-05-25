@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.billage.frontend.ui.quest.subView.daily.Daily;
+import com.example.billage.frontend.ui.quest.subView.ingame.InGame;
 import com.example.billage.frontend.ui.quest.subView.month.Month;
 import com.example.billage.frontend.ui.quest.subView.weekend.Weekend;
 
@@ -29,6 +30,9 @@ public class QuestPageAdapter extends FragmentStatePagerAdapter {
             case 2:
                 Month tab3 = new Month();
                 return tab3;
+            case 3:
+                InGame tab4 = new InGame();
+                return tab4;
             default:
                 return null;
         }
