@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.billage.R;
+import com.example.billage.backend.GetADUserInfo;
 import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.ui.signup.SignupActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -57,11 +59,17 @@ public class HomeFragment extends Fragment {
         rollingTextView.setAnimationInterpolator(new AccelerateDecelerateInterpolator());
         rollingTextView.setText(number_format.format(Integer.parseInt(AppData.getPref().getString("balance","0"))));
 
-        return root;
-    }
 
-    private void refresh() {
-        myPagerAdapter.notifyDataSetChanged();
+
+        GetADUserInfo getADUserInfo = new GetADUserInfo();
+
+        if(getADUserInfo.IsThereUserInfo()){
+            TextView user_name = root.findViewById(R.id.username);
+            user_name.setText(String.format("%s 님 현재", getADUserInfo.getUserInfo("user_name")));
+        }
+
+
+        return root;
     }
 
     @Override

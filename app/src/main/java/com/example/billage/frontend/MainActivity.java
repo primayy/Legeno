@@ -9,6 +9,7 @@ import android.view.Window;
 import com.example.billage.R;
 
 import com.example.billage.backend.GetADUserInfo;
+import com.example.billage.backend.GetSetDB;
 import com.example.billage.backend.JSONTask_Get;
 import com.example.billage.backend.JSONTask_Post;
 import com.example.billage.backend.QuestChecker;
@@ -43,6 +44,8 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
 
     private UnityPlayer mUnityPlayer; //이름 바꾸지말 것. Unityplayer
+    public static  QuestChecker questChecker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("client_use_code","T991620810");
         editor.apply();
 
+        questPreprocessing();
+
 
         // 거래내역조회 앱 디비에 데이터 넣을거면 이거 한번 실행하고 다시 주석처리
         // 주석 처리 안하면 같은 데이터 계속 추가됨 -> 수정할 예정
@@ -75,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<UsageList> tmp=AppData.mdb.getTransDaysColumns();
 
 
+        //잔액 조회
+        AccountBalance.request_balance();
+
+    }
+
+    private void questPreprocessing() {
+        ArrayList<UsageList> tmp= AppData.mdb.getTransDaysColumns();
         GetADUserInfo getADUserInfo = new GetADUserInfo();
         if(getADUserInfo.IsThereUserInfo()){
             JSONObject data2Quest=new JSONObject();
@@ -94,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     jarray.put(dailyData);
                 }
                 data2Quest.accumulate("daily",jarray);
-                QuestChecker questChecker=new QuestChecker(data2Quest);
+                questChecker=new QuestChecker(data2Quest);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -103,12 +115,9 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SignupActivity.class);
             startActivity(intent);
         }
-        //잔액 조회
-        AccountBalance.request_balance();
-
     }
 
-@Override public void onDestroy ()
+    @Override public void onDestroy ()
 {
 
     Log.d("Main1","Destroy");
@@ -151,4 +160,7 @@ public class MainActivity extends AppCompatActivity {
         return this.mUnityPlayer;
     }
 
+    public QuestChecker getQuestChecker(){
+        return questChecker;
+    }
 }

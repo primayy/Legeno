@@ -57,19 +57,23 @@ public class UsageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         root = inflater.inflate(R.layout.fragment_usage, container, false);
 
         final ArrayList<UsageList> items = AppData.mdb.getTransColumns();
-        //Log.d("ddd",""+items.get(0).getDate());
-
-        // listview 생성 및 adapter 지정.
         final ListView listview = (ListView) root.findViewById(R.id.usage_list) ;
-        // listview.setAdapter(adapter) ;
-
         usageAdapter = new UsageAdapter(getActivity(),items,listview,getActivity());
         listview.setAdapter(usageAdapter);
 
+        setAddUsage();
+        setRefresh();
+
+
+
+        return root;
+    }
+
+    private void setAddUsage() {
         FloatingActionButton usageButton = (FloatingActionButton) root.findViewById(R.id.add_usage);
         usageButton.setOnClickListener(new View.OnClickListener(){
 
@@ -79,7 +83,9 @@ public class UsageFragment extends Fragment {
                 startActivityForResult(intent,1);
             }
         });
+    }
 
+    private void setRefresh() {
         SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#FFC100"));
 
@@ -95,8 +101,6 @@ public class UsageFragment extends Fragment {
             }
 
         });
-
-        return root;
     }
 
     public void refresh(){
