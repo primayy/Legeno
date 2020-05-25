@@ -21,17 +21,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AccountBalance {
-    public static void request_balance(){
-//        String accessToken = AppData.getPref().getString("access_token","");
-        //사용자 인증 후 발급 받은 토큰으로 변경해야함. 사용자별로 다름
-        String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAwNzU4NDkwIiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE1OTc4MzQ4ODksImp0aSI6IjVlYzI4MTA2LTg3YzItNDk3Zi1iOGIwLWYxNTMxYjM3YzE1NSJ9.LSLwAEHPQ1YjrnJwcEG_YOgKQ_QtFZXjTp3JoD7ty_k";
-
+    public static void request_balance(String fintech_num){
+        String accessToken = AppData.getPref().getString("access_token","");
         HashMap<String, String> paramMap = new HashMap<>();
+
         //요청시 필요한 parameters
         paramMap.put("bank_tran_id", Utils.setRandomBankTranId());//거래고유번호(참가은행)
         paramMap.put("tran_dtime", Utils.getDate());//요청일시 YYYYMMDDHHMMSS
         //핀테크 이용
-        paramMap.put("fintech_use_num", "199162081057883042588959");//거래고유번호(참가은행)
+        paramMap.put("fintech_use_num", fintech_num);//거래고유번호(참가은행)
 
         //요청 부분
         ApiCallAdapter.getInstance()
@@ -44,12 +42,25 @@ public class AccountBalance {
                                 String responseJson = new Gson().toJson(response.body());
                                 JsonObject json = new JsonParser().parse(responseJson).getAsJsonObject();
                                 JsonElement amt_elem = json.get("balance_amt");
+
+                                //api 호출한 잔액
                                 String amt = amt_elem.getAsString();
                                 Log.d("balance_amt", amt);
 
-                                SharedPreferences.Editor editor = AppData.getPref().edit();
-                                editor.putString("balance",amt);
-                                editor.apply();
+                                //앱데이터 잔액 읽기
+                                String appAmt = AppData.getPref().getString("balance","");
+
+                                if(appAmt.equals("")){ //저장된 값 없으면 새로 추가
+                                    SharedPreferences.Editor editor = AppData.getPref().edit();
+                                    editor.putString("balance",amt);
+                                    editor.apply();
+                                } else // 저장된 값 있으면 읽어서 더한 뒤 추가
+                                {
+                                    Integer amtSum = Integer.parseInt(appAmt) + Integer.parseInt(amt);
+                                    SharedPreferences.Editor editor = AppData.getPref().edit();
+                                    editor.putString("balance", String.valueOf(amtSum));
+                                    editor.apply();
+                                }
                             } catch (Exception e){
                                 Log.d("balance_err", String.valueOf(e));
                             }
