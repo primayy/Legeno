@@ -22,9 +22,19 @@ import java.util.concurrent.ExecutionException;
 public class QuestChecker {
     //퀘스트 완료여부 확인에 필요한 데이터 생성
     JSONObject data2Quest=new JSONObject();
+    int[] currentAchieve=new int[12];
+    int[] finallyAchieve={3,5,7,3,5,7,10,15,25,10,20,30};
 
     public QuestChecker(JSONObject data){
         this.data2Quest=data;
+    }
+
+    public int[] getCurrentAchieve(){
+        return this.currentAchieve;
+    }
+
+    public int[] getFinallyAchieve(){
+        return this.finallyAchieve;
     }
 
     public ArrayList<QuestList> parseQuestList() throws JSONException {
@@ -250,7 +260,11 @@ public class QuestChecker {
             if(checkDailyPlan(subDate(i),Data,expectation)) count++;
             else ;
         }
-        Log.d("cdCount:",Integer.toString(count));
+
+        this.currentAchieve[3]=count;
+        this.currentAchieve[4]=count;
+        this.currentAchieve[5]=count;
+
         if(count>=7) return 3;
         else if(count>=5&&count<7) return 2;
         else if(count<5&&count>=3) return 1;
@@ -273,8 +287,10 @@ public class QuestChecker {
             else if(checkDailySave(subDate(i),Data,expectation)>=2) countLv2++;
         }
 
-//        Log.d("cdlv1:",Integer.toString(countLv1));
-//        Log.d("cdlv2",Integer.toString(countLv2));
+        this.currentAchieve[0]=countLv1;
+        this.currentAchieve[1]=countLv2;
+        this.currentAchieve[2]=countLv2;
+
         if(countLv2>=7) return 3;
         else if(countLv2<7&&countLv2>=5) return 2;
         else if(countLv1>=3) return 1;
@@ -295,7 +311,10 @@ public class QuestChecker {
             }
         }
 
-        Log.d("cmpCount:",Integer.toString(count));
+        this.currentAchieve[9]=count;
+        this.currentAchieve[10]=count;
+        this.currentAchieve[11]=count;
+
         if(count>=10&&count<20) return 1;
         else if(count>=20&&count<30) return 2;
         else if(count>=30) return 3;
@@ -320,6 +339,10 @@ public class QuestChecker {
                 else ;
             }
         }
+
+        this.currentAchieve[6]=countLv1;
+        this.currentAchieve[7]=countLv2;
+        this.currentAchieve[8]=countLv2;
 
         if(countLv2>=25) return 3;
         else if(countLv2<25&&countLv2>=15) return 2;
