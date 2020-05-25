@@ -22,7 +22,7 @@ import org.json.JSONException;
 public class BillageFragment extends Fragment {
     private UnityPlayer mUnityPlayer;
     private MainActivity mainActivity;
-    private GetADUserInfo AppDB;
+    private GetADUserInfo AppDB = new GetADUserInfo();
     String userInfo;
     View playerView;
     FrameLayout father;
@@ -53,12 +53,11 @@ public class BillageFragment extends Fragment {
         if(getActivity() != null && getActivity() instanceof MainActivity){
             mUnityPlayer = (UnityPlayer)((MainActivity) getActivity()).GetUnityPlayer();
         }
-//        try {
-//            userInfo = AppDB.getUserInfo("user_id");
-//            Log.d("받아온 값", userInfo);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        if(AppDB.IsThereUserInfo()) {
+                userInfo = AppDB.getUserInfo("user_id");
+            Log.d("받아온 값", userInfo);
+        }
+
     }
 
 
@@ -87,7 +86,7 @@ public class BillageFragment extends Fragment {
     {
         //father.removeView(mUnityPlayer.getView());
         Log.d("unity", "started");
-        UnityPlayer.UnitySendMessage("AndroidManager","GetUserID","2");
+        UnityPlayer.UnitySendMessage("AndroidManager","GetUserID",userInfo);
         super.onStart();
     }
 

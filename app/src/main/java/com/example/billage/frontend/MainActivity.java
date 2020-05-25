@@ -7,13 +7,12 @@ import android.util.Log;
 import com.example.billage.R;
 
 import com.example.billage.backend.GetADUserInfo;
-import com.example.billage.backend.GetSetDB;
-import com.example.billage.backend.JSONTask_Get;
-import com.example.billage.backend.JSONTask_Post;
 import com.example.billage.backend.QuestChecker;
 import com.example.billage.backend.api.UserInfo;
+import com.example.billage.backend.api.AccountBalance;
 import com.example.billage.backend.common.AppData;
 import com.example.billage.backend.common.Utils;
+import com.example.billage.frontend.data.QuestList;
 import com.example.billage.frontend.data.UsageList;
 import com.example.billage.frontend.ui.signup.SignupActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
     private UnityPlayer mUnityPlayer; //이름 바꾸지말 것. Unityplayer
     public static  QuestChecker questChecker;
+
+    public static  ArrayList<QuestList> dailyQuestList;
+    public static  ArrayList<QuestList> weekendQuestList;
+
+    public static  ArrayList<QuestList> monthQuestList;
+    public static  ArrayList<QuestList> ingameQuestList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +69,44 @@ public class MainActivity extends AppCompatActivity {
 
         //유저정보 조회
         UserInfo.request_userInfo();
+        getQuestList(); // 퀘스트 리스트 set
+
+        // 거래내역조회 앱 디비에 데이터 넣을거면 이거 한번 실행하고 다시 주석처리
+        // 주석 처리 안하면 같은 데이터 계속 추가됨 -> 수정할 예정
+        //AccountTransaction.request_transaction("20200429","20200501");
+        ArrayList<UsageList> tmp=AppData.mdb.getTransDaysColumns();
 
         //잔액 및 거래내역 조회
         Utils.getUserBalance();
         Utils.getUserTrans();
+    }
+
+    private void getQuestList() {
+
+        dailyQuestList = getQuest(dailyQuestList,"daily");
+        weekendQuestList = getQuest(weekendQuestList,"weekly");
+        monthQuestList = getQuest(monthQuestList,"monthly");
+        ingameQuestList = getQuest(ingameQuestList,"ingame");
+    }
+
+    private ArrayList<QuestList> getQuest( ArrayList<QuestList> questList, String key) {
+        try {
+            questList = questChecker.parseQuestList();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        int size = questList.size();
+        for(int i=0;i<size;i++){
+
+            if(!(questList.get(i).getType().equals(key))){
+                questList.remove(i);
+                size--;
+                i--;
+            }
+        }
+
+        return questList;
     }
 
     private void questPreprocessing() {
@@ -89,6 +130,26 @@ public class MainActivity extends AppCompatActivity {
                     jarray.put(dailyData);
                 }
                 data2Quest.accumulate("daily",jarray);
+                for(int i=1;i<cal.get(Calendar.DATE);i++){
+                    int itIs=0;
+                    cal.add(Calendar.DATE,-i);
+                    Date cmpDate=cal.getTime();
+                    SimpleDateFormat date2str=new SimpleDateFormat("yyyy-MM-dd");
+                    for(int j=0;j<data2Quest.getJSONArray("daily").length();j++){
+                        if(data2Quest.getJSONArray("daily").getJSONObject(i).getString("date").equals(date2str.format(cmpDate))){
+                            itIs=1;
+                            break;
+                        } else ;
+                    }
+                    if(itIs==0){
+                        JSONObject zeroData=new JSONObject();
+                        zeroData.accumulate("date",date2str.format(cmpDate));
+                        zeroData.accumulate("cost",0);
+                        data2Quest.getJSONArray("daily").put(zeroData);
+                    }
+                    cal.add(Calendar.DATE,i);
+                }
+
                 questChecker=new QuestChecker(data2Quest);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -145,5 +206,19 @@ public class MainActivity extends AppCompatActivity {
 
     public QuestChecker getQuestChecker(){
         return questChecker;
+    }
+
+    public ArrayList<QuestList> getDailyQuestList() {
+        return dailyQuestList;
+    }
+    public ArrayList<QuestList> getWeekendQuestList() {
+        return weekendQuestList;
+    }
+    public ArrayList<QuestList> getMonthQuestList() {
+        return monthQuestList;
+    }
+
+    public ArrayList<QuestList> getIngameQuestList() {
+        return ingameQuestList;
     }
 }

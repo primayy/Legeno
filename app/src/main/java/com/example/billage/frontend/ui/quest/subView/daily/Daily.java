@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.billage.R;
 import com.example.billage.backend.QuestChecker;
@@ -25,7 +26,10 @@ import java.util.Iterator;
 
 public class Daily extends Fragment {
 
-    public Daily() {
+    TextView coin;
+
+    public Daily(TextView coin) {
+        this.coin = coin;
         // Required empty public constructor
     }
 
@@ -38,30 +42,13 @@ public class Daily extends Fragment {
 
      // ArrayList<UsageList> items = AppData.mdb.getTransColumns();
         MainActivity mainActivity = new MainActivity();
-        QuestChecker questChecker = mainActivity.getQuestChecker();
 
-        ArrayList<QuestList> items = null;
-        try {
-            items = questChecker.parseQuestList();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        int size = items.size();
-        for(int i=0;i<size;i++){
-
-            if(!(items.get(i).getType().equals("daily"))){
-                items.remove(i);
-                size--;
-                i--;
-            }
-        }
+        ArrayList<QuestList> items = mainActivity.getDailyQuestList();
 
         ListView listview = (ListView) root.findViewById(R.id.daliy_list) ;
         // listview.setAdapter(adapter) ;
 
-        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity());
+        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
         listview.setAdapter(questAdapter);
         return root;
     }

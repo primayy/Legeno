@@ -7,6 +7,7 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,8 +27,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.billage.R;
+import com.example.billage.backend.GetSetDB;
 import com.example.billage.frontend.data.QuestList;
 import com.example.billage.frontend.ui.addUsage.AddUsage;
+import com.example.billage.frontend.ui.quest.QuestFragment;
 
 import java.util.List;
 
@@ -37,7 +40,7 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
     private Context context;
     private List mList;
     private ListView mListView;
-
+    TextView coin;
 
     static class QuestViewHolder {
          TextView name;
@@ -50,13 +53,14 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
 
     }
 
-    public QuestAdapter(Context context, List<QuestList> list, ListView listview, Activity activity) {
+    public QuestAdapter(Context context, List<QuestList> list, ListView listview, Activity activity,TextView coin) {
         super(context, 0, list);
 
         this.context = context;
         this.mList = list;
         this.mListView = listview;
         this.mActivity = activity;
+        this.coin = coin;
     }
 
     // ListView의  한 줄(row)이 렌더링(rendering)될 때 호출되는 메소드로 row를 위한 view를 리턴.
@@ -99,12 +103,12 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
         viewHolder.reward.setText(quest.getReward());
 
         if(quest.getComplete().equals("0")){
-            viewHolder.complete.setText("진행중");
-            viewHolder.complete2.setText("진행중");
+            viewHolder.complete.setText("미달성");
+            viewHolder.complete2.setText("미달성");
         }
         else{
             viewHolder.complete.setText("완료");
-            viewHolder.complete2.setText("완료");
+            viewHolder.complete2.setText("보상받기");
         }
 
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -130,15 +134,34 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
             }
         });
 
+        setItemClickEvent(rowView);
+        setRewardClickEvent(viewHolder,quest);
+
+        return rowView;
+    }
+
+    private void setItemClickEvent(View rowView) {
         rowView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-
                 return true;
             }
         });
+    }
 
-        return rowView;
+    private void setRewardClickEvent(QuestViewHolder viewHolder, QuestList quest) {
+        viewHolder.complete2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewHolder.complete2.setText("획득 완료");
+                viewHolder.complete2.setFocusable(false);
+
+                GetSetDB getSetDB = new GetSetDB();
+                int resultCoin = getSetDB.getCoin()+Integer.parseInt(quest.getReward());
+                getSetDB.setCoin(resultCoin);
+                coin.setText(String.valueOf(resultCoin));
+            }
+        });
     }
 
 

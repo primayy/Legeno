@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.billage.R;
+import com.example.billage.frontend.MainActivity;
 import com.example.billage.frontend.adapter.QuestAdapter;
 import com.example.billage.frontend.data.QuestList;
 
@@ -21,8 +22,10 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class Month extends Fragment {
+    TextView coin;
 
-    public Month() {
+    public Month(TextView coin) {
+        this.coin = coin;
         // Required empty public constructor
     }
 
@@ -34,16 +37,12 @@ public class Month extends Fragment {
         // Inflate the layout for this fragment\
         View root = inflater.inflate(R.layout.quest_month, container, false);
 
-        // ArrayList<UsageList> items = AppData.mdb.getTransColumns();
-        ArrayList<QuestList> items = new ArrayList<>();
-        items.add(new QuestList(1,"계획 소비","일일 소비량을 10000원 이내로 사용한다.","완료","1200","일간"));
-        items.add(new QuestList(1,"계획 소비","일일 소비량을 10000원 이내로 사용한다.","완료","1200","일간"));
-        items.add(new QuestList(1,"계획 소비","일일 소비량을 10000원 이내로 사용한다.","진행중","1200","일간"));
-        items.add(new QuestList(1,"계획 소비","일일 소비량을 10000원 이내로 사용한다.","완료","1200","일간"));
+        MainActivity mainActivity = new MainActivity();
 
+        ArrayList<QuestList> items = mainActivity.getMonthQuestList();
         ListView listview = (ListView) root.findViewById(R.id.month_list);
 
-        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity());
+        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
         listview.setAdapter(questAdapter);
 
         ProgressBar progressBar = root.findViewById(R.id.quest_progress);
