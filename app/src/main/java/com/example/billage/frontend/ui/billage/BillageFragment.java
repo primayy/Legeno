@@ -54,11 +54,7 @@ public class BillageFragment extends Fragment {
             mUnityPlayer = (UnityPlayer)((MainActivity) getActivity()).GetUnityPlayer();
         }
         if(AppDB.IsThereUserInfo()) {
-            try {
                 userInfo = AppDB.getUserInfo("user_id");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
             Log.d("받아온 값", userInfo);
         }
 
