@@ -5,8 +5,8 @@
     <string name="title_quest">Quest</string>
     <string name="title_mypage">My Page</string>
     <string name="mypage_account_modify">회원정보 수정</string>
-    <string name="mypage_add_bank">은행연동 현황</string>
-    <string name="mypage_current_bank">은행연동 추가</string>
+    <string name="mypage_add_bank">은행연동 추가</string>
+    <string name="mypage_current_bank">은행연동 현황</string>
     <string name="mypage_set_password">앱 비밀번호 설정</string>
     <string name="mypage_set_notify">알림 설정</string>
 

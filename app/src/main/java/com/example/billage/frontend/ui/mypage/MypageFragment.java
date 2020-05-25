@@ -22,6 +22,8 @@ import com.example.billage.frontend.ui.mypage.subView.SetNotify;
 import com.example.billage.frontend.ui.mypage.subView.SetPassword;
 import com.example.billage.frontend.ui.signup.SignupActivity;
 
+import org.w3c.dom.Text;
+
 public class MypageFragment extends Fragment {
 
     private MypageViewModel mypageViewModel;
@@ -31,14 +33,6 @@ public class MypageFragment extends Fragment {
         mypageViewModel = ViewModelProviders.of(this).get(MypageViewModel.class);
         View root = inflater.inflate(R.layout.mypage_main, container, false);
 
-        Button button2 = root.findViewById(R.id.test_auth);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AuthActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
         GetADUserInfo getADUserInfo = new GetADUserInfo();
@@ -68,7 +62,7 @@ public class MypageFragment extends Fragment {
         add_bank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AddBank.class);
+                Intent intent = new Intent(getActivity(), AuthActivity.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
