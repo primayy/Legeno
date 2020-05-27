@@ -25,29 +25,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
 import okhttp3.internal.Util;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private UnityPlayer mUnityPlayer; //이름 바꾸지말 것. Unityplayer
-    public static  QuestChecker questChecker;
-
-    public static  ArrayList<QuestList> dailyQuestList;
-    public static  ArrayList<QuestList> weekendQuestList;
-
-    public static  ArrayList<QuestList> monthQuestList;
-    public static  ArrayList<QuestList> ingameQuestList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +49,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        questPreprocessing();
-
-
         //유저정보 조회
         UserInfo.request_userInfo();
-//        getQuestList(); // 퀘스트 리스트 set
-
 
         //잔액 조회
         //AccountBalance.request_balance();
@@ -82,97 +60,25 @@ public class MainActivity extends AppCompatActivity {
         Utils.getUserTrans();
 
         //퀘스트 보상획득 정보 리셋
-       GetSetADUserInfo resetReward=new GetSetADUserInfo();
+        GetSetADUserInfo resetReward=new GetSetADUserInfo();
         resetReward.reset_dailyRewardInfo();
         resetReward.reset_weeklyRewardInfo();
         resetReward.reset_monthlyRewardInfo();
 
-        //서버 꺼져서 유저 정보 못불러올 때 이거 쓰셈
-        Utils.getTestUserInfo();
-
-        //AVD에서 인증 불가할 때 걍 이거 쓰셈
-        Utils.getTestUserToken();
-    }
-
-    private void getQuestList() {
-
-        dailyQuestList = getQuest(dailyQuestList,"daily");
-        weekendQuestList = getQuest(weekendQuestList,"weekly");
-        monthQuestList = getQuest(monthQuestList,"monthly");
-        ingameQuestList = getQuest(ingameQuestList,"ingame");
-    }
-
-    private ArrayList<QuestList> getQuest( ArrayList<QuestList> questList, String key) {
-        try {
-            questList = questChecker.parseQuestList();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        int size = questList.size();
-        for(int i=0;i<size;i++){
-
-            if(!(questList.get(i).getType().equals(key))){
-                questList.remove(i);
-                size--;
-                i--;
-            }
-        }
-
-        return questList;
-    }
-
-    private void questPreprocessing() {
-        ArrayList<UsageList> tmp= AppData.mdb.getTransDaysColumns();
-        GetSetADUserInfo getSetADUserInfo = new GetSetADUserInfo();
+        GetSetADUserInfo getSetADUserInfo=new GetSetADUserInfo();
         if(getSetADUserInfo.IsThereUserInfo()){
-            JSONObject data2Quest=new JSONObject();
-            Date today=new Date();
-            Calendar cal=Calendar.getInstance();
-            cal.setTime(today);
-            //예상 소비량
-            int expectedOutcome=AppData.mdb.getTransThreeMonthsAvg("출금");
-            try {
-                data2Quest.accumulate("dateInfo",cal);
-                data2Quest.accumulate("expectation",Integer.toString(expectedOutcome));
-                JSONArray jarray=new JSONArray();
-                for(int i=0;i<tmp.size();i++){
-                    JSONObject dailyData=new JSONObject();
-                    dailyData.accumulate("date",tmp.get(i).getDate());
-                    dailyData.accumulate("cost",tmp.get(i).getCost());
-                    jarray.put(dailyData);
-                }
-                data2Quest.accumulate("daily",jarray);
-                for(int i=1;i<cal.get(Calendar.DATE);i++){
-                    int itIs=0;
-                    cal.add(Calendar.DATE,-i);
-                    Date cmpDate=cal.getTime();
-                    SimpleDateFormat date2str=new SimpleDateFormat("yyyy-MM-dd");
-                    for(int j=0;j<data2Quest.getJSONArray("daily").length();j++){
-                        if(data2Quest.getJSONArray("daily").getJSONObject(i).getString("date").equals(date2str.format(cmpDate))){
-                            itIs=1;
-                            break;
-                        } else ;
-                    }
-                    if(itIs==0){
-                        JSONObject zeroData=new JSONObject();
-                        zeroData.accumulate("date",date2str.format(cmpDate));
-                        zeroData.accumulate("cost",0);
-                        data2Quest.getJSONArray("daily").put(zeroData);
-                    }
-                    cal.add(Calendar.DATE,i);
-                }
 
-                questChecker=new QuestChecker(data2Quest);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        else{
+        }else{
             Intent intent = new Intent(this, SignupActivity.class);
             startActivity(intent);
         }
+            //서버 꺼져서 유저 정보 못불러올 때 이거 쓰셈
+//        Utils.getTestUserInfo();
+//
+//        //AVD에서 인증 불가할 때 걍 이거 쓰셈
+//        Utils.getTestUserToken();
     }
+
 
     @Override public void onDestroy ()
 {
@@ -215,23 +121,5 @@ public class MainActivity extends AppCompatActivity {
 
     public UnityPlayer GetUnityPlayer() {
         return this.mUnityPlayer;
-    }
-
-    public QuestChecker getQuestChecker(){
-        return questChecker;
-    }
-
-    public ArrayList<QuestList> getDailyQuestList() {
-        return dailyQuestList;
-    }
-    public ArrayList<QuestList> getWeekendQuestList() {
-        return weekendQuestList;
-    }
-    public ArrayList<QuestList> getMonthQuestList() {
-        return monthQuestList;
-    }
-
-    public ArrayList<QuestList> getIngameQuestList() {
-        return ingameQuestList;
     }
 }

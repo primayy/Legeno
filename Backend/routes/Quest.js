@@ -26,6 +26,8 @@ router.get('/getQuest',function(req,res){
       res.write(JSON.stringify(questList))
       res.end();
     }else{
+      res.write("questList select error")
+      res.end();
       console.log("questList select error");
     }
   })
@@ -40,6 +42,8 @@ router.post('/checkCoin',function(req,res){
       res.write(JSON.stringify(rows))
       res.end();
     }else{
+      res.write("checkCoin error")
+      res.end()
       console.log("checkCoin error");
     }
   })

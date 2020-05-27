@@ -23,6 +23,8 @@ router.get('/Coin/:idx',function(req,res){
       res.write(JSON.stringify(rows[0].coin))
       res.end();
     }else{
+      res.write("getcoin error")
+      res.end()
       console.log("getcoin error");
     }
   })
@@ -35,6 +37,8 @@ router.get('/Like/:idx',function(req,res){
       res.write(JSON.stringify(rows[0].billage_like))
       res.end()
     }else{
+      res.write("getLike error")
+      res.end()
       console.log("getLike error");
     }
   })

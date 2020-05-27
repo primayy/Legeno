@@ -36,11 +36,11 @@ public class InGame extends Fragment {
 
         MainActivity mainActivity = new MainActivity();
 
-        ArrayList<QuestList> items = mainActivity.getIngameQuestList();
+//        ArrayList<QuestList> items = mainActivity.getIngameQuestList();
         ListView listview = (ListView) root.findViewById(R.id.ingame_list);
 
-        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
-        listview.setAdapter(questAdapter);
+//        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
+//        listview.setAdapter(questAdapter);
 
         ProgressBar progressBar = root.findViewById(R.id.quest_progress);
         progressBar.setProgress(complete_rate);
