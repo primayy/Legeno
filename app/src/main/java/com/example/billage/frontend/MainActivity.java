@@ -1,6 +1,7 @@
 package com.example.billage.frontend;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -69,16 +70,17 @@ public class MainActivity extends AppCompatActivity {
 
         //유저정보 조회
         UserInfo.request_userInfo();
-        getQuestList(); // 퀘스트 리스트 set
-
-        // 거래내역조회 앱 디비에 데이터 넣을거면 이거 한번 실행하고 다시 주석처리
-        // 주석 처리 안하면 같은 데이터 계속 추가됨 -> 수정할 예정
-        //AccountTransaction.request_transaction("20200429","20200501");
-        ArrayList<UsageList> tmp=AppData.mdb.getTransDaysColumns();
+//        getQuestList(); // 퀘스트 리스트 set
 
         //잔액 및 거래내역 조회
         Utils.getUserBalance();
         Utils.getUserTrans();
+
+        //서버 꺼져서 유저 정보 못불러올 때 이거 쓰셈
+        Utils.getTestUserInfo();
+
+        //AVD에서 인증 불가할 때 걍 이거 쓰셈
+        Utils.getTestUserToken();
     }
 
     private void getQuestList() {
