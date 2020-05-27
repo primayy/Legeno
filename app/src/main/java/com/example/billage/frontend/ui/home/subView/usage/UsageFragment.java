@@ -1,13 +1,10 @@
 package com.example.billage.frontend.ui.home.subView.usage;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
@@ -17,13 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.billage.R;
-import com.example.billage.backend.api.AccountTransaction;
+import com.example.billage.backend.api.data.UserAccount;
+import com.example.billage.backend.common.Utils;
 import com.example.billage.frontend.adapter.UsageAdapter;
 import com.example.billage.frontend.data.UsageList;
 import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.ui.addUsage.AddUsage;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
 
 
@@ -92,10 +89,12 @@ public class UsageFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                ArrayList<UserAccount> user_accounts = Utils.getUserAccount();
 
                 //To-do
                 Log.d("refesh","dd");
-                AccountTransaction.request_transaction("20200429","20200501");
+                Utils.getUserTrans();
+                Utils.getUserBalance();
                 refresh();
                 swipeRefreshLayout.setRefreshing(false);
             }

@@ -21,27 +21,22 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AccountTransaction {
-
     //거래내역 요청
-    //값 변수로 넣을 수 있게 수정해야함
-    public static void request_transaction(String from_date, String to_date){
-//        String accessToken = AppData.getPref().getString("access_token","");
-        //사용자 인증 후 발급 받은 토큰으로 변경해야함. 사용자별로 다름
-        String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAwNzU4NDkwIiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE1OTc4MzQ4ODksImp0aSI6IjVlYzI4MTA2LTg3YzItNDk3Zi1iOGIwLWYxNTMxYjM3YzE1NSJ9.LSLwAEHPQ1YjrnJwcEG_YOgKQ_QtFZXjTp3JoD7ty_k";
+    public static void request_transaction(String fintech_use_num){
+        String accessToken = AppData.getPref().getString("access_token","");
 
         HashMap<String, String> paramMap = new HashMap<>();
         //요청시 필요한 parameters
         paramMap.put("bank_tran_id", Utils.setRandomBankTranId());//거래고유번호(참가은행)
         paramMap.put("inquiry_type", "A");//조회구분코드
         paramMap.put("inquiry_base", "D");//조회기준코드
-        paramMap.put("from_date", from_date);//조회시작일자
-        paramMap.put("to_date", to_date);//조회종료일자
+        paramMap.put("from_date", "19990101");//조회시작일자
+        paramMap.put("to_date", Utils.getDay());//조회종료일자
         paramMap.put("sort_order", "D");//정렬순서
         paramMap.put("tran_dtime", Utils.getDate());//요청일시 YYYYMMDDHHMMSS
-//        paramMap.put("befor_inquiry_trace_info", "20");//직전조회추적정보 20개씩
 
         //핀테크 이용
-        paramMap.put("fintech_use_num", "199162081057883042588959");//거래고유번호(참가은행)
+        paramMap.put("fintech_use_num", fintech_use_num);//거래고유번호(참가은행)
 
         //요청 부분
         ApiCallAdapter.getInstance()
@@ -62,7 +57,6 @@ public class AccountTransaction {
                                 JsonElement tran_amt = trans.get("tran_amt");
                                 JsonElement branch_name = trans.get("branch_name");
                                 JsonElement bank_code = json.get("bank_code_tran");
-                                String memo = "";
                                 Log.d("tran",tran_date.getAsString()+" "+inout_type.getAsString()+" "+tran_amt.getAsString()+" "+branch_name.getAsString()+" "+bank_code.getAsString());
                                 //앱 로컬db에 거래 일자, 거래시간, 거래장소, 금액, 거래 타입을 저장
                                 AppData.mdb.insertTransColumn(tran_date.getAsString(),tran_time.getAsString(), branch_name.getAsString(),tran_amt.getAsString(),inout_type.getAsString(),bank_code.getAsString(),"api");

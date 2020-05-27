@@ -1,14 +1,24 @@
 package com.example.billage.backend.common;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.util.Log;
+
+import com.example.billage.backend.api.AccountBalance;
+import com.example.billage.backend.api.AccountTransaction;
+import com.example.billage.backend.api.data.UserAccount;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 public class Utils {
@@ -29,7 +39,7 @@ public class Utils {
     }
 
     public static String setRandomBankTranId() {
-        String clientUseCode = AppData.getPref().getString("client_use_code","");
+        String clientUseCode = ApiConst.BILLAGE_CODE;
         String randomUnique9String = getCurrentTime();    // 이용기관 부여번호를 임시로 시간데이터 사용
         String result = String.format("%sU%s", clientUseCode, randomUnique9String);
 
@@ -213,5 +223,58 @@ public class Utils {
             }
         }
         return "";
+    }
+
+    //난수 설정
+    public static String numberGen(int len) {
+
+        Random rand = new Random();
+        String numStr = ""; //난수가 저장될 변수
+
+        for(int i=0;i<len;i++) {
+
+            //0~9 까지 난수 생성
+            String ran = Integer.toString(rand.nextInt(10));
+            numStr += ran;
+
+        }
+        return numStr;
+    }
+
+    public static ArrayList<UserAccount> getUserAccount(){
+        String user_accounts_str = AppData.getPref().getString("user_accounts",null);
+        ArrayList<UserAccount> user_accounts = new ArrayList<UserAccount>();
+        try {
+            JSONArray tmp = new JSONArray(user_accounts_str);
+            for (int i = 0; i < tmp.length(); i++) {
+                String account_str = tmp.optString(i);
+                String[] account = account_str.split(",");
+                user_accounts.add(new UserAccount(account[0],account[1],account[2],account[3]));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return user_accounts;
+    }
+
+    public static void getUserBalance(){
+        ArrayList<UserAccount> user_accounts = Utils.getUserAccount();
+        //저장된 잔액 초기화
+        SharedPreferences.Editor editor = AppData.getPref().edit();
+        editor.putString("balance","0");
+        editor.apply();
+
+        for(int i=0; i<user_accounts.size();i++)
+        {
+            AccountBalance.request_balance(user_accounts.get(i).getFintech_num());
+        }
+    }
+    public static void getUserTrans(){
+        ArrayList<UserAccount> user_accounts = Utils.getUserAccount();
+
+        for(int i=0; i<user_accounts.size();i++)
+        {
+            AccountTransaction.request_transaction(user_accounts.get(i).getFintech_num());
+        }
     }
 }
