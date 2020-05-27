@@ -13,10 +13,12 @@ import android.widget.TextView;
 
 import com.example.billage.R;
 import com.example.billage.backend.QuestChecker;
+import com.example.billage.backend.QuestProcessor;
 import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.MainActivity;
 import com.example.billage.frontend.adapter.QuestAdapter;
 import com.example.billage.frontend.data.QuestList;
+import com.yy.mobile.rollingtextview.RollingTextView;
 
 import org.json.JSONException;
 
@@ -26,9 +28,9 @@ import java.util.Iterator;
 
 public class Daily extends Fragment {
 
-    TextView coin;
+    RollingTextView coin;
 
-    public Daily(TextView coin) {
+    public Daily(RollingTextView coin) {
         this.coin = coin;
         // Required empty public constructor
     }
@@ -41,15 +43,14 @@ public class Daily extends Fragment {
         // Inflate the layout for this fragment
 
      // ArrayList<UsageList> items = AppData.mdb.getTransColumns();
-        MainActivity mainActivity = new MainActivity();
+        QuestProcessor questProcessor = new QuestProcessor();
 
-        //ArrayList<QuestList> items = mainActivity.getDailyQuestList();
+        ArrayList<QuestList> items = questProcessor.getDailyQuestList();
 
         ListView listview = (ListView) root.findViewById(R.id.daliy_list) ;
-        // listview.setAdapter(adapter) ;
 
-        //QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
-        //listview.setAdapter(questAdapter);
+        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
+        listview.setAdapter(questAdapter);
         return root;
     }
 }

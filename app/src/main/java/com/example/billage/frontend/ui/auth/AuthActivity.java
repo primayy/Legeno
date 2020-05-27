@@ -226,8 +226,17 @@ public class AuthActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        finish();
-        overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
-        super.onBackPressed();
+        if (webView.canGoBack()) {
+            webView.goBack();
+        }
+        else{
+            finish();
+            overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
+            super.onBackPressed();
+        }
+
+
     }
+
+
 }

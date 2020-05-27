@@ -54,7 +54,7 @@ public class QuestProcessor {
         return questList;
     }
 
-    private void questPreprocessing() {
+    public void questPreprocessing() {
         ArrayList<UsageList> tmp= AppData.mdb.getTransDaysColumns();
         GetSetADUserInfo getSetADUserInfo = new GetSetADUserInfo();
         JSONObject data2Quest=new JSONObject();

@@ -9,6 +9,7 @@ import com.example.billage.R;
 
 import com.example.billage.backend.GetSetADUserInfo;
 import com.example.billage.backend.QuestChecker;
+import com.example.billage.backend.QuestProcessor;
 import com.example.billage.backend.api.UserInfo;
 import com.example.billage.backend.api.AccountBalance;
 import com.example.billage.backend.common.AppData;
@@ -67,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
         GetSetADUserInfo getSetADUserInfo=new GetSetADUserInfo();
         if(getSetADUserInfo.IsThereUserInfo()){
+
+            QuestProcessor questProcessor = new QuestProcessor();
+            questProcessor.questPreprocessing();
 
         }else{
             Intent intent = new Intent(this, SignupActivity.class);

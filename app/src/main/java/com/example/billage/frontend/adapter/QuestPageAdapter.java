@@ -10,12 +10,13 @@ import com.example.billage.frontend.ui.quest.subView.daily.Daily;
 import com.example.billage.frontend.ui.quest.subView.ingame.InGame;
 import com.example.billage.frontend.ui.quest.subView.month.Month;
 import com.example.billage.frontend.ui.quest.subView.weekend.Weekend;
+import com.yy.mobile.rollingtextview.RollingTextView;
 
 public class QuestPageAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs; //tab의 갯수
-    TextView coin;
+    RollingTextView coin;
 
-    public QuestPageAdapter(FragmentManager fm, int numOfTabs, TextView coin) {
+    public QuestPageAdapter(FragmentManager fm, int numOfTabs, RollingTextView coin) {
         super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.mNumOfTabs = numOfTabs;
         this.coin = coin;

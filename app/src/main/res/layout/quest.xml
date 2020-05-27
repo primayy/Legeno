@@ -83,12 +83,16 @@
             android:layout_height="30dp"
             android:src="@drawable/coin_img" />
 
-        <TextView
+        <com.yy.mobile.rollingtextview.RollingTextView
             android:id="@+id/coin_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="1231" />
+            android:text="0,000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textStyle="bold"/>
 
 
 

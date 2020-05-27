@@ -26,13 +26,16 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.dd.morphingbutton.MorphingButton;
 import com.example.billage.R;
 import com.example.billage.backend.GetSetADUserInfo;
 import com.example.billage.backend.GetSetDB;
 import com.example.billage.frontend.data.QuestList;
 import com.example.billage.frontend.ui.addUsage.AddUsage;
 import com.example.billage.frontend.ui.quest.QuestFragment;
+import com.yy.mobile.rollingtextview.RollingTextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class QuestAdapter extends ArrayAdapter<QuestList> {
@@ -41,7 +44,7 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
     private Context context;
     private List mList;
     private ListView mListView;
-    TextView coin;
+    RollingTextView coin;
 
     static class QuestViewHolder {
          TextView name;
@@ -54,7 +57,7 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
 
     }
 
-    public QuestAdapter(Context context, List<QuestList> list, ListView listview, Activity activity,TextView coin) {
+    public QuestAdapter(Context context, List<QuestList> list, ListView listview, Activity activity, RollingTextView coin) {
         super(context, 0, list);
 
         this.context = context;
@@ -164,6 +167,12 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
                     getSetDB.setCoin(resultCoin);
                     coin.setText(String.valueOf(resultCoin));
                 }
+
+                DecimalFormat number_format = new DecimalFormat("###,###");
+                GetSetDB getSetDB = new GetSetDB();
+                int resultCoin = getSetDB.getCoin()+Integer.parseInt(quest.getReward());
+                getSetDB.setCoin(resultCoin);
+                coin.setText(String.valueOf(number_format.format(resultCoin)));
             }
         });
     }

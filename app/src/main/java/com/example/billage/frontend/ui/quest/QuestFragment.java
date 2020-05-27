@@ -35,12 +35,17 @@ public class QuestFragment extends Fragment {
         View root = inflater.inflate(R.layout.quest, container, false);
 
         GetSetDB getSetDB = new GetSetDB();
-        TextView coin = root.findViewById(R.id.coin_value);
-        coin.setText(String.valueOf(getSetDB.getCoin()));
 
         int avg_usage = AppData.mdb.getTransThreeMonthsAvg("출금");
         DecimalFormat number_format = new DecimalFormat("###,###");
 
+        RollingTextView coin = (RollingTextView) root.findViewById(R.id.coin_value);
+
+        coin.setAnimationDuration(1000L);
+        coin.setCharStrategy(Strategy.NormalAnimation());
+        coin.addCharOrder(CharOrder.Number);
+        coin.setAnimationInterpolator(new AccelerateDecelerateInterpolator());
+        coin.setText(String.valueOf(number_format.format(getSetDB.getCoin())));
 
         TabLayout tabLayout = root.findViewById(R.id.three_tabs) ;
 
