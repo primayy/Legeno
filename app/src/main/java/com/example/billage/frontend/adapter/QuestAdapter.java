@@ -160,7 +160,6 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
                 viewHolder.complete2.setFocusable(false);
 
                 DecimalFormat number_format = new DecimalFormat("###,###");
-
                 GetSetDB getSetDB = new GetSetDB();
                 int resultCoin = getSetDB.getCoin()+Integer.parseInt(quest.getReward());
                 getSetDB.setCoin(resultCoin);
