@@ -242,7 +242,7 @@ public class Utils {
     }
 
     public static ArrayList<UserAccount> getUserAccount(){
-        String user_accounts_str = AppData.getPref().getString("user_accounts",null);
+        String user_accounts_str = AppData.getPref().getString("user_accounts","");
         ArrayList<UserAccount> user_accounts = new ArrayList<UserAccount>();
         try {
             JSONArray tmp = new JSONArray(user_accounts_str);
