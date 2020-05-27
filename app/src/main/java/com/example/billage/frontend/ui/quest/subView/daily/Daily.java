@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.billage.R;
 import com.example.billage.backend.QuestChecker;
+import com.example.billage.backend.QuestProcessor;
 import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.MainActivity;
 import com.example.billage.frontend.adapter.QuestAdapter;
@@ -42,15 +43,14 @@ public class Daily extends Fragment {
         // Inflate the layout for this fragment
 
      // ArrayList<UsageList> items = AppData.mdb.getTransColumns();
-        MainActivity mainActivity = new MainActivity();
+        QuestProcessor questProcessor = new QuestProcessor();
 
-        //ArrayList<QuestList> items = mainActivity.getDailyQuestList();
+        ArrayList<QuestList> items = questProcessor.getDailyQuestList();
 
         ListView listview = (ListView) root.findViewById(R.id.daliy_list) ;
-        // listview.setAdapter(adapter) ;
 
-        //QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
-        //listview.setAdapter(questAdapter);
+        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
+        listview.setAdapter(questAdapter);
         return root;
     }
 }

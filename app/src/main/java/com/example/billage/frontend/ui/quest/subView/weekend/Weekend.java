@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.billage.R;
 import com.example.billage.backend.QuestChecker;
+import com.example.billage.backend.QuestProcessor;
 import com.example.billage.frontend.MainActivity;
 import com.example.billage.frontend.adapter.QuestAdapter;
 import com.example.billage.frontend.data.QuestList;
@@ -43,9 +44,9 @@ public class Weekend extends Fragment {
         // Inflate the layout for this fragment\
         View root = inflater.inflate(R.layout.quest_weekend, container, false);
 
-        MainActivity mainActivity = new MainActivity();
+        QuestProcessor questProcessor = new QuestProcessor();
 
-        ArrayList<QuestList> items = mainActivity.getWeekendQuestList();
+        ArrayList<QuestList> items = questProcessor.getWeekendQuestList();
 
         for(int i = 0; i<items.size();i++){
 

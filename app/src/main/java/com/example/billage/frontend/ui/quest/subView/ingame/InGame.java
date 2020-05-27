@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.billage.R;
+import com.example.billage.backend.QuestProcessor;
 import com.example.billage.frontend.MainActivity;
 import com.example.billage.frontend.adapter.QuestAdapter;
 import com.example.billage.frontend.data.QuestList;
@@ -36,9 +37,9 @@ public class InGame extends Fragment {
         // Inflate the layout for this fragment\
         View root = inflater.inflate(R.layout.quest_in_game, container, false);
 
-        MainActivity mainActivity = new MainActivity();
+        QuestProcessor questProcessor = new QuestProcessor();
 
-        ArrayList<QuestList> items = mainActivity.getIngameQuestList();
+        ArrayList<QuestList> items = questProcessor.getIngameQuestList();
         for(int i = 0; i<items.size(); i++){
 
             if(items.get(i).getComplete().equals("true")){
