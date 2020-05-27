@@ -1,7 +1,6 @@
 package com.example.billage.frontend.ui.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +9,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.billage.R;
-import com.example.billage.backend.GetADUserInfo;
+import com.example.billage.backend.GetSetADUserInfo;
 import com.example.billage.backend.common.AppData;
-import com.example.billage.frontend.ui.signup.SignupActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import com.example.billage.frontend.adapter.PageAdaper;
@@ -61,11 +56,11 @@ public class HomeFragment extends Fragment {
 
 
 
-        GetADUserInfo getADUserInfo = new GetADUserInfo();
+        GetSetADUserInfo getSetADUserInfo = new GetSetADUserInfo();
 
-        if(getADUserInfo.IsThereUserInfo()){
+        if(getSetADUserInfo.IsThereUserInfo()){
             TextView user_name = root.findViewById(R.id.username);
-            user_name.setText(String.format("%s 님 현재", getADUserInfo.getUserInfo("user_name")));
+            user_name.setText(String.format("%s 님 현재", getSetADUserInfo.getUserInfo("user_name")));
         }
 
 

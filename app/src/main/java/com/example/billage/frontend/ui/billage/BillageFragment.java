@@ -11,18 +11,16 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.billage.backend.GetADUserInfo;
+import com.example.billage.backend.GetSetADUserInfo;
 import com.example.billage.frontend.MainActivity;
 import com.unity3d.player.*;
 
 import com.example.billage.R;
 
-import org.json.JSONException;
-
 public class BillageFragment extends Fragment {
     private UnityPlayer mUnityPlayer;
     private MainActivity mainActivity;
-    private GetADUserInfo AppDB = new GetADUserInfo();
+    private GetSetADUserInfo AppDB = new GetSetADUserInfo();
     String userInfo;
     View playerView;
     FrameLayout father;

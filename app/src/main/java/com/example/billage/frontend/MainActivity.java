@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.example.billage.R;
 
-import com.example.billage.backend.GetADUserInfo;
+import com.example.billage.backend.GetSetADUserInfo;
 import com.example.billage.backend.QuestChecker;
 import com.example.billage.backend.api.AccountBalance;
 import com.example.billage.backend.common.AppData;
@@ -71,17 +71,21 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
 
         questPreprocessing();
-        getQuestList(); // 퀘스트 리스트 set
+//        getQuestList(); // 퀘스트 리스트 set
 
         // 거래내역조회 앱 디비에 데이터 넣을거면 이거 한번 실행하고 다시 주석처리
         // 주석 처리 안하면 같은 데이터 계속 추가됨 -> 수정할 예정
         //AccountTransaction.request_transaction("20200429","20200501");
         ArrayList<UsageList> tmp=AppData.mdb.getTransDaysColumns();
 
-
         //잔액 조회
         AccountBalance.request_balance();
 
+        //퀘스트 보상획득 정보 리셋
+       GetSetADUserInfo resetReward=new GetSetADUserInfo();
+        resetReward.reset_dailyRewardInfo();
+        resetReward.reset_weeklyRewardInfo();
+        resetReward.reset_monthlyRewardInfo();
     }
 
     private void getQuestList() {
@@ -114,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void questPreprocessing() {
         ArrayList<UsageList> tmp= AppData.mdb.getTransDaysColumns();
-        GetADUserInfo getADUserInfo = new GetADUserInfo();
-        if(getADUserInfo.IsThereUserInfo()){
+        GetSetADUserInfo getSetADUserInfo = new GetSetADUserInfo();
+        if(getSetADUserInfo.IsThereUserInfo()){
             JSONObject data2Quest=new JSONObject();
             Date today=new Date();
             Calendar cal=Calendar.getInstance();

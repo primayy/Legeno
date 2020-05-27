@@ -1,11 +1,9 @@
 package com.example.billage.backend;
 
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.data.QuestList;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,19 +20,30 @@ import java.util.concurrent.ExecutionException;
 public class QuestChecker {
     //퀘스트 완료여부 확인에 필요한 데이터 생성
     JSONObject data2Quest=new JSONObject();
-    int[] currentAchieve=new int[12];
-    int[] finallyAchieve={3,5,7,3,5,7,10,15,25,10,20,30};
+    int[] currentWeeklyAchieve =new int[6];
+    int[] finallyWeeklyAchieve ={3,5,7,3,5,7};
+
+    int[] currentMonthlyAchieve=new int[6];
+    int[] finallyMonthlyAchieve={10,15,25,10,20,30};
 
     public QuestChecker(JSONObject data){
         this.data2Quest=data;
     }
 
-    public int[] getCurrentAchieve(){
-        return this.currentAchieve;
+    public int[] getCurrentWeeklyAchieve(){
+        return this.currentWeeklyAchieve;
     }
 
-    public int[] getFinallyAchieve(){
-        return this.finallyAchieve;
+    public int[] getFinallyWeeklyAchieve(){
+        return this.finallyWeeklyAchieve;
+    }
+
+    public int[] getCurrentMonthlyAchieve() {
+        return currentMonthlyAchieve;
+    }
+
+    public int[] getFinallyMonthlyAchieve() {
+        return finallyMonthlyAchieve;
     }
 
     public ArrayList<QuestList> parseQuestList() throws JSONException {
@@ -155,11 +164,12 @@ public class QuestChecker {
             //전설이다 퀘스트 확인
             if(AppData.getPref().getInt("attendanceCount",0)==30) questList.getJSONObject(24).put("complete",true);
 
-            GetADUserInfo getUserInfo=new GetADUserInfo();
+            GetSetADUserInfo getUserInfo=new GetSetADUserInfo();
             JSONObject postdata=new JSONObject();
             postdata.put("user_id",getUserInfo.getUserInfo("user_id"));
             JSONTask_Post jspost=new JSONTask_Post(postdata);
 
+            //너 부자구나? 퀘스트 확인
             String res=jspost.execute("http://18.219.106.101/Quest/checkCoin").get();
 
             JSONArray coinCost=new JSONArray(res);
@@ -167,7 +177,9 @@ public class QuestChecker {
                 questList.getJSONObject(19).put("complete",true);
             }
 
-            Log.d("ppap",questList.toString());
+            //이런 인기쟁이!퀘스트 확인
+
+
             return questList;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -263,9 +275,9 @@ public class QuestChecker {
             else ;
         }
 
-        this.currentAchieve[3]=count;
-        this.currentAchieve[4]=count;
-        this.currentAchieve[5]=count;
+        this.currentWeeklyAchieve[3]=count;
+        this.currentWeeklyAchieve[4]=count;
+        this.currentWeeklyAchieve[5]=count;
 
         if(count>=7) return 3;
         else if(count>=5&&count<7) return 2;
@@ -289,9 +301,9 @@ public class QuestChecker {
             else if(checkDailySave(subDate(i),Data,expectation)>=2) countLv2++;
         }
 
-        this.currentAchieve[0]=countLv1;
-        this.currentAchieve[1]=countLv2;
-        this.currentAchieve[2]=countLv2;
+        this.currentWeeklyAchieve[0]=countLv1;
+        this.currentWeeklyAchieve[1]=countLv2;
+        this.currentWeeklyAchieve[2]=countLv2;
 
         if(countLv2>=7) return 3;
         else if(countLv2<7&&countLv2>=5) return 2;
@@ -313,9 +325,9 @@ public class QuestChecker {
             }
         }
 
-        this.currentAchieve[9]=count;
-        this.currentAchieve[10]=count;
-        this.currentAchieve[11]=count;
+        this.currentMonthlyAchieve[3]=count;
+        this.currentMonthlyAchieve[4]=count;
+        this.currentMonthlyAchieve[5]=count;
 
         if(count>=10&&count<20) return 1;
         else if(count>=20&&count<30) return 2;
@@ -342,9 +354,9 @@ public class QuestChecker {
             }
         }
 
-        this.currentAchieve[6]=countLv1;
-        this.currentAchieve[7]=countLv2;
-        this.currentAchieve[8]=countLv2;
+        this.currentMonthlyAchieve[0]=countLv1;
+        this.currentMonthlyAchieve[1]=countLv2;
+        this.currentMonthlyAchieve[2]=countLv2;
 
         if(countLv2>=25) return 3;
         else if(countLv2<25&&countLv2>=15) return 2;

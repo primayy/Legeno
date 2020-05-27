@@ -28,4 +28,16 @@ router.get('/Coin/:idx',function(req,res){
   })
 })
 
+router.get('/Like/:idx',function(req,res){
+  connection.query(`select billage_like from Billage.billage where user_id=${req.params.idx}`,function(err,rows,fields){
+    if(!err){
+      console.log(JSON.stringify(rows[0].billage_like));
+      res.write(JSON.stringify(rows[0].billage_like))
+      res.end()
+    }else{
+      console.log("getLike error");
+    }
+  })
+})
+
 module.exports = router;
