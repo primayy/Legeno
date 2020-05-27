@@ -277,4 +277,19 @@ public class Utils {
             AccountTransaction.request_transaction(user_accounts.get(i).getFintech_num());
         }
     }
+
+    public static void getTestUserToken(){
+        SharedPreferences.Editor editor = AppData.getPref().edit();
+
+        editor.putString("access_token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAwNzU4NDkwIiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE1OTgzMzQxNDMsImp0aSI6ImQ4NjBjZDZjLWZkMzktNGY5Ni1hZWRmLWNhOTAzMTIyYmMzMSJ9._lMMSj5KV0uMdIj1ipG-9MKYpahayH4z5SnHPzG1_so");
+        editor.putString("user_seq_no","1100758490");
+        editor.apply();
+    }
+
+    public static void getTestUserInfo() {
+        SharedPreferences.Editor editor = AppData.getPref().edit();
+        editor.putString("user_info", "[{&quot;user_id&quot;:66,&quot;user_name&quot;:&quot;김용표&quot;,&quot;nickname&quot;:&quot;루루루&quot;,&quot;bank_list&quot;:null,&quot;auth_check&quot;:0}]");
+        editor.putInt("attendanceCount",0);
+        editor.apply();
+    }
 }
