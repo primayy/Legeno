@@ -39,11 +39,11 @@ public class Month extends Fragment {
 
         MainActivity mainActivity = new MainActivity();
 
-        ArrayList<QuestList> items = mainActivity.getMonthQuestList();
+//        ArrayList<QuestList> items = mainActivity.getMonthQuestList();
         ListView listview = (ListView) root.findViewById(R.id.month_list);
 
-        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
-        listview.setAdapter(questAdapter);
+//        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
+//        listview.setAdapter(questAdapter);
 
         ProgressBar progressBar = root.findViewById(R.id.quest_progress);
         progressBar.setProgress(complete_rate);

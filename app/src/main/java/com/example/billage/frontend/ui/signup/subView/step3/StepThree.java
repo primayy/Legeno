@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.billage.R;
+import com.example.billage.backend.GetSetADUserInfo;
 import com.example.billage.backend.JSONTask_Post;
 import com.example.billage.backend.common.AppData;
 
@@ -83,6 +84,8 @@ public class StepThree extends Fragment {
                     signupData.accumulate("callID","signUp");
                     JSONTask_Post jsonTask= new JSONTask_Post(signupData);
                     jsonTask.execute("http://18.219.106.101/SignUp");
+                    GetSetADUserInfo getSetADUserInfo=new GetSetADUserInfo();
+                    getSetADUserInfo.initializeRewardInfo();
 
                 }catch (JSONException e) {
                     e.printStackTrace();

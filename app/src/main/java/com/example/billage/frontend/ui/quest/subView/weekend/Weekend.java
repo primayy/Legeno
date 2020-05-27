@@ -43,11 +43,11 @@ public class Weekend extends Fragment {
 
         MainActivity mainActivity = new MainActivity();
 
-        ArrayList<QuestList> items = mainActivity.getWeekendQuestList();
+//        ArrayList<QuestList> items = mainActivity.getWeekendQuestList();
         ListView listview = (ListView) root.findViewById(R.id.weekend_list);
 
-        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
-        listview.setAdapter(questAdapter);
+//        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
+//        listview.setAdapter(questAdapter);
 
         ProgressBar progressBar = root.findViewById(R.id.quest_progress);
         progressBar.setProgress(complete_rate);

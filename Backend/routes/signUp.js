@@ -31,6 +31,8 @@ router.post('/',function(req,res){
           for (var dbNick of nicknameList){
             if(postdata.nickname==dbNick.nickname){//닉네임 중복검사
               console.log('occupied nickname!');
+              res.write("occupied nickname!")
+              res.end()
               return
             }
           }
@@ -44,6 +46,8 @@ router.post('/',function(req,res){
           })
         }
         else{
+          res.write("nickname select query error");
+          res.end()
           console.log('nickname select query error');
         }
       })

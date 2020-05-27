@@ -26,6 +26,8 @@ router.post('/Coin/:idx',function(req,res){
         res.end()
       })
     }else{
+      res.write("getcoin error")
+      res.end()
       console.log("getcoin error");
     }
   })

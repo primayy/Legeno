@@ -43,13 +43,13 @@ public class Daily extends Fragment {
      // ArrayList<UsageList> items = AppData.mdb.getTransColumns();
         MainActivity mainActivity = new MainActivity();
 
-        ArrayList<QuestList> items = mainActivity.getDailyQuestList();
+        //ArrayList<QuestList> items = mainActivity.getDailyQuestList();
 
         ListView listview = (ListView) root.findViewById(R.id.daliy_list) ;
         // listview.setAdapter(adapter) ;
 
-        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
-        listview.setAdapter(questAdapter);
+        //QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
+        //listview.setAdapter(questAdapter);
         return root;
     }
 }
