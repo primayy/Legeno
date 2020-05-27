@@ -3,8 +3,8 @@ package com.example.billage.frontend.ui.auth;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.billage.R;
-import com.example.billage.backend.api.data.Authorize;
-import com.example.billage.backend.api.data.token.TokenRequest;
+import com.example.billage.backend.api.Authorize;
+import com.example.billage.backend.api.TokenRequest;
 import com.example.billage.backend.common.ApiConst;
 import com.example.billage.backend.common.Utils;
 
@@ -15,7 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
-import android.view.View;
+import android.util.Log;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.SslErrorHandler;
@@ -143,6 +143,7 @@ public class AuthActivity extends AppCompatActivity {
                  * 이용기관에서는 redirect uri 에 해당하는 페이지에서 에러처리를 해야한다.
                  */
                 String callbackUrl = ApiConst.CALLBACK_URL;
+
                 if(url.startsWith(callbackUrl)){
 
                     // error 코드가 있을 경우 에러처리
@@ -152,6 +153,7 @@ public class AuthActivity extends AppCompatActivity {
                         if (errorDesc.isEmpty()) {
                             errorDesc = "알 수 없는 오류가 발생하였습니다.";
                         }
+                        Log.d("tetete1",errorDesc);
 //                        showAlert("인증 에러코드 : " + error, Utils.urlDecode(errorDesc), url, (dialog, which) -> onBackPressed());
                         return true;
                     }
@@ -167,12 +169,13 @@ public class AuthActivity extends AppCompatActivity {
 //                        showAlert("상태난수값 오류", "보낸 난수값과 서버로부터 받은 난수값이 서로 일치하지 않습니다.", "보낸 난수값: " + state + "\n\n받은 난수값: " + returnState);
                         return true;
                     }
-
                     args.putString("code", code);
                     args.putString("scope", scope);
                     args.putString("client_info", client_info);
                     args.putString("state", state);
-                    goNext();
+
+                    TokenRequest.request_token(args);
+                    finish();
                     return true;
                 }
 
@@ -220,9 +223,6 @@ public class AuthActivity extends AppCompatActivity {
         webView.loadUrl(urlToLoad, headerMap);
     }
 
-    void goNext() {
-        TokenRequest.request_token(args);
-    }
     @Override
     public void onBackPressed() {
 

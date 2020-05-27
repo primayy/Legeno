@@ -1,4 +1,4 @@
-package com.example.billage.backend.api.data.token;
+package com.example.billage.backend.api;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,7 +23,6 @@ import retrofit2.Response;
 
 public class TokenRequest {
     public static void request_token(Bundle args){
-//        String auth_code = "m0WMfi2oSHfBk0SyDrfMAupzsoGiCD"; //user별 코드 받도록 해야함
         String auth_code = args.getString("code",""); //user별 코드 받도록 해야함
         HashMap<String, String> paramMap = new HashMap<>();
 
@@ -48,13 +47,17 @@ public class TokenRequest {
                             String value = token.getAsString();
                             Log.d("token",value);
 
-                            JsonElement client_use_code = json.get("client_use_code");
-                            String cl_use_code = client_use_code.getAsString();
+                            JsonElement user_seq_no = json.get("user_seq_no");
+                            String user_seq_no_code = user_seq_no.getAsString();
+
+                            JsonElement refresh_token = json.get("refresh_token");
+                            String refresh_token_code = refresh_token.getAsString();
 
                             //앱데이터에 저장
                             SharedPreferences.Editor editor = AppData.getPref().edit();
                             editor.putString("access_token",value);
-                            editor.putString("client_use_code",cl_use_code);
+                            editor.putString("user_seq_no",user_seq_no_code);
+                            editor.putString("refresh_token",refresh_token_code);
 
                             editor.apply();
                         }
