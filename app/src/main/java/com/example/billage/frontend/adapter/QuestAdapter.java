@@ -28,6 +28,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.dd.morphingbutton.MorphingButton;
 import com.example.billage.R;
+import com.example.billage.backend.GetSetADUserInfo;
 import com.example.billage.backend.GetSetDB;
 import com.example.billage.frontend.data.QuestList;
 import com.example.billage.frontend.ui.addUsage.AddUsage;
@@ -158,6 +159,14 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
             public void onClick(View view) {
                 viewHolder.complete2.setText("획득 완료");
                 viewHolder.complete2.setFocusable(false);
+                GetSetADUserInfo rewardRefresher=new GetSetADUserInfo();
+                if(rewardRefresher.getRewardInfo(quest.getType(),quest.getId())==0){
+                    rewardRefresher.setRewardInfo(quest.getType(),quest.getId());
+                    GetSetDB getSetDB = new GetSetDB();
+                    int resultCoin = getSetDB.getCoin()+Integer.parseInt(quest.getReward());
+                    getSetDB.setCoin(resultCoin);
+                    coin.setText(String.valueOf(resultCoin));
+                }
 
                 DecimalFormat number_format = new DecimalFormat("###,###");
                 GetSetDB getSetDB = new GetSetDB();

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,16 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.billage.R;
-import com.example.billage.backend.GetADUserInfo;
+import com.example.billage.backend.GetSetADUserInfo;
 import com.example.billage.frontend.ui.auth.AuthActivity;
 import com.example.billage.frontend.ui.mypage.subView.AccountModify;
-import com.example.billage.frontend.ui.mypage.subView.AddBank;
 import com.example.billage.frontend.ui.mypage.subView.CurrentBank;
 import com.example.billage.frontend.ui.mypage.subView.SetNotify;
 import com.example.billage.frontend.ui.mypage.subView.SetPassword;
-import com.example.billage.frontend.ui.signup.SignupActivity;
-
-import org.w3c.dom.Text;
 
 public class MypageFragment extends Fragment {
 
@@ -35,9 +30,9 @@ public class MypageFragment extends Fragment {
 
 
 
-        GetADUserInfo getADUserInfo = new GetADUserInfo();
+        GetSetADUserInfo getSetADUserInfo = new GetSetADUserInfo();
         TextView account_info = root.findViewById(R.id.account_info);
-        account_info.setText(String.format("%s (%s)", getADUserInfo.getUserInfo("user_name"), getADUserInfo.getUserInfo("nickname")));
+        account_info.setText(String.format("%s (%s)", getSetADUserInfo.getUserInfo("user_name"), getSetADUserInfo.getUserInfo("nickname")));
 
         setTextviewClickEvent(root);
 
