@@ -281,14 +281,14 @@ public class Utils {
     public static void getTestUserToken(){
         SharedPreferences.Editor editor = AppData.getPref().edit();
 
-        editor.putString("access_token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAwNzU4NDkwIiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE1OTgzMzQxNDMsImp0aSI6ImQ4NjBjZDZjLWZkMzktNGY5Ni1hZWRmLWNhOTAzMTIyYmMzMSJ9._lMMSj5KV0uMdIj1ipG-9MKYpahayH4z5SnHPzG1_so");
+        editor.putString("access_token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAwNzU4NDkwIiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE1OTg0Mzg3NTIsImp0aSI6ImQwZDNjZGQ0LWYzN2UtNDAxZC1iMGQ4LTQyNmYzYTU0ZGZhNCJ9.tRc6yWmpyeftoyyZT3fNfUzQ9rCZ4N9115IFMRT4KPE");
         editor.putString("user_seq_no","1100758490");
         editor.apply();
     }
 
     public static void getTestUserInfo() {
         SharedPreferences.Editor editor = AppData.getPref().edit();
-        editor.putString("user_info", "[{&quot;user_id&quot;:66,&quot;user_name&quot;:&quot;김용표&quot;,&quot;nickname&quot;:&quot;루루루&quot;,&quot;bank_list&quot;:null,&quot;auth_check&quot;:0}]");
+        editor.putString("user_info", "[{\"user_id\":66,\"user_name\":\"김용표\",\"nickname\":\"루루루\",\"bank_list\":null,\"auth_check\":0}]");
         editor.putInt("attendanceCount",0);
         editor.apply();
     }

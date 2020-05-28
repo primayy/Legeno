@@ -80,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        //서버 꺼져서 유저 정보 못불러올 때 이거 쓰셈
+////        //서버 꺼져서 유저 정보 못불러올 때 이거 쓰셈
 //        Utils.getTestUserInfo();
-//
-        //AVD에서 인증 불가할 때 걍 이거 쓰셈
+////
+//        //AVD에서 인증 불가할 때 걍 이거 쓰셈
 //        Utils.getTestUserToken();
     }
 
