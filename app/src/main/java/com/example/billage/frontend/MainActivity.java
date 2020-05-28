@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         //퀘스트 보상획득 정보 리셋
         GetSetADUserInfo resetReward=new GetSetADUserInfo();
+       // resetReward.initializeRewardInfo();
         resetReward.reset_dailyRewardInfo();
         resetReward.reset_weeklyRewardInfo();
         resetReward.reset_monthlyRewardInfo();

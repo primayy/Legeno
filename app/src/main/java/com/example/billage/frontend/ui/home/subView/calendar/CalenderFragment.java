@@ -45,7 +45,7 @@ public class CalenderFragment extends Fragment {
     public CalenderFragment() {
         // Required empty public constructor
     }
-    
+
     public static CalenderFragment newInstance(String param1, String param2) {
         CalenderFragment fragment = new CalenderFragment();
         Bundle args = new Bundle();
