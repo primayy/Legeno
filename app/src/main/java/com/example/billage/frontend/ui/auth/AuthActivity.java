@@ -57,7 +57,8 @@ public class AuthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_webview);
-        args = Authorize.request_authorize();
+//        args = Authorize.request_authorize();
+        args = Authorize.request_authorize_account();
         urlToLoad = args.getString("URL_TO_LOAD", "");
         state = args.getString("STATE", "");
         headerMap = (Map<String, String>) args.getSerializable("headerMap");
