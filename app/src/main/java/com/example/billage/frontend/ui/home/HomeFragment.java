@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.billage.R;
 import com.example.billage.backend.GetSetADUserInfo;
 import com.example.billage.backend.common.AppData;
+import com.example.billage.backend.common.Utils;
 import com.google.android.material.tabs.TabLayout;
 
 import com.example.billage.frontend.adapter.PageAdaper;
@@ -54,6 +55,7 @@ public class HomeFragment extends Fragment {
         rollingTextView.setAnimationInterpolator(new AccelerateDecelerateInterpolator());
         rollingTextView.setText(number_format.format(Integer.parseInt(AppData.getPref().getString("balance","0"))));
 
+        Utils.getUserBalance();
 
 
         GetSetADUserInfo getSetADUserInfo = new GetSetADUserInfo();
