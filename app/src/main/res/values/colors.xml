@@ -6,4 +6,5 @@
     <color name="title_color">#000000</color>
     <color name="colorDay">#9A9A9A</color>
     <color name="textColor">#373737</color>
+    <color name="cardBackgroundCompleted">#E3DADA</color>
 </resources>

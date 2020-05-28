@@ -47,6 +47,7 @@ public class Daily extends Fragment {
 
         ArrayList<QuestList> items = questProcessor.getDailyQuestList();
 
+
         ListView listview = (ListView) root.findViewById(R.id.daliy_list) ;
 
         QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
