@@ -12,17 +12,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.billage.R;
+import com.example.billage.backend.QuestProcessor;
 import com.example.billage.frontend.MainActivity;
 import com.example.billage.frontend.adapter.QuestAdapter;
 import com.example.billage.frontend.data.QuestList;
+import com.yy.mobile.rollingtextview.RollingTextView;
 
 import java.util.ArrayList;
 
 
 public class InGame extends Fragment {
-    TextView coin;
+    RollingTextView coin;
 
-    public InGame(TextView coin) {
+    public InGame(RollingTextView coin) {
         this.coin = coin;
         // Required empty public constructor
     }
@@ -30,23 +32,32 @@ public class InGame extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        int complete_rate = 75;
+        int completeRate = 0;
+        int completeCount = 0;
         // Inflate the layout for this fragment\
         View root = inflater.inflate(R.layout.quest_in_game, container, false);
 
-        MainActivity mainActivity = new MainActivity();
+        QuestProcessor questProcessor = new QuestProcessor();
 
-//        ArrayList<QuestList> items = mainActivity.getIngameQuestList();
+        ArrayList<QuestList> items = questProcessor.getIngameQuestList();
+        for(int i = 0; i<items.size(); i++){
+
+            if(items.get(i).getComplete().equals("true")){
+                completeCount++;
+            }
+        }
+
+        completeRate =  100*completeCount/items.size();
         ListView listview = (ListView) root.findViewById(R.id.ingame_list);
 
-//        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
-//        listview.setAdapter(questAdapter);
+        QuestAdapter questAdapter = new QuestAdapter(getActivity(),items,listview,getActivity(),coin);
+        listview.setAdapter(questAdapter);
 
         ProgressBar progressBar = root.findViewById(R.id.quest_progress);
-        progressBar.setProgress(complete_rate);
+        progressBar.setProgress(completeRate);
 
         TextView progress_text = root.findViewById(R.id.progress_text);
-        progress_text.setText(complete_rate+"%");
+        progress_text.setText(completeRate+"%");
         return root;
 }
 }

@@ -4,9 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,24 +17,30 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.dd.morphingbutton.MorphingButton;
 import com.example.billage.R;
 import com.example.billage.backend.GetSetADUserInfo;
 import com.example.billage.backend.GetSetDB;
 import com.example.billage.frontend.data.QuestList;
 import com.example.billage.frontend.ui.addUsage.AddUsage;
 import com.example.billage.frontend.ui.quest.QuestFragment;
+import com.yy.mobile.rollingtextview.RollingTextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class QuestAdapter extends ArrayAdapter<QuestList> {
@@ -41,20 +49,21 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
     private Context context;
     private List mList;
     private ListView mListView;
-    TextView coin;
+    RollingTextView coin;
+    private GetSetADUserInfo rewardRefresher;
 
     static class QuestViewHolder {
          TextView name;
          TextView description;
          TextView reward;
-         TextView complete;
+         ImageView complete;
          Button complete2;
          CardView cardView;
          ConstraintLayout quest_detail;
 
     }
 
-    public QuestAdapter(Context context, List<QuestList> list, ListView listview, Activity activity,TextView coin) {
+    public QuestAdapter(Context context, List<QuestList> list, ListView listview, Activity activity, RollingTextView coin) {
         super(context, 0, list);
 
         this.context = context;
@@ -62,6 +71,7 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
         this.mListView = listview;
         this.mActivity = activity;
         this.coin = coin;
+        this.rewardRefresher = new GetSetADUserInfo();
     }
 
     // ListView의  한 줄(row)이 렌더링(rendering)될 때 호출되는 메소드로 row를 위한 view를 리턴.
@@ -104,12 +114,22 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
         viewHolder.reward.setText(quest.getReward());
 
         if(quest.getComplete().equals("0")){
-            viewHolder.complete.setText("미달성");
+            viewHolder.complete.setImageResource(R.drawable.ellipsis);
             viewHolder.complete2.setText("미달성");
         }
         else{
-            viewHolder.complete.setText("완료");
-            viewHolder.complete2.setText("보상받기");
+            if(rewardRefresher.getRewardInfo(quest.getType(),quest.getId())==0){
+                viewHolder.complete.setImageResource(R.drawable.close_gift);
+                viewHolder.complete2.setText("보상받기");
+            }
+            else{
+                //viewHolder.cardView.setCardBackgroundColor(Color.parseColor("#E3DADA"));
+                viewHolder.complete.setImageResource(R.drawable.open_gift);
+                viewHolder.complete2.setText("획득완료");
+                viewHolder.complete2.setFocusable(false);
+            }
+
+
         }
 
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -154,16 +174,19 @@ public class QuestAdapter extends ArrayAdapter<QuestList> {
         viewHolder.complete2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewHolder.complete2.setText("획득 완료");
+                viewHolder.complete.setImageResource(R.drawable.open_gift);
+                viewHolder.complete2.setText("획득완료");
                 viewHolder.complete2.setFocusable(false);
-                GetSetADUserInfo rewardRefresher=new GetSetADUserInfo();
+
                 if(rewardRefresher.getRewardInfo(quest.getType(),quest.getId())==0){
+                    DecimalFormat number_format = new DecimalFormat("###,###");
                     rewardRefresher.setRewardInfo(quest.getType(),quest.getId());
                     GetSetDB getSetDB = new GetSetDB();
                     int resultCoin = getSetDB.getCoin()+Integer.parseInt(quest.getReward());
                     getSetDB.setCoin(resultCoin);
-                    coin.setText(String.valueOf(resultCoin));
+                    coin.setText(String.valueOf(number_format.format(resultCoin)));
                 }
+
             }
         });
     }

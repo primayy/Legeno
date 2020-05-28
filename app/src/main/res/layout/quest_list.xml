@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="17dp"
         android:clickable="true"
+        app:contentPadding="1dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginBottom="15dp"
@@ -26,7 +27,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:paddingVertical="10dp">
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,13 +67,21 @@
                     android:text="1231"
                     tools:ignore="RtlCompat" />
 
-                <TextView
+<!--                <TextView-->
+<!--                    android:id="@+id/quest_complete"-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="10dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="보상받기" />-->
+
+                <ImageView
                     android:id="@+id/quest_complete"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:gravity="center"
-                    android:text="진행중" />
+                    app:srcCompat="@drawable/close_gift" />
 
             </LinearLayout>
 
@@ -125,6 +135,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/quset_description"
                     app:layout_constraintStart_toStartOf="@+id/quset_description" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
