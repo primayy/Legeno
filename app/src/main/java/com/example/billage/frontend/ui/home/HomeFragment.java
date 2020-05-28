@@ -1,6 +1,7 @@
 package com.example.billage.frontend.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class HomeFragment extends Fragment {
 //            }
 //        });
 
+
         DecimalFormat number_format = new DecimalFormat("###,###");
 
         RollingTextView rollingTextView = (RollingTextView) root.findViewById(R.id.current_money);
@@ -53,18 +55,9 @@ public class HomeFragment extends Fragment {
         rollingTextView.setCharStrategy(Strategy.NormalAnimation());
         rollingTextView.addCharOrder(CharOrder.Number);
         rollingTextView.setAnimationInterpolator(new AccelerateDecelerateInterpolator());
+
         rollingTextView.setText(number_format.format(Integer.parseInt(AppData.getPref().getString("balance","0"))));
-
         Utils.getUserBalance();
-
-
-        GetSetADUserInfo getSetADUserInfo = new GetSetADUserInfo();
-
-        if(getSetADUserInfo.IsThereUserInfo()){
-            TextView user_name = root.findViewById(R.id.username);
-            user_name.setText(String.format("%s 님 현재", getSetADUserInfo.getUserInfo("user_name")));
-        }
-
 
         return root;
     }
@@ -81,6 +74,16 @@ public class HomeFragment extends Fragment {
 
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
+
+        GetSetADUserInfo getSetADUserInfo = new GetSetADUserInfo();
+
+        if(getSetADUserInfo.IsThereUserInfo()){
+            Log.d("testt","sdfs");
+            TextView user_name = root.findViewById(R.id.username);
+            user_name.setText(String.format("%s 님 현재", getSetADUserInfo.getUserInfo("user_name")));
+        }
 
         super.onResume();
     }

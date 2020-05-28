@@ -1,6 +1,7 @@
 package com.example.billage.backend;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.billage.backend.common.AppData;
 import com.google.gson.JsonArray;
@@ -30,10 +31,10 @@ public class GetSetADUserInfo {
         JSONArray jarr=null;
         try{
             jarr=new JSONArray(AppData.getPref().getString(type+"Reward",null));
+            Log.d("testt",jarr+""+id);
 
             for(int i=0;i<jarr.length();i++){
                 if(jarr.getJSONObject(i).getInt("quest_id")==id)return jarr.getJSONObject(i).getInt("reward");
-                else ;
             }
         } catch (JSONException e) {
             e.printStackTrace();
