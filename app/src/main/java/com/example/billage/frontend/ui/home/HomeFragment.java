@@ -1,6 +1,7 @@
 package com.example.billage.frontend.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.billage.R;
 import com.example.billage.backend.GetSetADUserInfo;
 import com.example.billage.backend.common.AppData;
+import com.example.billage.backend.common.Utils;
 import com.google.android.material.tabs.TabLayout;
 
 import com.example.billage.frontend.adapter.PageAdaper;
@@ -45,6 +47,7 @@ public class HomeFragment extends Fragment {
 //            }
 //        });
 
+
         DecimalFormat number_format = new DecimalFormat("###,###");
 
         RollingTextView rollingTextView = (RollingTextView) root.findViewById(R.id.current_money);
@@ -52,17 +55,9 @@ public class HomeFragment extends Fragment {
         rollingTextView.setCharStrategy(Strategy.NormalAnimation());
         rollingTextView.addCharOrder(CharOrder.Number);
         rollingTextView.setAnimationInterpolator(new AccelerateDecelerateInterpolator());
+
         rollingTextView.setText(number_format.format(Integer.parseInt(AppData.getPref().getString("balance","0"))));
-
-
-
-        GetSetADUserInfo getSetADUserInfo = new GetSetADUserInfo();
-
-        if(getSetADUserInfo.IsThereUserInfo()){
-            TextView user_name = root.findViewById(R.id.username);
-            user_name.setText(String.format("%s 님 현재", getSetADUserInfo.getUserInfo("user_name")));
-        }
-
+        Utils.getUserBalance();
 
         return root;
     }
@@ -79,6 +74,16 @@ public class HomeFragment extends Fragment {
 
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
+
+        GetSetADUserInfo getSetADUserInfo = new GetSetADUserInfo();
+
+        if(getSetADUserInfo.IsThereUserInfo()){
+            Log.d("testt","sdfs");
+            TextView user_name = root.findViewById(R.id.username);
+            user_name.setText(String.format("%s 님 현재", getSetADUserInfo.getUserInfo("user_name")));
+        }
 
         super.onResume();
     }
