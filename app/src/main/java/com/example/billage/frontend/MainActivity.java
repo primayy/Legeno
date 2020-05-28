@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.billage.R;
 
 import com.example.billage.backend.GetSetADUserInfo;
+import com.example.billage.backend.JSONTask_Get;
 import com.example.billage.backend.QuestChecker;
 import com.example.billage.backend.api.UserInfo;
 import com.example.billage.backend.api.AccountBalance;
@@ -24,6 +25,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.util.concurrent.ExecutionException;
 
 import okhttp3.internal.Util;
 
@@ -72,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SignupActivity.class);
             startActivity(intent);
         }
-            //서버 꺼져서 유저 정보 못불러올 때 이거 쓰셈
+
+        //서버 꺼져서 유저 정보 못불러올 때 이거 쓰셈
 //        Utils.getTestUserInfo();
 //
 //        //AVD에서 인증 불가할 때 걍 이거 쓰셈

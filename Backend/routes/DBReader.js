@@ -14,7 +14,25 @@ var connection=mysql.createConnection({
   database:'Billage'
 })
 
-connection.connect();
+function handleDisconnect(){
+    connection.connect(function(err){
+      if(err){
+        console.log('error on connecting to DB',err);
+        setTimeout(handleDisconnect,2000)
+      }
+    })
+
+    connection.on('error',function(err){
+      console.log('DB error',err);
+      if(err.code==='PROTOCOL_CONNECTION_LOST'){
+        return handleDisconnect()
+      }else{
+        throw err;
+      }
+    })
+}
+
+handleDisconnect();
 
 router.get('/Coin/:idx',function(req,res){
   connection.query(`select coin from Billage.billage where user_id=${req.params.idx}`,function(err,rows,fields){
