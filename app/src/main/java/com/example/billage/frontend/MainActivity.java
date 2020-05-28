@@ -54,10 +54,9 @@ public class MainActivity extends AppCompatActivity {
         UserInfo.request_userInfo();
 
         //잔액 조회
-        //AccountBalance.request_balance();
+       // AccountBalance.request_balance();
 
         //잔액 및 거래내역 조회
-        Utils.getUserBalance();
         Utils.getUserTrans();
 
         //퀘스트 보상획득 정보 리셋
