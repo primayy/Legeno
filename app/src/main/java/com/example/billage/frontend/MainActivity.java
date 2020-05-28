@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         //AccountBalance.request_balance();
 
         //잔액 및 거래내역 조회
-        Utils.getUserBalance();
         Utils.getUserTrans();
 
         //퀘스트 보상획득 정보 리셋
@@ -78,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
         }
             //서버 꺼져서 유저 정보 못불러올 때 이거 쓰셈
 //        Utils.getTestUserInfo();
-//
-//        //AVD에서 인증 불가할 때 걍 이거 쓰셈
+
+        //        //AVD에서 인증 불가할 때 걍 이거 쓰셈
 //        Utils.getTestUserToken();
     }
 
