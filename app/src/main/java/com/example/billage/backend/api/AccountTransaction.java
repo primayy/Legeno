@@ -48,18 +48,22 @@ public class AccountTransaction {
                             String responseJson = new Gson().toJson(response.body());
                             JsonObject json = new JsonParser().parse(responseJson).getAsJsonObject();
                             JsonArray value = json.getAsJsonArray("res_list");
-                            Log.d("tran_size", String.valueOf(value.size()));
-                            for(int i = 0 ; i<value.size(); i++){
-                                JsonObject trans = value.get(i).getAsJsonObject();
-                                JsonElement tran_date = trans.get("tran_date");
-                                JsonElement tran_time = trans.get("tran_time");
-                                JsonElement inout_type = trans.get("inout_type");
-                                JsonElement tran_amt = trans.get("tran_amt");
-                                JsonElement branch_name = trans.get("branch_name");
-                                JsonElement bank_code = json.get("bank_code_tran");
-                                Log.d("tran",tran_date.getAsString()+" "+inout_type.getAsString()+" "+tran_amt.getAsString()+" "+branch_name.getAsString()+" "+bank_code.getAsString());
-                                //앱 로컬db에 거래 일자, 거래시간, 거래장소, 금액, 거래 타입을 저장
-                                AppData.mdb.insertTransColumn(tran_date.getAsString(),tran_time.getAsString(), branch_name.getAsString(),tran_amt.getAsString(),inout_type.getAsString(),bank_code.getAsString(),"api");
+                            try{
+                                Log.d("tran_size", String.valueOf(value.size()));
+                                for(int i = 0 ; i<value.size(); i++){
+                                    JsonObject trans = value.get(i).getAsJsonObject();
+                                    JsonElement tran_date = trans.get("tran_date");
+                                    JsonElement tran_time = trans.get("tran_time");
+                                    JsonElement inout_type = trans.get("inout_type");
+                                    JsonElement tran_amt = trans.get("tran_amt");
+                                    JsonElement branch_name = trans.get("branch_name");
+                                    JsonElement bank_code = json.get("bank_code_tran");
+                                    Log.d("tran",tran_date.getAsString()+" "+inout_type.getAsString()+" "+tran_amt.getAsString()+" "+branch_name.getAsString()+" "+bank_code.getAsString());
+                                    //앱 로컬db에 거래 일자, 거래시간, 거래장소, 금액, 거래 타입을 저장
+                                    AppData.mdb.insertTransColumn(tran_date.getAsString(),tran_time.getAsString(), branch_name.getAsString(),tran_amt.getAsString(),inout_type.getAsString(),bank_code.getAsString(),"api");
+                                }
+                            } catch(Exception e){
+
                             }
                         }
                     }

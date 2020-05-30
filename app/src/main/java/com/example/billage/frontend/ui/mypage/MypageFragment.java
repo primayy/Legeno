@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.billage.R;
 import com.example.billage.backend.GetSetADUserInfo;
 import com.example.billage.frontend.ui.auth.AuthActivity;
@@ -133,7 +132,7 @@ public class MypageFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                String intro = intro_input.getText().toString();
+                String intro = intro_input.getText().toString();//입력받은값 저장하는 point
                 //To-do
                 dialogInterface.dismiss();
             }
@@ -169,7 +168,7 @@ public class MypageFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                String nick_name = nickname_input.getText().toString();
+                String nick_name = nickname_input.getText().toString();//입력받은값 저장하는 point
                 //To-do
                 dialogInterface.dismiss();
             }

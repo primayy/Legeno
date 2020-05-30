@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.billage.R;
 import com.example.billage.backend.api.AccountBalance;
 import com.example.billage.backend.api.AccountTransaction;
 import com.example.billage.backend.api.data.UserAccount;
@@ -165,7 +166,7 @@ public class Utils {
             case "097":
                 return "오픈은행";
         }
-        return "은행";
+        return "현금";
     }
 
     public static String convertMapToString(Map<?, ?> paramMap) {
@@ -274,7 +275,11 @@ public class Utils {
 
         for(int i=0; i<user_accounts.size();i++)
         {
-            AccountTransaction.request_transaction(user_accounts.get(i).getFintech_num());
+            try{
+                AccountTransaction.request_transaction(user_accounts.get(i).getFintech_num());
+            } catch (Exception e){
+
+            }
         }
     }
 

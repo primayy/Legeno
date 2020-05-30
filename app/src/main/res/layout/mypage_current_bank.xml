@@ -5,5 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".frontend.ui.mypage.subView.CurrentBank">
-
+    <LinearLayout
+        android:id="@+id/bank_icon_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bank_icon_listview"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
