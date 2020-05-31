@@ -50,18 +50,22 @@ public class QuestChecker {
         ArrayList<QuestList> questListAL=new ArrayList<>();
 
         JSONArray questlist=checkQuest();
+        try{
+            for(int i=0;i<questlist.length();i++){
+                int id=questlist.getJSONObject(i).getInt("quest_id");
+                String qname=questlist.getJSONObject(i).getString("quest_name");
+                String description=questlist.getJSONObject(i).getString("quest_description");
+                String complete=questlist.getJSONObject(i).getString("complete");
+                String reward=questlist.getJSONObject(i).getString("quest_reward");
+                String type=questlist.getJSONObject(i).getString("quest_type"   );
 
-        for(int i=0;i<questlist.length();i++){
-            int id=questlist.getJSONObject(i).getInt("quest_id");
-            String qname=questlist.getJSONObject(i).getString("quest_name");
-            String description=questlist.getJSONObject(i).getString("quest_description");
-            String complete=questlist.getJSONObject(i).getString("complete");
-            String reward=questlist.getJSONObject(i).getString("quest_reward");
-            String type=questlist.getJSONObject(i).getString("quest_type"   );
+                QuestList ql=new QuestList(id,qname,description,complete,reward,type);
+                questListAL.add(ql);
+            }
+        }catch(Exception e){
 
-            QuestList ql=new QuestList(id,qname,description,complete,reward,type);
-            questListAL.add(ql);
         }
+
 
         return questListAL;
     }
