@@ -24,11 +24,7 @@ function handleDisconnect(){
 
     connection.on('error',function(err){
       console.log('DB error',err);
-      if(err.code==='PROTOCOL_CONNECTION_LOST'){
-        return handleDisconnect()
-      }else{
-        throw err;
-      }
+      return handleDisconnect()
     })
 }
 

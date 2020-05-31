@@ -3,7 +3,9 @@ package com.example.billage.frontend.ui.mypage;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.billage.R;
 import com.example.billage.backend.GetSetADUserInfo;
+import com.example.billage.backend.GetSetDB;
+import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.ui.auth.AuthActivity;
 import com.example.billage.frontend.ui.mypage.subView.AccountModify;
 import com.example.billage.frontend.ui.mypage.subView.CurrentBank;
@@ -169,7 +173,13 @@ public class MypageFragment extends Fragment {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 String nick_name = nickname_input.getText().toString();//입력받은값 저장하는 point
-                //To-do
+                GetSetDB nicknameUpdate=new GetSetDB();
+                String res=nicknameUpdate.setNickname(nick_name);//db정보 변경
+                if(!res.equals(null)&&!res.equals("occupied nickname!")){
+                    //앱데이터 닉네임 변경
+                    GetSetADUserInfo setNewNickname=new GetSetADUserInfo();
+                    setNewNickname.setUserInfo("nickname",res);
+                }
                 dialogInterface.dismiss();
             }
         });
