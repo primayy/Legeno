@@ -22,6 +22,7 @@ public class BillageFragment extends Fragment {
     private MainActivity mainActivity;
     private GetSetADUserInfo AppDB = new GetSetADUserInfo();
     String userInfo;
+    String Nickname;
     View playerView;
     FrameLayout father;
 
@@ -54,10 +55,12 @@ public class BillageFragment extends Fragment {
         if(AppDB.IsThereUserInfo()) {
                 userInfo = AppDB.getUserInfo("user_id");
             Log.d("받아온 값", userInfo);
+                Nickname = AppDB.getUserInfo("nickname");
+                Log.d("받아온 닉네임 : ",Nickname);
         }
 
     }
-
+    
 
     @Override public void onDestroy ()
     {
@@ -85,6 +88,7 @@ public class BillageFragment extends Fragment {
         //father.removeView(mUnityPlayer.getView());
         Log.d("unity", "started");
         UnityPlayer.UnitySendMessage("AndroidManager","GetUserID",userInfo);
+        UnityPlayer.UnitySendMessage("AndroidManager","GetUserNickname",Nickname);
         super.onStart();
     }
 
