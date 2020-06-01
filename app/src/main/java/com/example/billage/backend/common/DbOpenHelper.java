@@ -210,4 +210,22 @@ public class DbOpenHelper {
         String query = "DELETE from 'transaction' where id='"+id+"'";
         mDB.execSQL(query);
     }
+
+    public ArrayList<UsageList> getAbnormalTrans(){
+        int avg_money = getTransThreeMonthsAvg("출금");
+        ArrayList<UsageList> abnormal_data = new ArrayList<UsageList>();
+
+        String query = "SELECT date,time,inout,money,id,type,name,bank_code from 'transaction' where money >= '" + avg_money + "' and type ='api' group by date, inout order by date asc";
+
+        Cursor c = mDB.rawQuery(query,null);
+
+        //idx 0: date, 1: time 2: inout, 3:sum, 4:id, 5:type , 6:name, 7:bank_code
+        if(c.moveToFirst()){
+            do{
+                Log.d("abnormal_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2)+" "+  c.getString(3)+" "+  c.getString(4)+" "+  c.getString(5));
+                abnormal_data.add(new UsageList(Utils.transformDate(c.getString(0)),c.getString(6),c.getString(1),c.getString(3),c.getString(2),c.getString(7),"",c.getInt(4),c.getString(5)));
+            }while (c.moveToNext());
+        }
+        return abnormal_data;
+    }
 }
