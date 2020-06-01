@@ -215,7 +215,7 @@ public class DbOpenHelper {
         int avg_money = getTransThreeMonthsAvg("출금");
         ArrayList<UsageList> abnormal_data = new ArrayList<UsageList>();
 
-        String query = "SELECT date,time,inout,money,id,type,name,bank_code from 'transaction' where money >= '" + avg_money + "' and type ='api' group by date, inout order by date asc";
+        String query = "SELECT date,time,inout,money,id,type,name,bank_code from 'transaction' where money >= '" + avg_money + "' and type ='api' and inout='출금' group by date, inout order by date asc";
 
         Cursor c = mDB.rawQuery(query,null);
 
@@ -227,5 +227,13 @@ public class DbOpenHelper {
             }while (c.moveToNext());
         }
         return abnormal_data;
+    }
+
+    public int getAbnormalTransSum(ArrayList<UsageList> trans){
+        int sum =0;
+        for(int i=0; i<trans.size();i++){
+            sum += Integer.parseInt(trans.get(i).getCost());
+        }
+        return sum;
     }
 }
