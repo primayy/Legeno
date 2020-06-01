@@ -212,7 +212,7 @@ public class DbOpenHelper {
     }
 
     public ArrayList<UsageList> getAbnormalTrans(){
-        int avg_money = getTransThreeMonthsAvg("출금");
+        int avg_money = getTransUsedAvg("출금");
         ArrayList<UsageList> abnormal_data = new ArrayList<UsageList>();
 
         String query = "SELECT date,time,inout,money,id,type,name,bank_code from 'transaction' where money >= '" + avg_money + "' and type ='api' and inout='출금' group by date, inout order by date asc";
@@ -235,5 +235,36 @@ public class DbOpenHelper {
             sum += Integer.parseInt(trans.get(i).getCost());
         }
         return sum;
+    }
+
+    //이번 달을 제외한 이전 3개월의 평균 수입,지출값을 반환함
+    //parameter: inout("입금","출금")
+    public int getTransUsedAvg(String inout){
+        int trans_avg=0;
+        String today = Utils.getDay();
+        String year = Utils.getYear() + "0000";
+        int befor = ((Integer.parseInt(today) - Integer.parseInt(year))/100 - 3)*100 + 1;
+        int cur = ((Integer.parseInt(today) - Integer.parseInt(year))/100)*100+1;
+        String befor_month = Utils.getYear()+"0"+String.valueOf(befor);
+        String cur_month = Utils.getYear()+"0"+String.valueOf(cur);
+
+        String query = "SELECT avg(money) from 'transaction' where inout='"+ inout +"'and type= 'api'" + " and date >='" + befor_month + "' and date <'" + cur_month+"'";
+
+        Cursor c = mDB.rawQuery(query,null);
+
+        //idx 0: avg
+        Log.d("avg_test", String.valueOf(c.getCount()));
+        if(c.moveToFirst()){
+            do{
+                try{
+                    trans_avg = (int) Double.parseDouble(c.getString(0))/90;
+                } catch(Exception e){
+                    Log.d("trans_avg_err", String.valueOf(e));
+                    trans_avg = 0;
+                }
+                Log.d("avg_data", String.valueOf(trans_avg));
+            }while (c.moveToNext());
+        }
+        return trans_avg;
     }
 }
