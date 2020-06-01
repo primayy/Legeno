@@ -215,7 +215,7 @@ public class DbOpenHelper {
         int avg_money = getTransUsedAvg("출금");
         ArrayList<UsageList> abnormal_data = new ArrayList<UsageList>();
 
-        String query = "SELECT date,time,inout,money,id,type,name,bank_code from 'transaction' where money >= '" + avg_money + "' and type ='api' and inout='출금' group by date, inout order by date asc";
+        String query = "SELECT date,time,inout,money,id,type,name,bank_code from 'transaction' where cast(money as integer) >= '" + avg_money + "' and type ='api' and inout='출금' group by date, inout order by date asc";
 
         Cursor c = mDB.rawQuery(query,null);
 
