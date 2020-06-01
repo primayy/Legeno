@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 //        Utils.getTestUserInfo();
 
         //        //AVD에서 인증 불가할 때 걍 이거 쓰셈
-//        Utils.getTestUserToken();
+        Utils.getTestUserToken();
     }
 
 
