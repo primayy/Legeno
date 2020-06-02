@@ -92,7 +92,6 @@ public class UsageFragment extends Fragment {
                 ArrayList<UserAccount> user_accounts = Utils.getUserAccount();
 
                 //To-do
-                Log.d("refesh","dd");
                 Utils.getUserTrans();
                 Utils.getUserBalance();
                 refresh();
@@ -104,13 +103,17 @@ public class UsageFragment extends Fragment {
 
     public void refresh(){
         final ArrayList<UsageList> items = AppData.mdb.getTransColumns();
-        //Log.d("ddd",""+items.get(0).getDate());
         // listview 생성 및 adapter 지정.
         final ListView listview = (ListView) root.findViewById(R.id.usage_list) ;
-        // listview.setAdapter(adapter) ;
-
         usageAdapter = new UsageAdapter(getActivity(),items,listview,getActivity());
         listview.setAdapter(usageAdapter);
+    }
+    @Override
+    public void onResume()
+    {
+
+        Log.d("resume","rere");
+        super.onResume();
     }
 
 

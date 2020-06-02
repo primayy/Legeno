@@ -48,6 +48,21 @@ public class HomeFragment extends Fragment {
 //        });
 
 
+        TabLayout tabLayout = root.findViewById(R.id.three_tabs) ;
+        viewPager = root.findViewById(R.id.home_viewpager);
+        myPagerAdapter = new PageAdaper(getChildFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(myPagerAdapter);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        GetSetADUserInfo getSetADUserInfo = new GetSetADUserInfo();
+
+        if(getSetADUserInfo.IsThereUserInfo()){
+            TextView user_name = root.findViewById(R.id.username);
+            user_name.setText(String.format("%s 님 현재", getSetADUserInfo.getUserInfo("user_name")));
+        }
+
         DecimalFormat number_format = new DecimalFormat("###,###");
 
         RollingTextView rollingTextView = (RollingTextView) root.findViewById(R.id.current_money);
@@ -65,25 +80,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume()
     {
-        TabLayout tabLayout = root.findViewById(R.id.three_tabs) ;
 
-        viewPager = root.findViewById(R.id.home_viewpager);
-        myPagerAdapter = new PageAdaper(getChildFragmentManager(), tabLayout.getTabCount());
-
-        viewPager.setAdapter(myPagerAdapter);
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-
-
-        GetSetADUserInfo getSetADUserInfo = new GetSetADUserInfo();
-
-        if(getSetADUserInfo.IsThereUserInfo()){
-            Log.d("testt","sdfs");
-            TextView user_name = root.findViewById(R.id.username);
-            user_name.setText(String.format("%s 님 현재", getSetADUserInfo.getUserInfo("user_name")));
-        }
 
         super.onResume();
     }

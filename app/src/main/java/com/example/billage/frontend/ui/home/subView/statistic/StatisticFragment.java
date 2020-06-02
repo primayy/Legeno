@@ -132,7 +132,6 @@ public class StatisticFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), UnfixDetail.class);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
     }
