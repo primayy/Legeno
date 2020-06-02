@@ -280,7 +280,6 @@ public class StatisticFragment extends Fragment {
         YAxis leftAxis = barChart.getAxisLeft();
         leftAxis.setTextSize(13f);
         leftAxis.addLimitLine(limitLine);
-        leftAxis.setAxisMaximum(leftAxis.getAxisMaximum()*2);
 
         //custom marker view 설정
         CustomMarker marker = new CustomMarker(root.getContext(),R.layout.custom_marker);

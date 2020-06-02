@@ -121,7 +121,7 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
 
 
 
-        if(usage.getDate().equals( Utils.transformDate( Utils.getDay()))){
+        if(usage.getDate().equals("2020-06-03")){
             viewHolder.date.setText(usage.getDate()+" (오늘)");
         }
         else{
@@ -131,7 +131,7 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
 
         viewHolder.cost.setText(usage.getCost());
         viewHolder.destination.setText(usage.getDestination());
-        viewHolder.time.setText(usage.getTime());
+        viewHolder.time.setText(usage.getTime().substring(0,5));
 
         // 추후 수정
         viewHolder.bank_name.setText(usage.getBank_name());

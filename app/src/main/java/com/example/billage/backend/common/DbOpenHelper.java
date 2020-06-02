@@ -223,7 +223,7 @@ public class DbOpenHelper {
         if(c.moveToFirst()){
             do{
                 Log.d("abnormal_data",c.getString(0)+ " " +c.getString(1)+" "+  c.getString(2)+" "+  c.getString(3)+" "+  c.getString(4)+" "+  c.getString(5));
-                abnormal_data.add(new UsageList(Utils.transformDate(c.getString(0)),c.getString(6),c.getString(1),c.getString(3),c.getString(2),c.getString(7),"",c.getInt(4),c.getString(5)));
+                abnormal_data.add(new UsageList(Utils.transformDate(c.getString(0)),c.getString(6),Utils.transformTime(c.getString(1)),c.getString(3),c.getString(2),c.getString(7),"",c.getInt(4),c.getString(5)));
             }while (c.moveToNext());
         }
         return abnormal_data;

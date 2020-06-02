@@ -237,7 +237,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="평균 소비 금액"
+                            android:text="일일 평균 소비 금액"
                             android:textSize="15sp"
                             android:layout_weight="1"
                             android:layout_marginBottom="10dp"/>
