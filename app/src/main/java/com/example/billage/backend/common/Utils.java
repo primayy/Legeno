@@ -297,4 +297,11 @@ public class Utils {
         editor.putInt("attendanceCount",0);
         editor.apply();
     }
+
+    public static int getCurMonth(){
+        Calendar cal = Calendar.getInstance();
+        int month = cal.get(Calendar.MONTH);
+        System.out.println(month);
+        return month;
+    }
 }

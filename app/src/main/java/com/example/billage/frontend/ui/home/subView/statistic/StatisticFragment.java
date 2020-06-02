@@ -1,9 +1,12 @@
 package com.example.billage.frontend.ui.home.subView.statistic;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -11,10 +14,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.billage.R;
 import com.example.billage.backend.api.StatisticTransaction;
 import com.example.billage.backend.common.AppData;
+import com.example.billage.backend.common.Utils;
+import com.example.billage.frontend.data.UsageList;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
@@ -65,6 +71,7 @@ public class StatisticFragment extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,13 +105,55 @@ public class StatisticFragment extends Fragment {
         }
 
         //이전 3개월의 수입 or 지출 평균 리턴
-        int avg_usage = AppData.mdb.getTransThreeMonthsAvg("출금");
+        int avg_usage = AppData.mdb.getTransUsedAvg("출금");
         /**/
 
         setLineChart(root,income_entries,usage_entries);
         setBarChart(root,barEntries,avg_usage);
+        setCompareUsage(root, usage);
+        setAbnomalUsage(root);
+
+        TextView avg_money = root.findViewById(R.id.avg_money);
+        avg_money.setText(String.valueOf(AppData.mdb.getTransUsedAvg("출금")));
 
         return root;
+    }
+
+    private void setAbnomalUsage(View root) {
+        ArrayList<UsageList> statistic_usage = AppData.mdb.getAbnormalTrans();
+        TextView unfix_usage = root.findViewById(R.id.unfix_usage);
+        TextView unfix_count = root.findViewById(R.id.unfix_count);
+        unfix_usage.setText(String.valueOf(AppData.mdb.getAbnormalTransSum(statistic_usage)));
+        unfix_count.setText(" "+String.valueOf(statistic_usage.size())+"건");
+
+        CardView unfix_detail = root.findViewById(R.id.cardview2);
+        unfix_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), UnfixDetail.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+    }
+
+    private void setCompareUsage(View root, ArrayList<Integer> usage) {
+        TextView current_usage = root.findViewById(R.id.current_month_usage);
+        current_usage.setText(String.valueOf(usage.get(Utils.getCurMonth())));
+
+        TextView compare_money = root.findViewById(R.id.compare_usage);
+        TextView compare_money_tail = root.findViewById(R.id.compare_usage_tail);
+
+        int compare_money_text = usage.get(Utils.getCurMonth()) - usage.get(Utils.getCurMonth()-1);
+
+        if(compare_money_text<0){
+            compare_money.setText(String.valueOf(compare_money_text*-1));
+            compare_money_tail.setText(" 원 절약!");
+        }
+        else{
+            compare_money.setText(String.valueOf(compare_money_text));
+            compare_money_tail.setText(" 원 더 소비...");
+        }
     }
 
     public void setLineChart(View root, ArrayList<Entry> income_entries,  ArrayList<Entry> usage_entries){
@@ -231,8 +280,8 @@ public class StatisticFragment extends Fragment {
 
         YAxis leftAxis = barChart.getAxisLeft();
         leftAxis.setTextSize(13f);
-        Log.d("dd",leftAxis.getAxisMaximum()+"");
         leftAxis.addLimitLine(limitLine);
+        leftAxis.setAxisMaximum(leftAxis.getAxisMaximum()*2);
 
         //custom marker view 설정
         CustomMarker marker = new CustomMarker(root.getContext(),R.layout.custom_marker);

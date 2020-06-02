@@ -62,7 +62,7 @@ public class QuestProcessor {
         Calendar cal=Calendar.getInstance();
         cal.setTime(today);
         //예상 소비량
-        int expectedOutcome=AppData.mdb.getTransThreeMonthsAvg("출금");
+        int expectedOutcome=AppData.mdb.getTransUsedAvg("출금");
         try {
             data2Quest.accumulate("dateInfo",cal);
             data2Quest.accumulate("expectation",Integer.toString(expectedOutcome));
