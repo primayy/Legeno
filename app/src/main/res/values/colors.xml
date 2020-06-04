@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#f8d052</color>
+    <color name="colorPrimary_pressed">#A88D37</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#f8d052</color>
     <color name="title_color">#000000</color>
     <color name="colorDay">#9A9A9A</color>
     <color name="textColor">#373737</color>
     <color name="cardBackgroundCompleted">#E3DADA</color>
+    <color name="white">#fafafa</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="half_black">#808080</color>
 </resources>
