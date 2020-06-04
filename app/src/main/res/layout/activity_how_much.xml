@@ -6,4 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".frontend.ui.howmuch.HowMuch">
 
+    <com.warkiz.widget.IndicatorSeekBar
+        android:id="@+id/seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:isb_indicator_color="@color/colorPrimary"
+        app:isb_indicator_text_color="@color/white"
+        app:isb_indicator_text_size="15sp"
+        app:isb_max="6"
+        app:isb_min="1"
+        app:isb_only_thumb_draggable="false"
+        app:isb_progress="0"
+        app:isb_seek_smoothly="true"
+        app:isb_show_tick_marks_type="oval"
+        app:isb_show_tick_texts="true"
+        app:isb_thumb_color="@color/colorPrimary"
+        app:isb_thumb_drawable="@drawable/seek_bar"
+        app:isb_thumb_size="35dp"
+        app:isb_tick_marks_drawable="@drawable/home_img"
+        app:isb_tick_marks_size="20dp"
+        app:isb_tick_texts_color="@color/half_black"
+        app:isb_tick_texts_size="15sp"
+        app:isb_ticks_count="6"
+        app:isb_track_background_color="@color/colorPrimary"
+        app:isb_track_background_size="2dp"
+        app:isb_track_progress_color="@color/colorPrimary_pressed"
+        app:isb_track_progress_size="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/how_much_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="4개월간 총 지출은 200000원 입니다."
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seek_bar" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
