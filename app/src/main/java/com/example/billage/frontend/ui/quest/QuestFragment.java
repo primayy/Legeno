@@ -36,7 +36,7 @@ public class QuestFragment extends Fragment {
 
         GetSetDB getSetDB = new GetSetDB();
 
-        int avg_usage = AppData.mdb.getTransThreeMonthsAvg("출금");
+        int avg_usage = AppData.mdb.getTransUsedAvg("출금");
         DecimalFormat number_format = new DecimalFormat("###,###");
 
         RollingTextView coin = (RollingTextView) root.findViewById(R.id.coin_value);

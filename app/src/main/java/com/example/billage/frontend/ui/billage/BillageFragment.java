@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.billage.backend.GetSetADUserInfo;
+import com.example.billage.backend.GetSetDB;
 import com.example.billage.frontend.MainActivity;
 import com.unity3d.player.*;
 
@@ -21,7 +22,10 @@ public class BillageFragment extends Fragment {
     private UnityPlayer mUnityPlayer;
     private MainActivity mainActivity;
     private GetSetADUserInfo AppDB = new GetSetADUserInfo();
+    private GetSetDB SetDB = new GetSetDB();
+    private Boolean isFirst = true;
     String userInfo;
+    String Nickname;
     View playerView;
     FrameLayout father;
 
@@ -54,14 +58,17 @@ public class BillageFragment extends Fragment {
         if(AppDB.IsThereUserInfo()) {
                 userInfo = AppDB.getUserInfo("user_id");
             Log.d("받아온 값", userInfo);
+                Nickname = AppDB.getUserInfo("nickname");
+                Log.d("받아온 닉네임 : ",Nickname);
         }
 
     }
-
+    
 
     @Override public void onDestroy ()
     {
         Log.d("unity", "destroied");
+       // UnityPlayer.UnitySendMessage("AndroidManager","WhenDestroy","command");
         father.removeView(mUnityPlayer.getView());
         super.onDestroy();
     }
@@ -85,6 +92,12 @@ public class BillageFragment extends Fragment {
         //father.removeView(mUnityPlayer.getView());
         Log.d("unity", "started");
         UnityPlayer.UnitySendMessage("AndroidManager","GetUserID",userInfo);
+        UnityPlayer.UnitySendMessage("AndroidManager","GetUserNickname",Nickname);
+        /*if(!isFirst)
+        {
+            UnityPlayer.UnitySendMessage("AndroidManager","UpdateDB","Coin");
+        }
+        isFirst = false;*/
         super.onStart();
     }
 

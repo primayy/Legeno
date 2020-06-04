@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
 import com.example.billage.R;
+import com.example.billage.backend.common.Utils;
 import com.example.billage.frontend.data.UsageList;
 import com.example.billage.frontend.ui.addUsage.AddUsage;
 import com.example.billage.frontend.ui.home.subView.usage.UsageFragment;
@@ -119,10 +120,18 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
         }
 
 
-        viewHolder.date.setText(usage.getDate());
+
+        if(usage.getDate().equals("2020-06-03")){
+            viewHolder.date.setText(usage.getDate()+" (오늘)");
+        }
+        else{
+            viewHolder.date.setText(usage.getDate());
+        }
+
+
         viewHolder.cost.setText(usage.getCost());
         viewHolder.destination.setText(usage.getDestination());
-        viewHolder.time.setText(usage.getTime());
+        viewHolder.time.setText(usage.getTime().substring(0,5));
 
         // 추후 수정
         viewHolder.bank_name.setText(usage.getBank_name());
