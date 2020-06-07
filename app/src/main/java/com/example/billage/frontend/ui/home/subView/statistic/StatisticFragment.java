@@ -158,6 +158,7 @@ public class StatisticFragment extends Fragment {
     public void setLineChart(View root, ArrayList<Entry> income_entries,  ArrayList<Entry> usage_entries){
 
         LineChart lineChart = (LineChart) root.findViewById(R.id.line_chart);
+        lineChart.getDescription().setEnabled(false);
 
         // x,y축 맵핑
         LineDataSet depenses_income = new LineDataSet(income_entries, "수입");
@@ -227,6 +228,7 @@ public class StatisticFragment extends Fragment {
     public void setBarChart(View root, ArrayList entries, int avg_usage){
 
         BarChart barChart = (BarChart) root.findViewById(R.id.bar_chart);
+        barChart.getDescription().setEnabled(false);
 
         // x,y축 맵핑
         BarDataSet depenses = new BarDataSet(entries, "주간 지출 금액");

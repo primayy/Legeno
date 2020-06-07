@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.billage.R;
@@ -48,14 +49,8 @@ public class HowMuch extends AppCompatActivity {
         seekBar.setIndicatorTextFormat("${TICK_TEXT}개월");
 
         ArrayList<Integer> usage = StatisticTransaction.monthly_statistic("출금");
-        ArrayList<BarEntry> usage_entries = new ArrayList<>();
-
-        for(int i=2;i<=2;i++){
-            usage_entries.add(new BarEntry(i-1, usage.get(i-2)));
-        }
-
-        setBarChart(usage_entries);
-
+        horizontalBarChart = findViewById(R.id.horizontal_chart);
+        horizontalBarChart.setVisibility(View.GONE);
 
         seekBar.setOnSeekChangeListener(new OnSeekChangeListener() {
             @Override
@@ -64,13 +59,21 @@ public class HowMuch extends AppCompatActivity {
                 int cur_value = seekBar.getProgress();
                 header.setText(cur_value + "개월간 총 지출은 200000원 입니다.");
 
-                ArrayList<BarEntry> usage_entries = new ArrayList<>();
 
-                for(int i=2;i<=cur_value+1;i++){
-                    usage_entries.add(new BarEntry(i-1, usage.get(i-2)));
+                if(cur_value != 1){
+                    horizontalBarChart.setVisibility(View.VISIBLE);
+                    ArrayList<BarEntry> usage_entries = new ArrayList<>();
+
+                    for(int i=2;i<=cur_value+1;i++){
+                        usage_entries.add(new BarEntry(8-i, usage.get(i-2)));
+                    }
+                    setBarChart(usage_entries);
+                }
+                else{
+                    horizontalBarChart.setVisibility(View.GONE);
                 }
 
-                setBarChart(usage_entries);
+
 
             }
 
@@ -90,13 +93,13 @@ public class HowMuch extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setBarChart(ArrayList usage_entries) {
 
+        horizontalBarChart.getDescription().setEnabled(false);
+
         BarDataSet depenses_usage = new BarDataSet(usage_entries, "수입");
 
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
         dataSets.add((IBarDataSet)depenses_usage);
         BarData data = new BarData(dataSets);
-
-        horizontalBarChart = findViewById(R.id.horizontal_chart);
 
         depenses_usage.setBarBorderWidth(0.9f);
         depenses_usage.setColors(ColorTemplate.VORDIPLOM_COLORS);
@@ -119,7 +122,7 @@ public class HowMuch extends AppCompatActivity {
 
         //value customizing
         data.setValueTextSize(0f);
-
+        data.setBarWidth(0.5f);
         horizontalBarChart.setData(data);
         horizontalBarChart.animateXY(1000, 1000);
         horizontalBarChart.invalidate();
