@@ -18,7 +18,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".frontend.ui.home.subView.statistic.UnfixDetail"></activity>
+
+        <activity
+            android:name=".frontend.ui.howmuch.HowMuch"
+            android:label="얼마 썼는지 궁금해?">
+        </activity>
+        <activity android:name=".frontend.ui.home.subView.statistic.UnfixDetail" />
         <activity
             android:name=".frontend.ui.auth.AuthActivity"
             android:label="인증" />

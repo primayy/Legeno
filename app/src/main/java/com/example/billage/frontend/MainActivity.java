@@ -8,7 +8,8 @@ import android.util.Log;
 import com.example.billage.R;
 
 import com.example.billage.backend.GetSetADUserInfo;
-import com.example.billage.backend.JSONTask_Get;
+
+import com.example.billage.backend.HowMuchPay;
 import com.example.billage.backend.QuestChecker;
 import com.example.billage.backend.QuestProcessor;
 import com.example.billage.backend.api.UserInfo;
@@ -27,7 +28,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import java.util.concurrent.ExecutionException;
+
+import java.util.ArrayList;
 
 import okhttp3.internal.Util;
 
@@ -86,6 +88,13 @@ public class MainActivity extends AppCompatActivity {
 
         //        //AVD에서 인증 불가할 때 걍 이거 쓰셈
         Utils.getTestUserToken();
+
+
+        //얼마썼는지궁금해
+//        ArrayList<HowMuchPay> tt= Utils.getHowMuchPays(4700000000.0);
+//        for(int i=0;i<tt.size();i++){
+//            Log.d("how",tt.get(i).getName()+" "+tt.get(i).getValue()+tt.get(i).getUnit());
+//        }
     }
 
 

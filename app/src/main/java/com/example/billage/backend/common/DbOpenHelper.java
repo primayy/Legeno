@@ -266,4 +266,26 @@ public class DbOpenHelper {
         }
         return trans_avg;
     }
+
+
+    public Integer getSelectTransOutMonths(int month){
+        Integer sum = 0;
+        String today = Utils.getDay();
+        String year = Utils.getYear() + "0000";
+        int befor = ((Integer.parseInt(today) - Integer.parseInt(year))/100 - month)*100 + 1;
+        String befor_month = Utils.getYear()+"0"+String.valueOf(befor);
+
+        String query = "SELECT sum(money),count() from 'transaction' where inout='출금' and date >='" + befor_month + "'order by date asc";
+        Cursor c = mDB.rawQuery(query,null);
+
+        //idx 0: sum, 1: count
+        if(c.moveToFirst()){
+            do{
+                Log.d("select_trans",c.getString(0)+ " " +c.getCount());
+                sum = Integer.parseInt(c.getString(0));
+            }while (c.moveToNext());
+        }
+        return sum;
+    }
+
 }

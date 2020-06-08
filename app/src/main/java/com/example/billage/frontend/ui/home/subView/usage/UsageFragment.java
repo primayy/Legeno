@@ -20,6 +20,7 @@ import com.example.billage.frontend.adapter.UsageAdapter;
 import com.example.billage.frontend.data.UsageList;
 import com.example.billage.backend.common.AppData;
 import com.example.billage.frontend.ui.addUsage.AddUsage;
+import com.example.billage.frontend.ui.howmuch.HowMuch;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class UsageFragment extends Fragment {
     private String mParam2;
     private UsageAdapter usageAdapter;
     private View root;
+    private com.getbase.floatingactionbutton.FloatingActionsMenu multipleButton;
 
     public UsageFragment() {
     }
@@ -56,6 +58,7 @@ public class UsageFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_usage, container, false);
+        multipleButton =  root.findViewById(R.id.multiple_actions);
 
         final ArrayList<UsageList> items = AppData.mdb.getTransColumns();
         final ListView listview = (ListView) root.findViewById(R.id.usage_list) ;
@@ -66,18 +69,34 @@ public class UsageFragment extends Fragment {
         setRefresh();
 
 
+        setHowMuch();
+
 
         return root;
     }
 
+    private void setHowMuch() {
+        com.getbase.floatingactionbutton.FloatingActionButton howmuchButton =  root.findViewById(R.id.how_much);
+        howmuchButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                multipleButton.toggle();
+                Intent intent=new Intent(getActivity(), HowMuch.class);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void setAddUsage() {
-        FloatingActionButton usageButton = (FloatingActionButton) root.findViewById(R.id.add_usage);
+        com.getbase.floatingactionbutton.FloatingActionButton usageButton =  root.findViewById(R.id.add_usage);
         usageButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
+                multipleButton.toggle();
                 Intent intent=new Intent(getActivity(), AddUsage.class);
-                startActivityForResult(intent,1);
+                startActivity(intent);
             }
         });
     }

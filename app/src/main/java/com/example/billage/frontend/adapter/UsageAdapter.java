@@ -121,7 +121,7 @@ public class UsageAdapter extends ArrayAdapter<UsageList> {
 
 
 
-        if(usage.getDate().equals("2020-06-03")){
+        if(usage.getDate().equals(Utils.transformDate(Utils.getDate()))){
             viewHolder.date.setText(usage.getDate()+" (오늘)");
         }
         else{
