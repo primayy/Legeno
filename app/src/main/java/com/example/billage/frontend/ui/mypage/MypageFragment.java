@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.billage.R;
 import com.example.billage.backend.GetSetADUserInfo;
 import com.example.billage.frontend.ui.auth.AuthActivity;
