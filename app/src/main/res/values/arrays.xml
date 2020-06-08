@@ -9,4 +9,18 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+
+    <array name = "textColorArray">
+
+        <item>@color/textColor1</item>
+        <item>@color/textColor2</item>
+        <item>@color/textColor3</item>
+        <item>@color/textColor4</item>
+        <item>@color/textColor5</item>
+        <item>@color/textColor6</item>
+        <item>@color/textColor7</item>
+        <item>@color/textColor8</item>
+        <item>@color/textColor9</item>
+    </array>
 </resources>
