@@ -3,6 +3,8 @@ package com.example.billage.frontend.ui.howmuch;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +13,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.billage.R;
+import com.example.billage.backend.HowMuchPay;
 import com.example.billage.backend.api.StatisticTransaction;
 import com.example.billage.backend.common.AppData;
+import com.example.billage.backend.common.Utils;
 import com.example.billage.frontend.adapter.HowMuchAdapter;
 import com.example.billage.frontend.adapter.UsageAdapter;
 import com.example.billage.frontend.data.UsageList;
@@ -42,6 +46,15 @@ public class HowMuch extends AppCompatActivity {
 
     private HorizontalBarChart horizontalBarChart;
     private HowMuchAdapter usageAdapter;
+    private Activity mActivity;
+    private Context context;
+
+    public HowMuch() {
+
+        this.mActivity = this;
+        this.context = this;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +64,7 @@ public class HowMuch extends AppCompatActivity {
         TextView header = findViewById(R.id.how_much_header);
 
 
+
         ArrayList<Integer> usage = StatisticTransaction.monthly_statistic("출금");
         horizontalBarChart = findViewById(R.id.horizontal_chart);
         horizontalBarChart.setVisibility(View.GONE);
@@ -58,10 +72,7 @@ public class HowMuch extends AppCompatActivity {
         setSeekBar(seekBar, header, usage);
 
 
-        final ArrayList<UsageList> items = AppData.mdb.getAbnormalTrans();
-        final ListView listview = (ListView) findViewById(R.id.howmuch_list) ;
-        usageAdapter = new HowMuchAdapter(this,items,listview,this);
-        listview.setAdapter(usageAdapter);
+
 
     }
 
@@ -74,7 +85,6 @@ public class HowMuch extends AppCompatActivity {
 
                 int cur_value = seekBar.getProgress();
                 header.setText(cur_value + "개월간 총 지출은 200000원 입니다.");
-
 
                 if(cur_value != 1){
                     horizontalBarChart.setVisibility(View.VISIBLE);
@@ -89,7 +99,10 @@ public class HowMuch extends AppCompatActivity {
                     horizontalBarChart.setVisibility(View.GONE);
                 }
 
-
+                ArrayList<HowMuchPay> items= Utils.getHowMuchPays(4700000000.0);
+                final ListView listview = (ListView) findViewById(R.id.howmuch_list) ;
+                usageAdapter = new HowMuchAdapter(context,items,listview,mActivity);
+                listview.setAdapter(usageAdapter);
 
             }
 

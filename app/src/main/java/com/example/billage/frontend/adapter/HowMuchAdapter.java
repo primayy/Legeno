@@ -16,12 +16,13 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
 import com.example.billage.R;
+import com.example.billage.backend.HowMuchPay;
 import com.example.billage.frontend.data.UsageList;
 import com.example.billage.frontend.ui.addUsage.AddUsage;
 
 import java.util.List;
 
-public class HowMuchAdapter extends ArrayAdapter<UsageList> {
+public class HowMuchAdapter extends ArrayAdapter<HowMuchPay> {
 
     private Activity mActivity;
     private Context context;
@@ -32,12 +33,13 @@ public class HowMuchAdapter extends ArrayAdapter<UsageList> {
     static class UserViewHolder {
         public TextView list_header;
         public TextView list_content;
+        public TextView list_unit;
 
 
     }
 
 
-    public HowMuchAdapter(Context context, List<UsageList> list, ListView listview, Activity activity) {
+    public HowMuchAdapter(Context context, List<HowMuchPay> list, ListView listview, Activity activity) {
         super(context, 0, list);
 
         this.context = context;
@@ -69,6 +71,7 @@ public class HowMuchAdapter extends ArrayAdapter<UsageList> {
             viewHolder = new UserViewHolder();
             viewHolder.list_header = (TextView) rowView.findViewById(R.id.list_header);
             viewHolder.list_content = (TextView) rowView.findViewById(R.id.list_content);
+            viewHolder.list_unit = (TextView) rowView.findViewById(R.id.list_unit);
 
             rowView.setTag(viewHolder);
 
@@ -77,11 +80,12 @@ public class HowMuchAdapter extends ArrayAdapter<UsageList> {
             viewHolder = (UserViewHolder) rowView.getTag();
         }
 
-        UsageList usage = (UsageList) mList.get(position);
+        HowMuchPay howMuchPay = (HowMuchPay) mList.get(position);
 
 
-        viewHolder.list_header.setText(usage.getDate());
-        viewHolder.list_content.setText(usage.getCost());
+        viewHolder.list_header.setText(howMuchPay.getName());
+        viewHolder.list_content.setText(String.valueOf(howMuchPay.getValue()));
+        viewHolder.list_unit.setText(" "+howMuchPay.getUnit());
 
         return rowView;
     }
