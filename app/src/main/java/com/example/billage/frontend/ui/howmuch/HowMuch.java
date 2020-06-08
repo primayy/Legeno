@@ -114,6 +114,9 @@ public class HowMuch extends AppCompatActivity {
                 cur_value = seekBar.getProgress();
                 header.setText("지난 "+cur_value + "개월간 총 지출은 " +AppData.mdb.getSelectTransOutMonths(cur_value) +"원 입니다.");
 
+                int cur_value = seekBar.getProgress();
+                header.setText(cur_value + "개월간 총 지출은 " +String.valueOf(AppData.mdb.getSelectTransOutMonths(cur_value)) +"원 입니다.");
+                ArrayList<HowMuchPay> items;
                 if(cur_value != 1){
                     horizontalBarChart.setVisibility(View.VISIBLE);
                     ArrayList<BarEntry> usage_entries = new ArrayList<>();
@@ -122,11 +125,17 @@ public class HowMuch extends AppCompatActivity {
                         usage_entries.add(new BarEntry(8-i, usage.get(i-2)));
                     }
                     setBarChart(usage_entries);
+                    items= Utils.getHowMuchPays(AppData.mdb.getSelectTransOutMonths(cur_value),2);
                 }
                 else{
                     horizontalBarChart.setVisibility(View.GONE);
+                    items= Utils.getHowMuchPays(AppData.mdb.getSelectTransOutMonths(cur_value),4);
                 }
                 setListView(cur_value);
+
+                final ListView listview = (ListView) findViewById(R.id.howmuch_list) ;
+                usageAdapter = new HowMuchAdapter(context,items,listview,mActivity);
+                listview.setAdapter(usageAdapter);
 
             }
 

@@ -27,6 +27,20 @@ public class GetSetADUserInfo {
         return null;
     }
 
+    public void setUserInfo(String key,String value){
+        JSONArray jarray=null;
+        try{
+            jarray=new JSONArray(AppData.getPref().getString("user_info",null));
+            value=value.substring(1,value.length()-1);
+            jarray.getJSONObject(0).put(key,value);
+            SharedPreferences.Editor editor=AppData.getPref().edit();
+            editor.putString("user_info",jarray.toString());
+            editor.apply();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getRewardInfo(String type,int id){
         JSONArray jarr=null;
         try{

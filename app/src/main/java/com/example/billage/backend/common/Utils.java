@@ -306,9 +306,9 @@ public class Utils {
         return month;
     }
 
-    public static ArrayList<HowMuchPay> getHowMuchPays(double total_money){
+    public static ArrayList<HowMuchPay> getHowMuchPays(double total_money,int get_size){
         ArrayList<HowMuchPay> howMuchPays = new ArrayList<HowMuchPay>();
-        int randNum[] = getRandNum();
+        int randNum[] = getRandNum(get_size);
         for(int i=0; i<randNum.length;i++){
             howMuchPays.add(getHowMuchItem(randNum[i],total_money));
         }
@@ -316,12 +316,12 @@ public class Utils {
         return howMuchPays;
     }
 
-    public static int[] getRandNum(){
-        int num[] = new int[2];
+    public static int[] getRandNum(int num_size){
+        int num[] = new int[num_size];
         boolean chk = false;
-        for(int i=0;i<2;i++){
+        for(int i=0;i<num_size;i++){
             while(true){
-                num[i] = (int)(Math.random()*5);
+                num[i] = (int)(Math.random()*15);
                 for(int j=0; j<i; j++){
                     if(num[i]==num[j]){
                         chk = true;
@@ -340,15 +340,35 @@ public class Utils {
     public static HowMuchPay getHowMuchItem(int num, double total_money){
         switch (num){
             case 0:
-                return new HowMuchPay("압구정 현대아파트",total_money/100000000,"평");
+                return new HowMuchPay("압구정 현대아파트",Math.round((total_money/100000000) * 100) / 100.0,"평");
             case 1:
-                return new HowMuchPay("최저임금 아르바이트",total_money/8590,"시간");
+                return new HowMuchPay("최저임금 아르바이트",Math.round((total_money/8590) * 100) / 100.0,"시간");
             case 2:
                 return new HowMuchPay("연애횟수",0,"번");
             case 3:
-                return new HowMuchPay("국밥",total_money/7000,"그릇");
+                return new HowMuchPay("국밥",Math.round((total_money/7000) * 100) / 100.0,"그릇");
             case 4:
-                return new HowMuchPay("람보르기니 우루스",total_money/256000000,"개");
+                return new HowMuchPay("람보르기니 우루스",Math.round((total_money/256000000) * 100) / 100.0,"개");
+            case 5:
+                return new HowMuchPay("대학교",Math.round((total_money/4500000) * 100) / 100.0,"학기");
+            case 6:
+                return new HowMuchPay("이성이랑 영화볼 기회",0,"번");
+            case 7:
+                return new HowMuchPay("부모님과 전화",Math.round((total_money/1.98)),"초");
+            case 8:
+                return new HowMuchPay("에버랜드 주간 이용권",Math.round((total_money/56000)*100) / 100.0,"장");
+            case 9:
+                return new HowMuchPay("에어팟 프로",Math.round((total_money/329000)*100) / 100.0,"개");
+            case 10:
+                return new HowMuchPay("영화 예매권",Math.round((total_money/10000)*100) / 100.0,"장");
+            case 11:
+                return new HowMuchPay("피씨방",Math.round((total_money/1000)*100) / 100.0,"시간");
+            case 12:
+                return new HowMuchPay("코인 노래방",Math.round((total_money/333)*100) / 100.0,"곡");
+            case 13:
+                return new HowMuchPay("스타벅스 아메리카노",Math.round((total_money/4100)*100) / 100.0,"잔");
+            case 14:
+                return new HowMuchPay("BBQ 황금올리브 치킨",Math.round((total_money/20000)*100) / 100.0,"마리");
             default:
                 return null;
         }
