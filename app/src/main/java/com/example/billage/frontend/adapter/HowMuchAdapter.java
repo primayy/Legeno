@@ -93,8 +93,9 @@ public class HowMuchAdapter extends ArrayAdapter<HowMuchPay> {
         Resources res = context.getResources();
         int [] colors = res.getIntArray(R.array.textColorArray);
 
-        viewHolder.list_content.setTextColor(colors[new Random().nextInt(colors.length)]);
-        viewHolder.list_unit.setTextColor(colors[new Random().nextInt(colors.length)]);
+        int text_color = colors[new Random().nextInt(colors.length)];
+        viewHolder.list_content.setTextColor(text_color);
+        viewHolder.list_unit.setTextColor(text_color);
 
         return rowView;
     }

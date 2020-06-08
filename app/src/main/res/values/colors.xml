@@ -12,15 +12,15 @@
     <color name="white_pressed">#f1f1f1</color>
     <color name="half_black">#808080</color>
 
-    <color name="textColor1">#0077FF</color>
+    <color name="textColor1">#054FA3</color>
     <color name="textColor2">#A73BFF</color>
-    <color name="textColor3">#FF7401</color>
-    <color name="textColor4">#00EF0D</color>
-    <color name="textColor5">#5DF6FF</color>
-    <color name="textColor6">#ACF600</color>
-    <color name="textColor7">#F700FF</color>
+    <color name="textColor3">#CF6207</color>
+    <color name="textColor4">#00C18A</color>
+    <color name="textColor5">#399FA5</color>
+    <color name="textColor6">#7EB109</color>
+    <color name="textColor7">#802461</color>
     <color name="textColor8">#FF9800</color>
-    <color name="textColor9">#FD4141</color>
+    <color name="textColor9">#AC2323</color>
 
 
 </resources>

@@ -348,9 +348,9 @@ public class Utils {
             case 3:
                 return new HowMuchPay("국밥",Math.round((total_money/7000) * 100) / 100.0,"그릇");
             case 4:
-                return new HowMuchPay("람보르기니 우루스",Math.round((total_money/256000000) * 100) / 100.0,"개");
+                return new HowMuchPay("람보르기니 우루스",Math.round((total_money/256000000) * 100) / 100.0,"대");
             case 5:
-                return new HowMuchPay("대학교",Math.round((total_money/4500000) * 100) / 100.0,"학기");
+                return new HowMuchPay("대학교 등록금",Math.round((total_money/4500000) * 100) / 100.0,"학기");
             case 6:
                 return new HowMuchPay("이성이랑 영화볼 기회",0,"번");
             case 7:

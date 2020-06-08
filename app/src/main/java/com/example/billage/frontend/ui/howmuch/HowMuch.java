@@ -54,12 +54,14 @@ public class HowMuch extends AppCompatActivity {
     private Activity mActivity;
     private Context context;
     private int cur_value;
+    private int list_count;
 
     public HowMuch() {
 
         this.mActivity = this;
         this.context = this;
         this.cur_value = 1;
+        this.list_count = 4;
     }
 
     @Override
@@ -79,7 +81,7 @@ public class HowMuch extends AppCompatActivity {
         horizontalBarChart.setVisibility(View.GONE);
 
         setSeekBar(seekBar, header, usage);
-        setListView(cur_value);
+        setListView(cur_value,list_count);
         setRefresh(refresh_btn);
 
     }
@@ -92,13 +94,13 @@ public class HowMuch extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 refresh_btn.startAnimation(animation);
-                setListView(cur_value);
+                setListView(cur_value,list_count);
             }
         });
     }
 
-    private void setListView(int cur_value) {
-        ArrayList<HowMuchPay> items= Utils.getHowMuchPays(AppData.mdb.getSelectTransOutMonths(cur_value));
+    private void setListView(int cur_value,int limit_count) {
+        ArrayList<HowMuchPay> items= Utils.getHowMuchPays(AppData.mdb.getSelectTransOutMonths(cur_value),limit_count);
         final ListView listview = (ListView) findViewById(R.id.howmuch_list) ;
         usageAdapter = new HowMuchAdapter(context,items,listview,mActivity);
         listview.setAdapter(usageAdapter);
@@ -118,6 +120,7 @@ public class HowMuch extends AppCompatActivity {
                 header.setText(cur_value + "개월간 총 지출은 " +String.valueOf(AppData.mdb.getSelectTransOutMonths(cur_value)) +"원 입니다.");
                 ArrayList<HowMuchPay> items;
                 if(cur_value != 1){
+                    list_count = 2;
                     horizontalBarChart.setVisibility(View.VISIBLE);
                     ArrayList<BarEntry> usage_entries = new ArrayList<>();
 
@@ -125,17 +128,13 @@ public class HowMuch extends AppCompatActivity {
                         usage_entries.add(new BarEntry(8-i, usage.get(i-2)));
                     }
                     setBarChart(usage_entries);
-                    items= Utils.getHowMuchPays(AppData.mdb.getSelectTransOutMonths(cur_value),2);
+                    setListView(cur_value,list_count);
                 }
                 else{
+                    list_count =4;
                     horizontalBarChart.setVisibility(View.GONE);
-                    items= Utils.getHowMuchPays(AppData.mdb.getSelectTransOutMonths(cur_value),4);
-                }
-                setListView(cur_value);
-
-                final ListView listview = (ListView) findViewById(R.id.howmuch_list) ;
-                usageAdapter = new HowMuchAdapter(context,items,listview,mActivity);
-                listview.setAdapter(usageAdapter);
+                    setListView(cur_value,list_count);
+                };
 
             }
 
