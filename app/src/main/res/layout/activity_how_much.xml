@@ -59,4 +59,19 @@
         app:layout_constraintTop_toBottomOf="@+id/how_much_header" />
 
 
+    <ListView
+        android:id="@+id/howmuch_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:divider="#00000000"
+        android:dividerHeight="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_chart">
+
+    </ListView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

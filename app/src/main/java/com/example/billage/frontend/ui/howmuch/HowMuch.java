@@ -7,10 +7,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.billage.R;
 import com.example.billage.backend.api.StatisticTransaction;
+import com.example.billage.backend.common.AppData;
+import com.example.billage.frontend.adapter.HowMuchAdapter;
+import com.example.billage.frontend.adapter.UsageAdapter;
+import com.example.billage.frontend.data.UsageList;
 import com.example.billage.frontend.ui.home.subView.statistic.CustomMarker;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -36,23 +41,34 @@ import java.util.Calendar;
 public class HowMuch extends AppCompatActivity {
 
     private HorizontalBarChart horizontalBarChart;
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    private HowMuchAdapter usageAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_how_much);
 
         IndicatorSeekBar seekBar = findViewById(R.id.seek_bar);
-
         TextView header = findViewById(R.id.how_much_header);
-        seekBar.setIndicatorTextFormat("${TICK_TEXT}개월");
+
 
         ArrayList<Integer> usage = StatisticTransaction.monthly_statistic("출금");
         horizontalBarChart = findViewById(R.id.horizontal_chart);
         horizontalBarChart.setVisibility(View.GONE);
 
+        setSeekBar(seekBar, header, usage);
+
+
+        final ArrayList<UsageList> items = AppData.mdb.getAbnormalTrans();
+        final ListView listview = (ListView) findViewById(R.id.howmuch_list) ;
+        usageAdapter = new HowMuchAdapter(this,items,listview,this);
+        listview.setAdapter(usageAdapter);
+
+    }
+
+    private void setSeekBar(IndicatorSeekBar seekBar, TextView header, ArrayList<Integer> usage) {
+        seekBar.setIndicatorTextFormat("${TICK_TEXT}개월");
         seekBar.setOnSeekChangeListener(new OnSeekChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onSeeking(SeekParams seekParams) {
 
@@ -87,7 +103,6 @@ public class HowMuch extends AppCompatActivity {
 
             }
         });
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -115,10 +130,6 @@ public class HowMuch extends AppCompatActivity {
 
         YAxis yAxis_right = horizontalBarChart.getAxisRight();
         yAxis_right.setDrawLabels(false);
-
-        //custom marker view 설정
-        CustomMarker marker = new CustomMarker(this,R.layout.custom_marker);
-        horizontalBarChart.setMarker(marker);
 
         //value customizing
         data.setValueTextSize(0f);
