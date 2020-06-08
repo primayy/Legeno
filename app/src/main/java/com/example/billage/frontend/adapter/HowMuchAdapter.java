@@ -3,6 +3,9 @@ package com.example.billage.frontend.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,6 +24,7 @@ import com.example.billage.frontend.data.UsageList;
 import com.example.billage.frontend.ui.addUsage.AddUsage;
 
 import java.util.List;
+import java.util.Random;
 
 public class HowMuchAdapter extends ArrayAdapter<HowMuchPay> {
 
@@ -82,10 +86,16 @@ public class HowMuchAdapter extends ArrayAdapter<HowMuchPay> {
 
         HowMuchPay howMuchPay = (HowMuchPay) mList.get(position);
 
-
         viewHolder.list_header.setText(howMuchPay.getName());
         viewHolder.list_content.setText(String.valueOf(howMuchPay.getValue()));
         viewHolder.list_unit.setText(" "+howMuchPay.getUnit());
+
+        Resources res = context.getResources();
+        int [] colors = res.getIntArray(R.array.textColorArray);
+
+        int text_color = colors[new Random().nextInt(colors.length)];
+        viewHolder.list_content.setTextColor(text_color);
+        viewHolder.list_unit.setTextColor(text_color);
 
         return rowView;
     }
