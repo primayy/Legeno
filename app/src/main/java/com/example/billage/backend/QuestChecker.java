@@ -182,7 +182,11 @@ public class QuestChecker {
             }
 
             //이런 인기쟁이!퀘스트 확인
-
+            JSONTask_Get likeGet=new JSONTask_Get();
+            String dbLike=likeGet.execute("http://18.219.106.101/Read/Like/"+getUserInfo.getUserInfo("user_id")).get();
+            if(Integer.parseInt(dbLike)==100){
+                questList.getJSONObject(20).put("complete",true);
+            }
 
             return questList;
         } catch (InterruptedException e) {
