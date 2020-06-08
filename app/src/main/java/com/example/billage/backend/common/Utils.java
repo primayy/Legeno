@@ -306,6 +306,7 @@ public class Utils {
         return month;
     }
 
+
     public static ArrayList<HowMuchPay> getHowMuchPays(double total_money){
         ArrayList<HowMuchPay> howMuchPays = new ArrayList<HowMuchPay>();
         int randNum[] = getRandNum();

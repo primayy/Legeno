@@ -6,6 +6,25 @@ import org.json.JSONObject;
 import java.util.concurrent.ExecutionException;
 
 public class GetSetDB {
+
+    public String setNickname(String nickname){
+        try{
+            JSONObject postdata=new JSONObject();
+            postdata.accumulate("nickname",nickname);
+            JSONTask_Post jstask=new JSONTask_Post(postdata);
+            GetSetADUserInfo getUserInfo=new GetSetADUserInfo();
+            return jstask.execute("http://18.219.106.101/Update/Nickname/"+getUserInfo.getUserInfo("user_id")).get();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public String setCoin(int coin){
         try {
             JSONObject postdata = new JSONObject();
@@ -24,6 +43,22 @@ public class GetSetDB {
         return null;
     }
 
+    public String setIntro(String intro){
+        try{
+            JSONObject postdata= new JSONObject();
+            postdata.accumulate("intro",intro);
+            JSONTask_Post jstask=new JSONTask_Post(postdata);
+            GetSetADUserInfo getUserInfo=new GetSetADUserInfo();
+            return jstask.execute("http://18.219.106.101/Update/Intro/"+getUserInfo.getUserInfo("user_id")).get();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public int getCoin(){
         try{

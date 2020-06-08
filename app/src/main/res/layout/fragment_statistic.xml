@@ -43,80 +43,80 @@
                     >
 
                     <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="10dp">
-                    <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="이번 달 총 지출"
-                        android:textSize="15sp"/>
+                        android:orientation="horizontal"
+                        android:layout_marginStart="10dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="이번 달 총 지출"
+                            android:textSize="15sp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="자세히 보기 >"
+                            android:textAlignment="textEnd"
+                            android:textSize="12sp"/>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="자세히 보기 >"
-                        android:textAlignment="textEnd"
-                        android:textSize="12sp"/>
+                        android:orientation="horizontal"
+                        android:layout_marginStart="10dp">
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/current_month_usage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1000000"
+                            android:textSize="20sp"
+                            android:textStyle="bold"/>
 
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="10dp">
-
-                    <TextView
-                        android:id="@+id/current_month_usage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" 원"
-                        android:textSize="15sp"/>
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" 원"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="10dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="10dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="지난 달 보다 "
-                        android:textSize="15sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="지난 달 보다 "
+                            android:textSize="15sp"/>
 
-                    <TextView
-                        android:id="@+id/compare_usage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1231232"
-                        android:textStyle="bold"
-                        android:textSize="20sp"/>
+                        <TextView
+                            android:id="@+id/compare_usage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1231232"
+                            android:textStyle="bold"
+                            android:textSize="20sp"/>
 
-                    <TextView
-                        android:id="@+id/compare_usage_tail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" 원 ."
-                        android:textSize="15sp"/>
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/compare_usage_tail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" 원 ."
+                            android:textSize="15sp"/>
+                    </LinearLayout>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-            
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview2"
                 android:layout_width="match_parent"
@@ -279,7 +279,7 @@
                 android:id="@+id/bar_chart"
                 android:layout_width="match_parent"
                 android:layout_height="300dp" />
-            
+
         </LinearLayout>
     </ScrollView>
 

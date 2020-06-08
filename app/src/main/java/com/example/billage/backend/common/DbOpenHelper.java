@@ -267,6 +267,7 @@ public class DbOpenHelper {
         return trans_avg;
     }
 
+
     public Integer getSelectTransOutMonths(int month){
         Integer sum = 0;
         String today = Utils.getDay();
