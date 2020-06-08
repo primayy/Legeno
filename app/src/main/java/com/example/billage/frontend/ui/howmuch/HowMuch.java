@@ -72,8 +72,6 @@ public class HowMuch extends AppCompatActivity {
         setSeekBar(seekBar, header, usage);
 
 
-
-
     }
 
     private void setSeekBar(IndicatorSeekBar seekBar, TextView header, ArrayList<Integer> usage) {

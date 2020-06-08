@@ -58,6 +58,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/how_much_header" />
 
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="만약 이 돈을 안 썼더라면..."
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/howmuch_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_chart" />
 
     <ListView
         android:id="@+id/howmuch_list"
@@ -72,6 +82,8 @@
         app:layout_constraintTop_toBottomOf="@+id/horizontal_chart">
 
     </ListView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
