@@ -286,15 +286,22 @@ public class Utils {
     public static void getTestUserToken(){
         SharedPreferences.Editor editor = AppData.getPref().edit();
 
-        editor.putString("access_token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAwNzU4NDkwIiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE1OTg0Mzg3NTIsImp0aSI6ImQwZDNjZGQ0LWYzN2UtNDAxZC1iMGQ4LTQyNmYzYTU0ZGZhNCJ9.tRc6yWmpyeftoyyZT3fNfUzQ9rCZ4N9115IFMRT4KPE");
+        editor.putString("access_token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAwNzU4NDkwIiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE1OTg4NzEzMDgsImp0aSI6IjJkMTIzMTI0LTFiMzUtNDBhZC1hZTI0LWZlMzFkYzNhNDBiMyJ9.t7lTUZC6VeAh-prhgZtCAo5OW62n2DET2gVJS7v-8Dw");
         editor.putString("user_seq_no","1100758490");
         editor.apply();
     }
 
     public static void getTestUserInfo() {
         SharedPreferences.Editor editor = AppData.getPref().edit();
-        editor.putString("user_info", "[{\"user_id\":66,\"user_name\":\"김용표\",\"nickname\":\"루루루\",\"bank_list\":null,\"auth_check\":0}]");
+        editor.putString("user_info", "[{\"user_id\":90,\"user_name\":\"김용표\",\"nickname\":\"캡디중간발표\",\"bank_list\":null,\"auth_check\":0}]");
         editor.putInt("attendanceCount",0);
         editor.apply();
+    }
+
+    public static int getCurMonth(){
+        Calendar cal = Calendar.getInstance();
+        int month = cal.get(Calendar.MONTH);
+        System.out.println(month);
+        return month;
     }
 }

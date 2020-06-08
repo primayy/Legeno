@@ -6,15 +6,19 @@ var bodyParser=require('body-parser')
 
 app.use(bodyParser.urlencoded({extended:true}))
 
-var connection=mysql.createConnection({
+var db_config={
   host:'3.17.141.131',
   port:3306,
   user:'root',
   password:'*tmddn1010914',
   database:'Billage'
-})
+}
+var connection;
 
 function handleDisconnect(){
+
+    connection=mysql.createConnection(db_config)
+
     connection.connect(function(err){
       if(err){
         console.log('error on connecting to DB',err);
@@ -24,7 +28,11 @@ function handleDisconnect(){
 
     connection.on('error',function(err){
       console.log('DB error',err);
-      return handleDisconnect()
+      if(err.code==='PROTOCOL_CONNECTION_LOST'){
+        handleDisconnect()
+      }else{
+        throw err;
+      }
     })
 }
 
@@ -37,6 +45,7 @@ router.get('/getUserDB/:id',function(req,res){
             var billageList=rows
             var calldb=JSON.parse(JSON.stringify(billageList[0]))
             calldb.obj_info=JSON.parse(calldb.obj_info)
+            calldb.comment=JSON.parse(calldb.comment)
             res.send(calldb);
         }
     })
@@ -59,6 +68,40 @@ router.post('/addObjinfo/:id',function(req,res){
     })
     //connection.query()
 })
+
+router.post('/addComment/:id',function(req,res){
+    //req.params.id , req.body.comment
+
+    connection.query(`update Billage.billage set comment = '${req.body.comment}' where user_id = ${req.params.id}`,function(err,rows,fiels){
+        if(!err){
+            res.send("Comment update success");
+            console.log("방명록 정보 업데이트 성공");
+        }
+        else
+        {
+            res.send("Comment update fail");
+            console.log("방명록 정보 업데이트 실패!");
+        }
+    })
+
+})
+
+router.get('/UpdateLike/:id',function(req,res){
+    //req.params.id, req.body.comment
+
+    connection.query(`update Billage.billage set billage_like=billage_like+1 where user_id = ${req.params.id}`,function(err,rows,fiels){
+        if(!err){
+            res.send("Like update success");
+            console.log("좋아요 정보 업데이트 성공");
+        }
+        else
+        {
+            res.send("Like update fail");
+            console.log("좋아요 정보 업데이트 실패!");
+        }
+    })
+})
+
 router.post('/UpdateCoin/:id',function(req,res){
     //req.body.coin, req.params.id <- user_id
     connection.query(`update Billage.billage set coin = ${req.body.coin} where user_id = ${req.params.id}`,function(err,rows,fiels){

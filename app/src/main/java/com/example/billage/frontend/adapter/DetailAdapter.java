@@ -89,7 +89,7 @@ public class DetailAdapter extends ArrayAdapter<UsageList> {
 
         UsageList usage = (UsageList) mList.get(position);
         viewHolder.destination.setText(usage.getDestination());
-        viewHolder.time.setText(usage.getTime());
+        viewHolder.time.setText(usage.getTime().substring(0,5));
 
         // 추후 수정
         viewHolder.bank_name.setText(usage.getBank_name());

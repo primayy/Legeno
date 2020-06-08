@@ -137,7 +137,8 @@ public class MypageFragment extends Fragment {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 String intro = intro_input.getText().toString();//입력받은값 저장하는 point
-                //To-do
+                GetSetDB introUpdate=new GetSetDB();
+                introUpdate.setIntro(intro);
                 dialogInterface.dismiss();
             }
         });

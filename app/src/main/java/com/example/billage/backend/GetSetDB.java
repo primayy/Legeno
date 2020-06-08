@@ -13,7 +13,7 @@ public class GetSetDB {
             postdata.accumulate("nickname",nickname);
             JSONTask_Post jstask=new JSONTask_Post(postdata);
             GetSetADUserInfo getUserInfo=new GetSetADUserInfo();
-            return jstask.execute("http://192.168.0.9:3000/Update/Nickname/"+getUserInfo.getUserInfo("user_id")).get();
+            return jstask.execute("http://18.219.106.101/Update/Nickname/"+getUserInfo.getUserInfo("user_id")).get();
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -43,6 +43,22 @@ public class GetSetDB {
         return null;
     }
 
+    public String setIntro(String intro){
+        try{
+            JSONObject postdata= new JSONObject();
+            postdata.accumulate("intro",intro);
+            JSONTask_Post jstask=new JSONTask_Post(postdata);
+            GetSetADUserInfo getUserInfo=new GetSetADUserInfo();
+            return jstask.execute("http://18.219.106.101/Update/Intro/"+getUserInfo.getUserInfo("user_id")).get();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public int getCoin(){
         try{

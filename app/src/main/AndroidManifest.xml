@@ -10,19 +10,21 @@
     <application
         android:name=".backend.common.AppData"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:resizeableActivity="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        android:hardwareAccelerated="true">
-        <activity android:name=".frontend.ui.auth.AuthActivity"
-            android:label="인증"></activity>
+        android:usesCleartextTraffic="true">
+        <activity android:name=".frontend.ui.home.subView.statistic.UnfixDetail"></activity>
+        <activity
+            android:name=".frontend.ui.auth.AuthActivity"
+            android:label="인증" />
         <activity
             android:name=".frontend.ui.mypage.subView.SetNotify"
-            android:label="@string/mypage_set_notify"></activity>
+            android:label="@string/mypage_set_notify" />
         <activity
             android:name=".frontend.ui.mypage.subView.SetPassword"
             android:label="@string/mypage_set_password" />
