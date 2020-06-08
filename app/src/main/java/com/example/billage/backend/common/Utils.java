@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.billage.R;
+import com.example.billage.backend.HowMuchPay;
 import com.example.billage.backend.api.AccountBalance;
 import com.example.billage.backend.api.AccountTransaction;
 import com.example.billage.backend.api.data.UserAccount;
@@ -303,5 +304,53 @@ public class Utils {
         int month = cal.get(Calendar.MONTH);
         System.out.println(month);
         return month;
+    }
+
+    public static ArrayList<HowMuchPay> getHowMuchPays(double total_money){
+        ArrayList<HowMuchPay> howMuchPays = new ArrayList<HowMuchPay>();
+        int randNum[] = getRandNum();
+        for(int i=0; i<randNum.length;i++){
+            howMuchPays.add(getHowMuchItem(randNum[i],total_money));
+        }
+
+        return howMuchPays;
+    }
+
+    public static int[] getRandNum(){
+        int num[] = new int[2];
+        boolean chk = false;
+        for(int i=0;i<2;i++){
+            while(true){
+                num[i] = (int)(Math.random()*5);
+                for(int j=0; j<i; j++){
+                    if(num[i]==num[j]){
+                        chk = true;
+                        break;
+                    } else{
+                        chk = false;
+                    }
+                }
+                if(!chk){
+                    break;
+                }
+            }
+        }
+        return num;
+    }
+    public static HowMuchPay getHowMuchItem(int num, double total_money){
+        switch (num){
+            case 0:
+                return new HowMuchPay("압구정 현대아파트",total_money/4700000000.0,"채");
+            case 1:
+                return new HowMuchPay("최저임금 아르바이트",total_money/8590,"시간");
+            case 2:
+                return new HowMuchPay("연애횟수",0,"번");
+            case 3:
+                return new HowMuchPay("국밥",total_money/7000,"그릇");
+            case 4:
+                return new HowMuchPay("람보르기니 우루스",total_money/256000000,"개");
+            default:
+                return null;
+        }
     }
 }
