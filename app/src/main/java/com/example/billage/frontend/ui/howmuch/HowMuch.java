@@ -84,7 +84,7 @@ public class HowMuch extends AppCompatActivity {
             public void onSeeking(SeekParams seekParams) {
 
                 int cur_value = seekBar.getProgress();
-                header.setText(cur_value + "개월간 총 지출은 200000원 입니다.");
+                header.setText(cur_value + "개월간 총 지출은 " +String.valueOf(AppData.mdb.getSelectTransOutMonths(cur_value)) +"원 입니다.");
 
                 if(cur_value != 1){
                     horizontalBarChart.setVisibility(View.VISIBLE);
@@ -99,7 +99,7 @@ public class HowMuch extends AppCompatActivity {
                     horizontalBarChart.setVisibility(View.GONE);
                 }
 
-                ArrayList<HowMuchPay> items= Utils.getHowMuchPays(4700000000.0);
+                ArrayList<HowMuchPay> items= Utils.getHowMuchPays(AppData.mdb.getSelectTransOutMonths(cur_value));
                 final ListView listview = (ListView) findViewById(R.id.howmuch_list) ;
                 usageAdapter = new HowMuchAdapter(context,items,listview,mActivity);
                 listview.setAdapter(usageAdapter);

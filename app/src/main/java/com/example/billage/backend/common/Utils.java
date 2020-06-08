@@ -340,7 +340,7 @@ public class Utils {
     public static HowMuchPay getHowMuchItem(int num, double total_money){
         switch (num){
             case 0:
-                return new HowMuchPay("압구정 현대아파트",total_money/4700000000.0,"채");
+                return new HowMuchPay("압구정 현대아파트",total_money/100000000,"평");
             case 1:
                 return new HowMuchPay("최저임금 아르바이트",total_money/8590,"시간");
             case 2:
