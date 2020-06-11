@@ -294,7 +294,7 @@ public class Utils {
 
     public static void getTestUserInfo() {
         SharedPreferences.Editor editor = AppData.getPref().edit();
-        editor.putString("user_info", "[{\"user_id\":90,\"user_name\":\"김용표\",\"nickname\":\"캡디중간발표\",\"bank_list\":null,\"auth_check\":0}]");
+        editor.putString("user_info", "[{\"user_id\":76,\"user_name\":\"김용표\",\"nickname\":\"마스터킴\",\"bank_list\":null,\"auth_check\":0}]");
         editor.putInt("attendanceCount",0);
         editor.apply();
     }
