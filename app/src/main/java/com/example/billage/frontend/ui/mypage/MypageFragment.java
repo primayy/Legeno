@@ -52,12 +52,9 @@ public class MypageFragment extends Fragment {
 
     private void setTextviewClickEvent(View root) {
         ImageView nickname_modify = root.findViewById(R.id.nickname_img);
-        TextView account_modify = root.findViewById(R.id.account_modify);
-        ImageView account_modify_img = root.findViewById(R.id.edit_img);
         TextView add_bank = root.findViewById(R.id.add_bank);
         TextView current_bank = root.findViewById(R.id.current_bank);
-        TextView set_password = root.findViewById(R.id.app_password);
-        TextView set_notify = root.findViewById(R.id.notification);
+
 
         nickname_modify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,21 +64,6 @@ public class MypageFragment extends Fragment {
             }
         });
 
-        account_modify_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                setIntroDialog();
-            }
-        });
-
-        account_modify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                setIntroDialog();
-            }
-        });
         add_bank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,22 +76,6 @@ public class MypageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), CurrentBank.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-            }
-        });
-        set_password.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), SetPassword.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-            }
-        });
-        set_notify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), SetNotify.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
