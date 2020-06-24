@@ -1,5 +1,6 @@
 package com.example.billage.frontend.ui.signup.subView.step3;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import android.content.Context;
 
 import com.example.billage.R;
 import com.example.billage.backend.GetSetADUserInfo;
@@ -76,6 +79,7 @@ public class StepThree extends Fragment {
                 String nickname = nick_name.getText().toString();
                 Log.d("test", name+nickname);
 
+
                 try {
                     //서버에 JSON data post
                     JSONObject signupData = new JSONObject();
@@ -83,18 +87,30 @@ public class StepThree extends Fragment {
                     signupData.accumulate("nickname",nickname);
                     signupData.accumulate("callID","signUp");
                     JSONTask_Post jsonTask= new JSONTask_Post(signupData);
-                    jsonTask.execute("http://18.219.106.101/SignUp");
+                    String postres=jsonTask.execute("http://18.219.106.101/SignUp").get();
                     GetSetADUserInfo getSetADUserInfo=new GetSetADUserInfo();
                     getSetADUserInfo.initializeRewardInfo();
+
+                    Log.d("ppap",postres);
+
+                    if(postres.equals("occupied nickname!")){
+                        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+
+                        builder.setTitle("닉네임 중복").setMessage("중복된 닉네임입니다");
+                        AlertDialog alertDialog=builder.create();
+
+                        alertDialog.show();
+                    }else{
+                        int currentPage = view_pager.getCurrentItem();
+                        view_pager.setCurrentItem(currentPage + 1);
+                        next_btn.setText("시작하기");
+                    }
 
                 }catch (JSONException e) {
                     e.printStackTrace();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-                int currentPage = view_pager.getCurrentItem();
-                view_pager.setCurrentItem(currentPage + 1);
-                next_btn.setText("시작하기");
             }
         });
         super.onResume();
