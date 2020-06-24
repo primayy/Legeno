@@ -212,7 +212,7 @@ public class DbOpenHelper {
     }
 
     public ArrayList<UsageList> getAbnormalTrans(){
-        int avg_money = 2*getTransUsedAvg("출금");
+        int avg_money = 5*getTransUsedAvg("출금");
         ArrayList<UsageList> abnormal_data = new ArrayList<UsageList>();
 
         String query = "SELECT date,time,inout,money,id,type,name,bank_code from 'transaction' where cast(money as integer) >= '" + avg_money + "' and type ='api' and inout='출금' group by date, inout order by date asc";
