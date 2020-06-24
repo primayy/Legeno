@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.billage.R;
+import com.example.billage.backend.GetSetADUserInfo;
+import com.example.billage.backend.QuestProcessor;
 import com.example.billage.frontend.MainActivity;
 import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.example.billage.frontend.ui.signup.SignupActivity;
 import com.jaredrummler.android.widget.AnimatedSvgView;
 
 public class SplashActivity extends Activity {
@@ -34,8 +37,16 @@ public class SplashActivity extends Activity {
 
     private class splashhandler implements Runnable {
         public void run() {
-            startActivity(new Intent(getApplication(), MainActivity.class)); //로딩이 끝난 후, ChoiceFunction 이동
-            SplashActivity.this.finish(); // 로딩페이지 Activity stack에서 제거
+
+            GetSetADUserInfo getSetADUserInfo=new GetSetADUserInfo();
+            if(getSetADUserInfo.IsThereUserInfo()){
+
+                startActivity(new Intent(getApplication(), MainActivity.class)); //로딩이 끝난 후, ChoiceFunction 이동
+            }else{
+                Intent intent = new Intent(getApplication(), SignupActivity.class);
+                startActivity(intent);
+            }
+
 
         }
     }

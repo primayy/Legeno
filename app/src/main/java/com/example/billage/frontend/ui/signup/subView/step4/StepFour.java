@@ -1,6 +1,7 @@
 package com.example.billage.frontend.ui.signup.subView.step4;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.billage.R;
+import com.example.billage.frontend.MainActivity;
 
 
 public class StepFour extends Fragment {
@@ -69,7 +71,7 @@ public class StepFour extends Fragment {
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getActivity(), MainActivity.class));
                 getActivity().finish();
 
             }

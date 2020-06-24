@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        Utils.getTestUserToken();
         mUnityPlayer = new UnityPlayer(this);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         //잔액 및 거래내역 조회
         Utils.getUserTrans();
+        Utils.getUserBalance();
 
         //퀘스트 보상획득 정보 리셋
         GetSetADUserInfo resetReward=new GetSetADUserInfo();
@@ -71,23 +72,15 @@ public class MainActivity extends AppCompatActivity {
         resetReward.reset_weeklyRewardInfo();
         resetReward.reset_monthlyRewardInfo();
 
-        GetSetADUserInfo getSetADUserInfo=new GetSetADUserInfo();
-        if(getSetADUserInfo.IsThereUserInfo()){
 
-            QuestProcessor questProcessor = new QuestProcessor();
-            questProcessor.questPreprocessing();
-
-        }else{
-            Intent intent = new Intent(this, SignupActivity.class);
-            startActivity(intent);
-        }
-
+        QuestProcessor questProcessor = new QuestProcessor();
+        questProcessor.questPreprocessing();
 ////        //서버 꺼져서 유저 정보 못불러올 때 이거 쓰셈
 //        Utils.getTestUserInfo();
 
 
         //        //AVD에서 인증 불가할 때 걍 이거 쓰셈
-        Utils.getTestUserToken();
+
 
 
         //얼마썼는지궁금해
