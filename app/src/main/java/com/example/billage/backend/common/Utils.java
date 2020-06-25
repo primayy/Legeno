@@ -262,10 +262,11 @@ public class Utils {
     public static void getUserBalance(){
         ArrayList<UserAccount> user_accounts = Utils.getUserAccount();
         //저장된 잔액 초기화
-        SharedPreferences.Editor editor = AppData.getPref().edit();
-        editor.putString("balance","0");
-        editor.apply();
-
+//        SharedPreferences.Editor editor = AppData.getPref().edit();
+//        editor.putString("balance","0");
+//        editor.apply();
+        AccountBalance.amtSum=0;
+        Log.d("acc_size", String.valueOf(user_accounts.size()));
         for(int i=0; i<user_accounts.size();i++)
         {
             AccountBalance.request_balance(user_accounts.get(i).getFintech_num());

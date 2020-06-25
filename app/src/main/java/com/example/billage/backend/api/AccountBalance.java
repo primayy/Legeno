@@ -21,6 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AccountBalance {
+    public static Integer amtSum=0;
     public static void request_balance(String fintech_num){
         String accessToken = AppData.getPref().getString("access_token","");
         HashMap<String, String> paramMap = new HashMap<>();
@@ -56,7 +57,7 @@ public class AccountBalance {
                                     editor.apply();
                                 } else // 저장된 값 있으면 읽어서 더한 뒤 추가
                                 {
-                                    Integer amtSum = Integer.parseInt(appAmt) + Integer.parseInt(amt);
+                                    amtSum += Integer.parseInt(amt);
                                     SharedPreferences.Editor editor = AppData.getPref().edit();
                                     editor.putString("balance", String.valueOf(amtSum));
                                     editor.apply();
