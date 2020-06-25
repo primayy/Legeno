@@ -36,9 +36,11 @@ public class BillageFragment extends Fragment {
         father =(FrameLayout)playerView.findViewById(R.id.layout2);
 
         if(mUnityPlayer!=null) {
+
                 if(mUnityPlayer.getView().getParent() != null){
                     ((ViewGroup)mUnityPlayer.getView().getParent()).removeView(mUnityPlayer.getView());
                 }
+                //UnityPlayer.UnitySendMessage("AndroidManager","WhenBillageTap","tapped");
                 father.addView(mUnityPlayer.getView(), 0);
         }
         else
@@ -73,6 +75,7 @@ public class BillageFragment extends Fragment {
         Log.d("unity", "destroied");
        // UnityPlayer.UnitySendMessage("AndroidManager","WhenDestroy","command");
         father.removeView(mUnityPlayer.getView());
+       // ((ViewGroup)mUnityPlayer.getView().getParent()).removeView(mUnityPlayer.getView());
         super.onDestroy();
     }
 
@@ -87,6 +90,7 @@ public class BillageFragment extends Fragment {
     @Override public void onResume()
     {
         Log.d("unity", "resumed");
+
         super.onResume();
     }
 
@@ -96,6 +100,7 @@ public class BillageFragment extends Fragment {
         Log.d("unity", "started");
         UnityPlayer.UnitySendMessage("AndroidManager","GetUserID",userInfo);
         UnityPlayer.UnitySendMessage("AndroidManager","GetUserNickname",Nickname);
+        UnityPlayer.UnitySendMessage("AndroidManager","WhenBillageTap","tapped");
         /*if(!isFirst)
         {
             UnityPlayer.UnitySendMessage("AndroidManager","UpdateDB","Coin");
