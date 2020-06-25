@@ -36,6 +36,9 @@ public class BillageFragment extends Fragment {
         father =(FrameLayout)playerView.findViewById(R.id.layout2);
 
         if(mUnityPlayer!=null) {
+                if(mUnityPlayer.getView().getParent() != null){
+                    ((ViewGroup)mUnityPlayer.getView().getParent()).removeView(mUnityPlayer.getView());
+                }
                 father.addView(mUnityPlayer.getView(), 0);
         }
         else

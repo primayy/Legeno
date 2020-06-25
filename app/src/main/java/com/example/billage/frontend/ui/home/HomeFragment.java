@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        Log.d("ttttt","sdf");
 
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         root = inflater.inflate(R.layout.home, container, false);
@@ -80,7 +81,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume()
     {
-
 
         super.onResume();
     }
