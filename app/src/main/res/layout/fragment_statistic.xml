@@ -136,7 +136,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="고정적이지 않은 지출"
+                            android:text="목돈 지출"
                             android:textSize="15sp"
                             android:layout_marginBottom="10dp"/>
                         <TextView

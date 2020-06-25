@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment {
         rollingTextView.setAnimationInterpolator(new AccelerateDecelerateInterpolator());
 
         rollingTextView.setText(number_format.format(Integer.parseInt(AppData.getPref().getString("balance","0"))));
-        Utils.getUserBalance();
+//        Utils.getUserBalance();
 
         return root;
     }

@@ -262,10 +262,11 @@ public class Utils {
     public static void getUserBalance(){
         ArrayList<UserAccount> user_accounts = Utils.getUserAccount();
         //저장된 잔액 초기화
-        SharedPreferences.Editor editor = AppData.getPref().edit();
-        editor.putString("balance","0");
-        editor.apply();
-
+//        SharedPreferences.Editor editor = AppData.getPref().edit();
+//        editor.putString("balance","0");
+//        editor.apply();
+        AccountBalance.amtSum=0;
+        Log.d("acc_size", String.valueOf(user_accounts.size()));
         for(int i=0; i<user_accounts.size();i++)
         {
             AccountBalance.request_balance(user_accounts.get(i).getFintech_num());
@@ -354,7 +355,7 @@ public class Utils {
             case 6:
                 return new HowMuchPay("이성이랑 영화볼 기회",0,"번");
             case 7:
-                return new HowMuchPay("부모님과 전화",Math.round((total_money/1.98)),"초");
+                return new HowMuchPay("부모님과 전화",Math.round((total_money/(1.98*60))),"분");
             case 8:
                 return new HowMuchPay("에버랜드 주간 이용권",Math.round((total_money/56000)*100) / 100.0,"장");
             case 9:
