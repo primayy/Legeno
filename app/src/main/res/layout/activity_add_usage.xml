@@ -16,6 +16,7 @@
         android:focusable="false"
         android:gravity="right"
         android:hint=""
+        android:text="00:00"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/dest_input"
@@ -176,6 +177,7 @@
             android:layout_marginEnd="50dp"
             android:layout_marginRight="50dp"
             android:text="입금"
+            android:checked="true"
             tools:layout_editor_absoluteX="124dp"
             tools:layout_editor_absoluteY="22dp" />
 
