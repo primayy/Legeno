@@ -114,7 +114,6 @@ public class AddUsage extends AppCompatActivity {
             set_cancel_event();
             set_save_event(trans_type_info,bank_code);
             if(trans_type_info.equals("user")) set_delete_event(id_info);
-
             for (int i = 0; i < radioGroup.getChildCount(); i++) {
                 radioGroup.getChildAt(i).setClickable(false);
             }
